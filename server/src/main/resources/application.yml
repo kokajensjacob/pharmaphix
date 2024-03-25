@@ -1,3 +1,6 @@
 spring:
   application:
     name: pharmaphix
+  config:
+    import: optional:file:secrets.yml
+
