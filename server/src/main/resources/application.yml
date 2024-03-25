@@ -3,4 +3,5 @@ spring:
     name: pharmaphix
   config:
     import: optional:file:secrets.yml
-
+  datasource:
+    url: ${AZURE_SQL_DATASOURCE_CONNECTION_STRING}
