@@ -4,6 +4,7 @@ env:
   AZURE_WEBAPP_NAME: pharmaphix-server
   JAVA_VERSION: '17'
   DISTRIBUTION: zulu
+  AZURE_SQL_DATASOURCE_CONNECTION_STRING: ${{ secrets.AZURE_SQL_DATASOURCE_CONNECTION_STRING }}
 
 on:
   workflow_dispatch:
