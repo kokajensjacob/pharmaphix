@@ -1,11 +1,13 @@
 package dev.kjj.pharmaphix.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "problems")
+@Getter
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
