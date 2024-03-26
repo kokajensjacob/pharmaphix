@@ -1,5 +1,4 @@
-import { Route, RouterProvider, Routes } from "react-router-dom";
-import { router } from "./router";
+import { Route, Routes } from "react-router-dom";
 import { Aside } from "./components/Aside";
 import { Nav } from "./components/Nav";
 import { Home } from "./components/Home";
