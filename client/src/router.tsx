@@ -12,7 +12,10 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index loader={getInvStatus} element={<Home />}></Route>
-      <Route path="/machines/:machine_type_id/:problem_id" element={<ProblemPage />}></Route>
+      <Route
+        path="/machines/:machine_type_id/:problem_id"
+        element={<ProblemPage />}
+      ></Route>
     </Route>,
   ),
 );
