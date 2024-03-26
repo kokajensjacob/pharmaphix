@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getProblemData } from "../api";
+import { MouseEventHandler, useEffect, useState } from "react";
+import { deductSparePartFromInventory, getProblemData } from "../api";
 import { useParams } from "react-router-dom";
 
 type ProblemData = {
@@ -24,9 +24,20 @@ export const ProblemPage = () => {
 
   useEffect(() => {
     getProblemData(machine_type_id!, problem_id!).then((data) =>
-      setProblemData(data),
+      setProblemData(data)
     );
   }, []);
+
+  const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    problemData?.sparePartsNeeded.forEach((sp) =>
+      deductSparePartFromInventory(sp.sparePartId, sp.quantityNeeded)
+        .then((data) => (sp = data))
+        .catch(() =>
+          console.error("Couldn't deduct for the spare part", sp.sparePartName)
+        )
+    );
+  };
 
   return (
     <>
@@ -47,7 +58,7 @@ export const ProblemPage = () => {
                 </li>
               ))}
             </ul>
-            <button>Use</button>
+            <button onClick={handleOnClick}>Use</button>
             <ul>
               <h3>Tools</h3>
               {problemData.toolsNeeded.map(({ toolName }) => (
