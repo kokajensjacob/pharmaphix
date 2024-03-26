@@ -1,17 +1,37 @@
-export const ProblemPage = () => {
-  // const [problemData, setProblemData] = useState();
-  // const { machine_type_id, problem_id } = useParams();
+import { useEffect, useState } from "react";
+import { getProblemData } from "../api";
+import { useParams } from "react-router-dom";
 
-  // useEffect(() => {
-  //   getProblemData(machine_type_id!, problem_id!).then((data) =>
-  //     setProblemData(data),
-  //   );
-  // }, []);
+type ProblemData = {
+  problemName: string;
+  problemId: string;
+  problemDescription: string;
+  sparePartsNeeded: {
+    sparePartName: string;
+    sparePartId: string;
+    quantityNeeded: number;
+    quantityInStock: number;
+  }[];
+  toolsNeeded: {
+    toolName: string;
+  }[];
+  instructions: string;
+};
+
+export const ProblemPage = () => {
+  const [problemData, setProblemData] = useState<ProblemData>();
+  const { machine_type_id, problem_id } = useParams();
+
+  useEffect(() => {
+    getProblemData(machine_type_id!, problem_id!).then((data) =>
+      setProblemData(data),
+    );
+  }, []);
 
   return (
     <>
       <h3>problems</h3>
-      {/* {problemData && (
+      {problemData && (
         <>
           <h1>{problemData.problemName}</h1>
           <p>{problemData.problemDescription}</p>
@@ -40,7 +60,7 @@ export const ProblemPage = () => {
             <p>{problemData.instructions}</p>
           </div>
         </>
-      )} */}
+      )}
     </>
   );
 };
