@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Nav } from "./components/Nav";
+import { Home } from "./components/Home";
 
 function App() {
-  const [orderQuantity, setOrderQuantity] = useState<number>();
-
-  useEffect(() => {
-    fetch("https://pharmaphix-server.azurewebsites.net/api/inventoryStatus")
-      .then((resp) => resp.json())
-      .then((data) => setOrderQuantity(data.needToBeOrdered))
-      .catch(() => console.error("failed to fetch"));
-  }, []);
-
   return (
-    <div>
-      <h1>Spare parts inventory status</h1>
-      {orderQuantity && orderQuantity > 0 && (
-        <p>Order new ({orderQuantity}) </p>
-      )}
-    </div>
+    <>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
+    </>
   );
 }
 
