@@ -1,7 +1,14 @@
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { getInvStatus } from "../api";
 
 export const Home = () => {
-  const orderQuantity = useLoaderData() as number;
+  // const orderQuantity = useLoaderData() as number;
+  const [orderQuantity, setOrderQuantity] = useState();
+
+  useEffect(() => {
+    getInvStatus().then((num) => setOrderQuantity(num));
+  }, []);
 
   return (
     <div>
