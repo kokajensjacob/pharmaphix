@@ -5,6 +5,8 @@ import lombok.Getter;
 import org.hibernate.annotations.AnyDiscriminator;
 import org.hibernate.annotations.Check;
 
+import java.util.Set;
+
 @Entity
 @Table(name ="machines")
 @Getter
@@ -18,5 +20,8 @@ public class Machine {
 
     @Column(name ="purchase_cost", nullable = false)
     private double cost;
+
+    @OneToMany(mappedBy = "machine")
+    private Set<SparePart> sparePart;
 
 }
