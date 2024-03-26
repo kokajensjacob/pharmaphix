@@ -2,12 +2,14 @@ package dev.kjj.pharmaphix.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "spare_parts")
 @Getter
+@Setter
 public class SparePart {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -33,4 +35,11 @@ public class SparePart {
 
     @ManyToMany(mappedBy = "sparePart")
     private Set<Problem> problems;
+
+    public void setQuantityInStock(int newQuantity) {
+        if (newQuantity < 0) {
+            throw new IllegalStateException("There isn't enough inventory");
+        }
+        this.quantityInStock = newQuantity;
+    }
 }
