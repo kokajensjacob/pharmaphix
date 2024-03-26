@@ -16,7 +16,7 @@ public record ProblemResponseDto(
                 problem.getId(),
                 problem.getName(),
                 problem.getDescription(),
-                problem.getSparePart().stream().map(SparePartDto::convertToDto).toList(),
+                problem.getSparePart().stream().map(SparePartDto::convertToDtos).toList(),
                 problem.getTools().stream().map(ToolDto::convertToDto).toList(),
                 problem.getInstructions()
         );

@@ -1,10 +1,7 @@
 package dev.kjj.pharmaphix;
 
 import dev.kjj.pharmaphix.domain.PharmaPhixService;
-import dev.kjj.pharmaphix.dtos.InventoryResponseDto;
-import dev.kjj.pharmaphix.dtos.ProblemResponseDto;
-import dev.kjj.pharmaphix.dtos.SparePartDto;
-import dev.kjj.pharmaphix.dtos.ToolDto;
+import dev.kjj.pharmaphix.dtos.*;
 import dev.kjj.pharmaphix.model.Problem;
 import dev.kjj.pharmaphix.model.SparePart;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +33,12 @@ public class Controller {
     @PatchMapping("/spare-parts/{id}")
     public ResponseEntity<SparePartDto> deductSparePartFromInventory(@PathVariable String id, @RequestParam int amountToDeduct) {
         SparePart sparePart = service.deductFromInventory(id, amountToDeduct);
-        return ResponseEntity.ok(SparePartDto.convertToDto(sparePart));
+        return ResponseEntity.ok(SparePartDto.convertToDtos(sparePart));
+    }
+
+    @PatchMapping("/spare-parts")
+    public ResponseEntity<List<SparePartDto>> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
+        SparePart[] spareParts = service.deductFromInventory(body);
+        return ResponseEntity.ok(SparePartDto.convertToDtos(spareParts));
     }
 }
