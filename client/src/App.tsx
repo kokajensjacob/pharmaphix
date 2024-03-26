@@ -11,9 +11,9 @@ function App() {
       <Nav />
       <Aside />
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         <Route
-          path="machines/:machine_type_id/:problem_id"
+          path="machines/machine_type_id/problem_id"
           element={<ProblemPage />}
         />
       </Routes>
