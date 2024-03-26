@@ -1,4 +1,4 @@
-package dev.kjj.pharmaphix;
+package dev.kjj.pharmaphix.dtos;
 
 import java.util.List;
 

@@ -5,3 +5,8 @@ spring:
     import: optional:file:secrets.yml
   datasource:
     url: ${AZURE_SQL_DATASOURCE_CONNECTION_STRING}
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update

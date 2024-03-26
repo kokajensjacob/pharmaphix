@@ -1,5 +1,9 @@
 package dev.kjj.pharmaphix;
 
+import dev.kjj.pharmaphix.dtos.InventoryResponseDto;
+import dev.kjj.pharmaphix.dtos.ProblemResponseDto;
+import dev.kjj.pharmaphix.dtos.SparePartDto;
+import dev.kjj.pharmaphix.dtos.ToolDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
