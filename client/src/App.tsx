@@ -11,11 +11,11 @@ function App() {
       <Nav />
       <Aside />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        {/* <Route path="/" element={<Home />} /> */}
         <Route
           path="machines/:machine_type_id/:problem_id"
           element={<ProblemPage />}
-        ></Route>
+        />
       </Routes>
     </>
   );
