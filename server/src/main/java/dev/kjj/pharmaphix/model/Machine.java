@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name ="machines")
 @Getter
-//@Check(constraints = "purchase_cost > 0")
 public class Machine {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,5 +22,8 @@ public class Machine {
 
     @OneToMany(mappedBy = "machine")
     private Set<SparePart> sparePart;
+
+    @OneToMany(mappedBy = "machine")
+    private Set<Problem> problem;
 
 }

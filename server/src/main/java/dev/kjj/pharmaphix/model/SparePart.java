@@ -3,6 +3,8 @@ package dev.kjj.pharmaphix.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "spare_parts")
 @Getter
@@ -28,4 +30,7 @@ public class SparePart {
     @ManyToOne
     @JoinColumn(name = "machine_id", referencedColumnName = "id")
     private Machine machine;
+
+    @ManyToMany(mappedBy = "sparePart")
+    private Set<Problem> problems;
 }
