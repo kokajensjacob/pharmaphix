@@ -18,25 +18,35 @@ type ProblemData = {
   instructions: string;
 };
 
+export type SparePartDeductReqDto = {
+  sparePartId: string;
+  amountToDeduct: number;
+};
+
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const { machine_type_id, problem_id } = useParams();
 
   useEffect(() => {
-    getProblemData(machine_type_id!, problem_id!).then((data) =>
-      setProblemData(data)
-    );
+    getAndSetProblemData();
   }, []);
+
+  const getAndSetProblemData = () => {
+    getProblemData(machine_type_id!, problem_id!).then((data) =>
+      setProblemData(data),
+    );
+  };
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    problemData?.sparePartsNeeded.forEach((sp) =>
-      deductSparePartFromInventory(sp.sparePartId, sp.quantityNeeded)
-        .then((data) => (sp = data))
-        .catch(() =>
-          console.error("Couldn't deduct for the spare part", sp.sparePartName)
-        )
+    const body: SparePartDeductReqDto[] = [];
+    problemData!.sparePartsNeeded.forEach((sp) =>
+      body.push({
+        sparePartId: sp.sparePartId,
+        amountToDeduct: sp.quantityNeeded,
+      }),
     );
+    deductSparePartFromInventory(body).then(() => getAndSetProblemData());
   };
 
   return (
