@@ -38,8 +38,8 @@ export const ProblemPage = () => {
       setProblemData(data);
       setBtnDisabled(
         !data.sparePartsNeeded.every(
-          (sp) => sp.quantityInStock >= sp.quantityNeeded,
-        ),
+          (sp) => sp.quantityInStock >= sp.quantityNeeded
+        )
       );
     });
   };
@@ -51,73 +51,108 @@ export const ProblemPage = () => {
       body.push({
         sparePartId: sp.sparePartId,
         amountToDeduct: sp.quantityNeeded,
-      }),
+      })
     );
     deductSparePartFromInventory(body).then(() => getAndSetProblemData());
-    setShowDialog(false);
+    document.getElementById("my_modal_1")!.close();
   };
 
   return (
     <>
-      <ul className="breadcrumb">
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/">Machines</a>
-        </li>
-        <li>
-          <a href="/">MachineName</a>
-        </li>
-        <li>
-          <a href={`/machines/:machine_id/${problemData?.problemId}`}>
-            {problemData?.problemName}
-          </a>
-        </li>
-      </ul>
+      <div className="text-sm breadcrumbs">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/">Machines</a>
+          </li>
+          <li>
+            <a href="/">MachineName</a>
+          </li>
+          <li>
+            <a href={`/machines/:machine_id/${problemData?.problemId}`}>
+              {problemData?.problemName}
+            </a>
+          </li>
+        </ul>
+      </div>
       <h3>problems</h3>
       {problemData && (
         <>
           <h1>{problemData.problemName}</h1>
           <p>{problemData.problemDescription}</p>
-          <div>
-            <h3>Spare Parts Needed:</h3>
-            <ul>
-              {problemData.sparePartsNeeded
-                .sort((sp1, sp2) => {
-                  let sp1compare = sp1.sparePartName.toUpperCase();
-                  let sp2compare = sp2.sparePartName.toUpperCase();
-                  return sp1compare < sp2compare
-                    ? -1
-                    : sp2compare < sp1compare
-                      ? 1
-                      : 0;
-                })
-                .map((sp) => (
-                  <li key={sp.sparePartId}>
-                    <div>{sp.sparePartName}</div>
-                    <div>
-                      {sp.quantityNeeded}/{sp.quantityInStock}
-                    </div>
-                  </li>
-                ))}
-            </ul>
-            <button onClick={() => setShowDialog(true)} disabled={btnDisabled}>
-              Use
-            </button>
-            {showDialog && (
+          <div className="inline-flex">
+            <div className="card w-72 bg-base-100 m-5 shadow">
+              <div className="card-body">
+                <h2 className="card-title">Spare Parts Needed</h2>
+                <ul>
+                  {problemData.sparePartsNeeded
+                    .sort((sp1, sp2) => {
+                      let sp1compare = sp1.sparePartName.toUpperCase();
+                      let sp2compare = sp2.sparePartName.toUpperCase();
+                      return sp1compare < sp2compare
+                        ? -1
+                        : sp2compare < sp1compare
+                        ? 1
+                        : 0;
+                    })
+                    .map((sp) => (
+                      <li key={sp.sparePartId}>
+                        <div>{sp.sparePartName}</div>
+                        <div>
+                          {sp.quantityNeeded}/{sp.quantityInStock}
+                        </div>
+                      </li>
+                    ))}
+                </ul>
+                <div className="card-actions justify-end">
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      document.getElementById("my_modal_1")!.showModal()
+                    }
+                    disabled={btnDisabled}
+                  >
+                    Use
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <dialog id="my_modal_1" className="modal">
+              <div className="modal-box">
+                <p className="py-4">
+                  Are you sure you want to use the spare parts?
+                </p>
+                <div className="modal-action">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn" onClick={handleOnClick}>
+                      Yes
+                    </button>
+                    <button className="btn">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
+            {/* {showDialog && (
               <div>
                 <p>Are you sure you want to use the spare parts?</p>
-                <button onClick={handleOnClick}>OK</button>
+                <button >OK</button>
                 <button onClick={() => setShowDialog(false)}>Cancel</button>
               </div>
-            )}
-            <ul>
-              <h3>Tools</h3>
-              {problemData.toolsNeeded.map(({ toolName }) => (
-                <li key={toolName}>{toolName}</li>
-              ))}
-            </ul>
+            )} */}
+            <div className="card w-72 bg-base-100 m-5 shadow">
+              <div className="card-body">
+                <h2 className="card-title">Tools</h2>
+                <ul>
+                  {problemData.toolsNeeded.map(({ toolName }) => (
+                    <li key={toolName}>{toolName}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           <div>
             <h3>INSTRUCTIONS:</h3>
