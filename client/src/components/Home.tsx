@@ -11,6 +11,11 @@ export const Home = () => {
 
   return (
     <div>
+      <ul className="breadcrumb">
+        <li>
+          <a href="/">Home</a>
+        </li>
+      </ul>
       <h1>Spare parts inventory status</h1>
       {orderQuantity && orderQuantity > 0 && (
         <p>Order new ({orderQuantity}) </p>

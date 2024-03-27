@@ -59,6 +59,20 @@ export const ProblemPage = () => {
 
   return (
     <>
+    <ul className="breadcrumb">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/">Machines</a>
+        </li>
+        <li>
+          <a href="/">MachineName</a>
+        </li>
+        <li>
+          <a href={`/machines/:machine_id/${problemData?.problemId}`}>{problemData?.problemName}</a>
+        </li>
+      </ul>
       <h3>problems</h3>
       {problemData && (
         <>
