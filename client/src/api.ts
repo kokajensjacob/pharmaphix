@@ -18,6 +18,9 @@ export const getProblemData = (machine_id: string, problem_id: string) => {
 export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
   return fetch(`${BASE_URL}/spare-parts`, {
     method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(body),
   })
     .then((resp) => resp.json())
