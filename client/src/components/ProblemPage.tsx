@@ -36,8 +36,8 @@ export const ProblemPage = () => {
     getProblemData(machine_type_id!, problem_id!).then((data: ProblemData) => {
       setProblemData(data);
       setBtnDisabled(
-        data.sparePartsNeeded.every(
-          (sp) => sp.quantityInStock < sp.quantityNeeded,
+        !data.sparePartsNeeded.every(
+          (sp) => sp.quantityInStock >= sp.quantityNeeded,
         ),
       );
     });
