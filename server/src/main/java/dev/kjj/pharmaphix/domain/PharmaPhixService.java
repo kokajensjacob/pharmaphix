@@ -47,4 +47,10 @@ public class PharmaPhixService {
         }
         return retrievedSpareParts;
     }
+
+    public long getInventoryStatus() {
+        return spRepo.findAll().stream()
+                .filter(sparePart -> sparePart.getQuantityInStock() < sparePart.getOptimalQuantity())
+                .count();
+    }
 }
