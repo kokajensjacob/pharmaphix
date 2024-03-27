@@ -37,9 +37,6 @@ public class SparePartCalculator {
             }
 
         }
-        System.out.println("s: " + s);
-        System.out.println("Expected back order: " + expectedBackOrder.get(s));
-        System.out.println("Variance back order: " + varianceBackOrder.get(s));
 
         return s;
     }
