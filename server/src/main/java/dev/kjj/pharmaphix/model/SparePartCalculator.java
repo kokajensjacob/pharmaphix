@@ -3,7 +3,7 @@ package dev.kjj.pharmaphix.model;
 import java.util.*;
 
 public class SparePartCalculator {
-    public static double optimalStockValue(double lambdaT, double spareCost, double machineCost) {
+    public static int optimalStockValue(double lambdaT, double spareCost, double machineCost) {
         List<Double> probability = new ArrayList<>();
         List<Double> probForShortage = new ArrayList<>();
         List<Double> expectedBackOrder = new ArrayList<>();
