@@ -1,7 +1,9 @@
 package dev.kjj.pharmaphix.model;
+
 import java.util.*;
+
 public class SparePartCalculator {
-    public static double optimalStockValue(double lambdaT, double spareCost, double machineCost){
+    public static double optimalStockValue(double lambdaT, double spareCost, double machineCost) {
         List<Double> probability = new ArrayList<>();
         List<Double> probForShortage = new ArrayList<>();
         List<Double> expectedBackOrder = new ArrayList<>();
@@ -23,12 +25,12 @@ public class SparePartCalculator {
         boolean run = true;
         while (run) {
             s++;
-            probability.add(lambdaT * probability.get(s - 1) /(s-1));
+            probability.add(lambdaT * probability.get(s - 1) / (s - 1));
             probForShortage.add(probForShortage.get(s - 1) - probability.get(s));
-            expectedBackOrder.add(expectedBackOrder.get(s-1) - probForShortage.get(s-1));
-            varianceBackOrder.add(varianceBackOrder.get(s-1) -
-                    (expectedBackOrder.get(s-1) + expectedBackOrder.get(s))
-                            *(1 - probForShortage.get(s-1)));
+            expectedBackOrder.add(expectedBackOrder.get(s - 1) - probForShortage.get(s - 1));
+            varianceBackOrder.add(varianceBackOrder.get(s - 1) -
+                    (expectedBackOrder.get(s - 1) + expectedBackOrder.get(s))
+                            * (1 - probForShortage.get(s - 1)));
 
             if (probForShortage.get(s) <= spareCost / machineCost) {
                 run = false;
@@ -39,7 +41,6 @@ public class SparePartCalculator {
         System.out.println("Expected back order: " + expectedBackOrder.get(s));
         System.out.println("Variance back order: " + varianceBackOrder.get(s));
 
-            return s;
-        }
+        return s;
     }
 }
