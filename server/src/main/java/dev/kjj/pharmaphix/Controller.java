@@ -7,6 +7,7 @@ import dev.kjj.pharmaphix.model.SparePart;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,12 @@ public class Controller {
     public ResponseEntity<SparePartDto> deductSparePartFromInventory(@PathVariable String id, @RequestParam int amountToDeduct) {
         SparePart sparePart = service.deductFromInventory(id, amountToDeduct);
         return ResponseEntity.ok(SparePartDto.convertToDtos(sparePart));
+    }
+
+    @PostMapping("/spare-parts")
+    public ResponseEntity<Void> createSparePart(@RequestBody SparePartPostRequestDto body) {
+        SparePart created = service.createNewSparePart(body);
+        return ResponseEntity.created(URI.create("/api/spare-parts/" + created.getId())).build();
     }
 
     @PatchMapping("/spare-parts")

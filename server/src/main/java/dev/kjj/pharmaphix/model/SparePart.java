@@ -36,6 +36,18 @@ public class SparePart {
     @ManyToMany(mappedBy = "sparePart")
     private Set<Problem> problems;
 
+    public SparePart() {
+    }
+
+    public SparePart(String name, int quantityInStock, double cost, double failureRate, Machine machine) {
+        this.name = name;
+        this.quantityInStock = quantityInStock;
+        this.cost = cost;
+        this.failureRate = failureRate;
+        this.machine = machine;
+        this.optimalQuantity = SparePartCalculator.optimalStockValue(this.failureRate, this.cost, this.machine.getCost());
+    }
+
     public void setQuantityInStock(int newQuantity) {
         if (newQuantity < 0) {
             throw new IllegalStateException("There isn't enough inventory");

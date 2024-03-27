@@ -1,18 +1,23 @@
 package dev.kjj.pharmaphix.domain;
 
+import dev.kjj.pharmaphix.dtos.SparePartPostRequestDto;
 import dev.kjj.pharmaphix.dtos.SparePartsDeductRequestDto;
+import dev.kjj.pharmaphix.model.Machine;
 import dev.kjj.pharmaphix.model.Problem;
 import dev.kjj.pharmaphix.model.SparePart;
+import dev.kjj.pharmaphix.model.SparePartCalculator;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PharmaPhixService {
     private IProblemRepository problemRepo;
     private ISparePartRepository spRepo;
+    private IMachineRepository machineRepo;
 
-    public PharmaPhixService(IProblemRepository problemRepo, ISparePartRepository spRepo) {
+    public PharmaPhixService(IProblemRepository problemRepo, ISparePartRepository spRepo, IMachineRepository iMachineRepository) {
         this.problemRepo = problemRepo;
         this.spRepo = spRepo;
+        this.machineRepo = iMachineRepository;
     }
 
     public Problem getProblem(String problemId) {
@@ -52,5 +57,21 @@ public class PharmaPhixService {
         return spRepo.findAll().stream()
                 .filter(sparePart -> sparePart.getQuantityInStock() < sparePart.getOptimalQuantity())
                 .count();
+    }
+
+    private void setOptimalQuantity(SparePart sparePart) {
+        if (sparePart.getOptimalQuantity() == 0) {
+            sparePart.setOptimalQuantity(SparePartCalculator.optimalStockValue(
+                    sparePart.getFailureRate(),
+                    sparePart.getCost(),
+                    sparePart.getMachine().getCost()
+            ));
+            spRepo.save(sparePart);
+        }
+    }
+
+    public SparePart createNewSparePart(SparePartPostRequestDto body) {
+        Machine associatedMachine = machineRepo.findById(body.machineId()).orElseThrow();
+        return spRepo.save(body.toSparePart(associatedMachine));
     }
 }
