@@ -26,6 +26,7 @@ export type SparePartDeductReqDto = {
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
+  const [showDialog, setShowDialog] = useState<boolean>(false);
   const { machine_type_id, problem_id } = useParams();
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export const ProblemPage = () => {
       }),
     );
     deductSparePartFromInventory(body).then(() => getAndSetProblemData());
+    setShowDialog(false);
   };
 
   return (
@@ -74,9 +76,14 @@ export const ProblemPage = () => {
                 </li>
               ))}
             </ul>
-            <button onClick={handleOnClick} disabled={btnDisabled}>
+            <button onClick={() => setShowDialog(true)} disabled={btnDisabled}>
               Use
             </button>
+            {showDialog && (<div>
+              <p>Are you sure you want to use the spare parts?</p>
+                <button onClick={handleOnClick}>OK</button>
+                <button onClick={() => setShowDialog(false)}>Cancel</button>
+              </div>)}
             <ul>
               <h3>Tools</h3>
               {problemData.toolsNeeded.map(({ toolName }) => (
