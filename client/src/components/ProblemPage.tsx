@@ -25,6 +25,7 @@ export type SparePartDeductReqDto = {
 
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
+  const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const { machine_type_id, problem_id } = useParams();
 
   useEffect(() => {
@@ -32,9 +33,14 @@ export const ProblemPage = () => {
   }, []);
 
   const getAndSetProblemData = () => {
-    getProblemData(machine_type_id!, problem_id!).then((data) =>
-      setProblemData(data),
-    );
+    getProblemData(machine_type_id!, problem_id!).then((data: ProblemData) => {
+      setProblemData(data);
+      setBtnDisabled(
+        data.sparePartsNeeded.every(
+          (sp) => sp.quantityInStock < sp.quantityNeeded,
+        ),
+      );
+    });
   };
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -68,7 +74,9 @@ export const ProblemPage = () => {
                 </li>
               ))}
             </ul>
-            <button onClick={handleOnClick}>Use</button>
+            <button onClick={handleOnClick} disabled={btnDisabled}>
+              Use
+            </button>
             <ul>
               <h3>Tools</h3>
               {problemData.toolsNeeded.map(({ toolName }) => (
