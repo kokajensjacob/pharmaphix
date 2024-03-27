@@ -21,7 +21,8 @@ public class Controller {
 
     @GetMapping("/inventoryStatus")
     public ResponseEntity<InventoryResponseDto> getInventoryStatus() {
-        return ResponseEntity.ok(new InventoryResponseDto(3));
+        long needToBeOrdered = service.getInventoryStatus();
+        return ResponseEntity.ok(new InventoryResponseDto(needToBeOrdered));
     }
 
     @GetMapping("/machines/{machine_id}/problems/{problem_id}")
