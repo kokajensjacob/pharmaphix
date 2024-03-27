@@ -59,7 +59,7 @@ export const ProblemPage = () => {
 
   return (
     <>
-    <ul className="breadcrumb">
+      <ul className="breadcrumb">
         <li>
           <a href="/">Home</a>
         </li>
@@ -70,7 +70,9 @@ export const ProblemPage = () => {
           <a href="/">MachineName</a>
         </li>
         <li>
-          <a href={`/machines/:machine_id/${problemData?.problemId}`}>{problemData?.problemName}</a>
+          <a href={`/machines/:machine_id/${problemData?.problemId}`}>
+            {problemData?.problemName}
+          </a>
         </li>
       </ul>
       <h3>problems</h3>
@@ -81,23 +83,35 @@ export const ProblemPage = () => {
           <div>
             <h3>Spare Parts Needed:</h3>
             <ul>
-              {problemData.sparePartsNeeded.map((sp) => (
-                <li key={sp.sparePartId}>
-                  <div>{sp.sparePartName}</div>
-                  <div>
-                    {sp.quantityNeeded}/{sp.quantityInStock}
-                  </div>
-                </li>
-              ))}
+              {problemData.sparePartsNeeded
+                .sort((sp1, sp2) => {
+                  let sp1compare = sp1.sparePartName.toUpperCase();
+                  let sp2compare = sp2.sparePartName.toUpperCase();
+                  return sp1compare < sp2compare
+                    ? -1
+                    : sp2compare < sp1compare
+                      ? 1
+                      : 0;
+                })
+                .map((sp) => (
+                  <li key={sp.sparePartId}>
+                    <div>{sp.sparePartName}</div>
+                    <div>
+                      {sp.quantityNeeded}/{sp.quantityInStock}
+                    </div>
+                  </li>
+                ))}
             </ul>
             <button onClick={() => setShowDialog(true)} disabled={btnDisabled}>
               Use
             </button>
-            {showDialog && (<div>
-              <p>Are you sure you want to use the spare parts?</p>
+            {showDialog && (
+              <div>
+                <p>Are you sure you want to use the spare parts?</p>
                 <button onClick={handleOnClick}>OK</button>
                 <button onClick={() => setShowDialog(false)}>Cancel</button>
-              </div>)}
+              </div>
+            )}
             <ul>
               <h3>Tools</h3>
               {problemData.toolsNeeded.map(({ toolName }) => (
