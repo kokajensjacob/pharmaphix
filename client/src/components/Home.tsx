@@ -22,6 +22,10 @@ export const Home = () => {
           in the workshop
         </h1>
       )}
+      <div className="home__button-container">
+        <button className="btn btn-wide m-5">Machines</button>
+        <button className="btn btn-wide m-5">Spare Parts</button>
+      </div>
     </div>
   );
 };
