@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getInvStatus } from "../api";
+import { getInvStatus } from "../../api";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
@@ -36,7 +36,9 @@ export const Home = () => {
         <Link to="machines" className="btn btn-wide m-5">
           Machines
         </Link>
-        <button className="btn btn-wide m-5">Spare Parts</button>
+        <Link to="spare-parts" className="btn btn-wide m-5">
+          Spare Parts
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchMachines } from "../api";
+import { fetchMachines } from "../../api";
 import { Link } from "react-router-dom";
 
 type Machine = {
