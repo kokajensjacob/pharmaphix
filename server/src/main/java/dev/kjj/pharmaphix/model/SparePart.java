@@ -29,12 +29,18 @@ public class SparePart {
     @Column(nullable = false)
     private double failureRate;
 
+    @Column(nullable = false)
+    private double repairTime;
+
     @ManyToOne
     @JoinColumn(name = "machine_id", referencedColumnName = "id")
     private Machine machine;
 
-    @ManyToMany(mappedBy = "sparePart")
-    private Set<Problem> problems;
+//    @ManyToMany(mappedBy = "sparePart")
+//    private Set<Problem> problems;
+
+    @OneToMany(mappedBy = "sparePart")
+    private Set<ProblemSparePart> associatedProblems;
 
     public SparePart() {
     }
