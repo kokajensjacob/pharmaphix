@@ -16,7 +16,7 @@ export const Home = () => {
         </li>
       </ul>
       <h1>Spare parts inventory status</h1>
-      {repairQuantity && (
+      {repairQuantity == 0 && repairQuantity > 0 && (
         <p>
           There are currently ({repairQuantity}) spare parts undergoing repair
           in the workshop
