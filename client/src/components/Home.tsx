@@ -16,7 +16,16 @@ export const Home = () => {
         </li>
       </ul>
 
-      {repairQuantity && (
+      {repairQuantity && repairQuantity === 0 ? (
+        <h1>
+          There are currently no spare parts undergoing repair in the workshop
+        </h1>
+      ) : repairQuantity === 1 ? (
+        <h1>
+          There are currently {repairQuantity} spare part undergoing repair in
+          the workshop
+        </h1>
+      ) : (
         <h1>
           There are currently {repairQuantity} spare parts undergoing repair in
           the workshop

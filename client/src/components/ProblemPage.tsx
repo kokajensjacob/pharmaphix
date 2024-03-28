@@ -26,14 +26,14 @@ export type SparePartDeductReqDto = {
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
-  const { machine_type_id, problem_id } = useParams();
+  const { problem_id } = useParams();
 
   useEffect(() => {
     getAndSetProblemData();
   }, []);
 
   const getAndSetProblemData = () => {
-    getProblemData(machine_type_id!, problem_id!).then((data: ProblemData) => {
+    getProblemData(problem_id!).then((data: ProblemData) => {
       setProblemData(data);
       setBtnDisabled(
         !data.sparePartsNeeded.every(
