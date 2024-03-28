@@ -20,14 +20,13 @@ export const MachinesPage = () => {
     <>
       <h1>Machines</h1>
       {machines ? (
-        machines.map((machine) => (
-          <>
-            <Link to={machine.machineId} key={machine.machineId}>
-              {machine.machineName}
-            </Link>
-            <br />
-          </>
-        ))
+        <ul>
+          {machines.map((machine) => (
+            <li key={machine.machineId}>
+              <Link to={machine.machineId}>{machine.machineName}</Link>
+            </li>
+          ))}
+        </ul>
       ) : (
         <p>Loading...</p>
       )}
