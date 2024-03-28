@@ -12,7 +12,11 @@ public record SparePartDto(
         int quantityInStock
 ) {
     public static SparePartDto convertToDtos(SparePart sparePart) {
-        return new SparePartDto(sparePart.getId(), sparePart.getName(), sparePart.getOptimalQuantity(), sparePart.getQuantityInStock());
+        return new SparePartDto(
+                sparePart.getId(),
+                sparePart.getName(),
+                sparePart.getOptimalQuantity(),
+                sparePart.getQuantityInStock());
     }
 
     public static List<SparePartDto> convertToDtos(SparePart[] spareParts) {

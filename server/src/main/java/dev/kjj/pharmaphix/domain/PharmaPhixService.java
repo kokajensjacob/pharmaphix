@@ -35,6 +35,7 @@ public class PharmaPhixService {
         SparePart[] spareParts = getSpareParts(spRequests);
         for( int i = 0; i < spRequests.length; i++) {
             spareParts[i].setQuantityInStock(spareParts[i].getQuantityInStock() - spRequests[i].amountToDeduct());
+            spareParts[i].setQuantityInRepair(spareParts[i].getQuantityInRepair() + spRequests[i].amountToDeduct());
             spareParts[i] = spRepo.save(spareParts[i]);
         }
         return spareParts;

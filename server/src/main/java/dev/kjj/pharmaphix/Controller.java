@@ -45,8 +45,8 @@ public class Controller {
     }
 
     @PatchMapping("/spare-parts")
-    public ResponseEntity<List<SparePartDto>> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
-        SparePart[] spareParts = service.deductFromInventory(body);
-        return ResponseEntity.ok(SparePartDto.convertToDtos(spareParts));
+    public ResponseEntity<Void> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
+        service.deductFromInventory(body);
+        return ResponseEntity.ok().build();
     }
 }
