@@ -8,6 +8,8 @@ import dev.kjj.pharmaphix.model.SparePart;
 import dev.kjj.pharmaphix.model.SparePartCalculator;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PharmaPhixService {
     private IProblemRepository problemRepo;
@@ -81,5 +83,9 @@ public class PharmaPhixService {
                 .map(SparePart::getQuantityInRepair)
                 .reduce(Integer::sum)
                 .orElse(0);
+    }
+
+    public List<Machine> getAllMachines() {
+        return machineRepo.findAll();
     }
 }

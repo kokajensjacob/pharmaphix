@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -41,5 +42,11 @@ public class Controller {
     public ResponseEntity<Void> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
         service.deductFromInventory(body);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/machines")
+    public ResponseEntity<List<MachineDto>> getAllMachines() {
+        List<MachineDto> machineDtos =  service.getAllMachines().stream().map(MachineDto::convertToDto).toList();
+        return ResponseEntity.ok(machineDtos);
     }
 }
