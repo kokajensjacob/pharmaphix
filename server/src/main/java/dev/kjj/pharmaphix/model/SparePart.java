@@ -18,26 +18,21 @@ public class SparePart {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private int quantityInStock;
 
     private int optimalQuantity;
 
-    @Column(nullable = false)
+    private int quantityInRepair;
+
     private double cost;
 
-    @Column(nullable = false)
     private double failureRate;
 
-    @Column(nullable = false)
     private double repairTime;
 
     @ManyToOne
     @JoinColumn(name = "machine_id", referencedColumnName = "id")
     private Machine machine;
-
-//    @ManyToMany(mappedBy = "sparePart")
-//    private Set<Problem> problems;
 
     @OneToMany(mappedBy = "sparePart")
     private Set<ProblemSparePart> associatedProblems;

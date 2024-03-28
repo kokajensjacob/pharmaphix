@@ -23,13 +23,6 @@ public class Problem {
     @JoinColumn(name = "machine_id", referencedColumnName = "id")
     private Machine machine;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "problem_spare_parts",
-//            joinColumns = @JoinColumn(name = "problem_id"),
-//            inverseJoinColumns = @JoinColumn(name = "spare_part_id"))
-//    private Set<SparePart> sparePart;
-
     @OneToMany(mappedBy = "problem")
     private Set<ProblemSparePart> sparePartsNeeded;
 
