@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getInvStatus } from "../api";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [repairQuantity, setRepairQuantity] = useState();
@@ -32,7 +33,9 @@ export const Home = () => {
         </h1>
       )}
       <div className="home__button-container">
-        <button className="btn btn-wide m-5">Machines</button>
+        <Link to="machines" className="btn btn-wide m-5">
+          Machines
+        </Link>
         <button className="btn btn-wide m-5">Spare Parts</button>
       </div>
     </div>
