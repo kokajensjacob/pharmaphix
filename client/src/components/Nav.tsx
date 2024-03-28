@@ -5,17 +5,17 @@ export const Nav = () => {
     <>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link to="/">
-            <a className="btn btn-ghost text-xl">PharmaPhix</a>
+          <Link to="/" className="btn btn-ghost text-xl">
+            PharmaPhix
           </Link>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Machines</a>
+              <div>Machines</div>
             </li>
             <li>
-              <a>Spare Parts</a>
+              <div>Spare Parts</div>
             </li>
           </ul>
         </div>
