@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { Nav } from "./components/Nav";
-import { Home } from "./components/pages/Home";
-import { ProblemPage } from "./components/pages/ProblemPage";
-import { MachinesPage } from "./components/pages/MachinesPage";
-import { ProblemsPerMachinePage } from "./components/pages/ProblemsPerMachinePage";
-import { SparePartsPage } from "./components/pages/SparePartsPage";
+import { Home } from "./pages/Home";
+import { ProblemPage } from "./pages/ProblemPage";
+import { MachinesPage } from "./pages/MachinesPage";
+import { ProblemsPerMachinePage } from "./pages/ProblemsPerMachinePage";
+import { SparePartsPage } from "./pages/SparePartsPage";
 
 function App() {
   return (

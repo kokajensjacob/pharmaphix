@@ -1,4 +1,4 @@
-import { SparePartDeductReqDto } from "./components/pages/ProblemPage";
+import { SparePartDeductReqDto } from "./pages/ProblemPage";
 
 const BASE_URL = "https://pharmaphix-server.azurewebsites.net/api";
 

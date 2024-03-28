@@ -1,5 +1,5 @@
 import { MouseEventHandler, useEffect, useState } from "react";
-import { deductSparePartFromInventory, getProblemData } from "../../api";
+import { deductSparePartFromInventory, getProblemData } from "../api";
 import { useParams } from "react-router-dom";
 
 type ProblemData = {

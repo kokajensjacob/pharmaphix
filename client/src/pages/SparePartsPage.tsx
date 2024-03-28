@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchSpareParts } from "../../api";
-import "../../SparePartsPage.css";
+import { fetchSpareParts } from "../api";
+import "../SparePartsPage.css";
 
 type SparePart = {
   id: string;
