@@ -26,7 +26,6 @@ export type SparePartDeductReqDto = {
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
-  const [showDialog, setShowDialog] = useState<boolean>(false);
   const { machine_type_id, problem_id } = useParams();
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export const ProblemPage = () => {
       })
     );
     deductSparePartFromInventory(body).then(() => getAndSetProblemData());
-    document.getElementById("my_modal_1")!.close();
+    (document.getElementById("my_modal_1") as HTMLDialogElement).close();
   };
 
   return (
@@ -110,7 +109,11 @@ export const ProblemPage = () => {
                   <button
                     className="btn"
                     onClick={() =>
-                      document.getElementById("my_modal_1")!.showModal()
+                      (
+                        document.getElementById(
+                          "my_modal_1"
+                        ) as HTMLDialogElement
+                      ).showModal()
                     }
                     disabled={btnDisabled}
                   >
@@ -127,7 +130,6 @@ export const ProblemPage = () => {
                 </p>
                 <div className="modal-action">
                   <form method="dialog">
-                    {/* if there is a button in form, it will close the modal */}
                     <button className="btn" onClick={handleOnClick}>
                       Yes
                     </button>
@@ -136,13 +138,6 @@ export const ProblemPage = () => {
                 </div>
               </div>
             </dialog>
-            {/* {showDialog && (
-              <div>
-                <p>Are you sure you want to use the spare parts?</p>
-                <button >OK</button>
-                <button onClick={() => setShowDialog(false)}>Cancel</button>
-              </div>
-            )} */}
             <div className="card w-72 bg-base-100 m-5 shadow">
               <div className="card-body">
                 <h2 className="card-title">Tools</h2>
