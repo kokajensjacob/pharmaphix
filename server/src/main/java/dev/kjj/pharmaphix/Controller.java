@@ -25,8 +25,8 @@ public class Controller {
         return ResponseEntity.ok(new SparePartInRepairDto(unitsInRepair));
     }
 
-    @GetMapping("/machines/{machine_id}/problems/{problem_id}")
-    public ResponseEntity<ProblemResponseDto> getProblemData(@PathVariable("machine_id") String machineId, @PathVariable("problem_id") String problemId) {
+    @GetMapping("/problems/{problem_id}")
+    public ResponseEntity<ProblemResponseDto> getProblemData(@PathVariable("problem_id") String problemId) {
         Problem problem = service.getProblem(problemId);
         return ResponseEntity.ok(ProblemResponseDto.convertToDto(problem));
     }
