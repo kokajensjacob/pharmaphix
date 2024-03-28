@@ -2,10 +2,11 @@ import { SparePartDeductReqDto } from "./components/ProblemPage";
 
 const BASE_URL = "https://pharmaphix-server.azurewebsites.net/api";
 
+
 export const getInvStatus = () => {
-  return fetch(`${BASE_URL}/inventoryStatus`)
+  return fetch(`${BASE_URL}/spare-parts/in-repair`)
     .then((resp) => resp.json())
-    .then((data) => data.needToBeOrdered)
+    .then((data) => data.unitsInRepair)
     .catch(() => console.error("failed to fetch"));
 };
 

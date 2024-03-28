@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -20,10 +19,10 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping("/inventoryStatus")
-    public ResponseEntity<InventoryResponseDto> getInventoryStatus() {
-        long needToBeOrdered = service.getTotalSparePartsInReapir();
-        return ResponseEntity.ok(new InventoryResponseDto(needToBeOrdered));
+    @GetMapping("/spare-parts/in-repair")
+    public ResponseEntity<SparePartInRepairDto> getTotalUnitsInRepair() {
+        long unitsInRepair = service.getTotalSparePartsInRepair();
+        return ResponseEntity.ok(new SparePartInRepairDto(unitsInRepair));
     }
 
     @GetMapping("/machines/{machine_id}/problems/{problem_id}")

@@ -76,7 +76,7 @@ public class PharmaPhixService {
         return spRepo.save(body.toSparePart(associatedMachine));
     }
 
-    public long getTotalSparePartsInReapir() {
+    public long getTotalSparePartsInRepair() {
         return spRepo.findSparePartsByQuantityInRepairGreaterThan(0).stream()
                 .map(SparePart::getQuantityInRepair)
                 .reduce(Integer::sum)
