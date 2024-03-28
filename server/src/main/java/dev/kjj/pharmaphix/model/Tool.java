@@ -13,6 +13,7 @@ public class Tool {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "tools")

@@ -14,10 +14,10 @@ public class PharmaPhixService {
     private ISparePartRepository spRepo;
     private IMachineRepository machineRepo;
 
-    public PharmaPhixService(IProblemRepository problemRepo, ISparePartRepository spRepo, IMachineRepository iMachineRepository) {
+    public PharmaPhixService(IProblemRepository problemRepo, ISparePartRepository spRepo, IMachineRepository machineRepo) {
         this.problemRepo = problemRepo;
         this.spRepo = spRepo;
-        this.machineRepo = iMachineRepository;
+        this.machineRepo = machineRepo;
     }
 
     public Problem getProblem(String problemId) {

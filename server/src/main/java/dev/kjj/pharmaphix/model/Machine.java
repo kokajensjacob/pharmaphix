@@ -2,8 +2,6 @@ package dev.kjj.pharmaphix.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.hibernate.annotations.AnyDiscriminator;
-import org.hibernate.annotations.Check;
 
 import java.util.Set;
 
