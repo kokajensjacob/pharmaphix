@@ -14,6 +14,35 @@ export const fetchMachines = async () => {
   ];
 };
 
+export async function fetchSpareParts() {
+  // return fetch(`${BASE_URL}/spare-parts`)
+  //   .then((resp) => resp.json())
+  //   .catch(() => console.error("failed to fetch spare parts"));
+
+  return [
+    {
+      id: "1",
+      name: "Laser X10",
+      quantityInStock: 5,
+      optimalQuantity: 5,
+      quantityInRepair: 1,
+      cost: 10000,
+      failureRate: 4,
+      repairTime: 0.5,
+    },
+    {
+      id: "2",
+      name: "Robotic Arm JK123PF3",
+      quantityInStock: 1,
+      optimalQuantity: 1,
+      quantityInRepair: 0,
+      cost: 1000000,
+      failureRate: 0.25,
+      repairTime: 0.5,
+    },
+  ];
+}
+
 export const getInvStatus = () => {
   return fetch(`${BASE_URL}/spare-parts/in-repair`)
     .then((resp) => resp.json())
