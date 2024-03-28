@@ -33,6 +33,14 @@ public class Controller {
         return ResponseEntity.ok(ProblemResponseDto.convertToDto(problem));
     }
 
+    @GetMapping("/spare-parts")
+    public ResponseEntity<List<SparePartResponseDto>> getSpareParts() {
+        List<SparePartResponseDto> spareParts = service.getAllSpareParts().stream()
+                .map(SparePartResponseDto::convertToDto)
+                .toList();
+        return ResponseEntity.ok(spareParts);
+    }
+
     @PostMapping("/spare-parts")
     public ResponseEntity<Void> createSparePart(@RequestBody SparePartPostRequestDto body) {
         SparePart created = service.createNewSparePart(body);
