@@ -18,8 +18,8 @@ export const Home = () => {
 
       {repairQuantity && (
         <h1>
-          There are currently ({repairQuantity}) spare parts undergoing repair
-          in the workshop
+          There are currently {repairQuantity} spare parts undergoing repair in
+          the workshop
         </h1>
       )}
       <div className="home__button-container">
