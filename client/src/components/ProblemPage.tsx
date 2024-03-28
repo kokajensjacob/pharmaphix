@@ -81,6 +81,19 @@ export const ProblemPage = () => {
         <>
           <h1>{problemData.problemName}</h1>
           <p>{problemData.problemDescription}</p>
+          <div className="card-actions justify-end">
+            <button
+              className="btn absolute top-50 right-20"
+              onClick={() =>
+                (
+                  document.getElementById("my_modal_1") as HTMLDialogElement
+                ).showModal()
+              }
+              disabled={btnDisabled}
+            >
+              Start Repair
+            </button>
+          </div>
           <div className="inline-flex">
             <div className="card w-72 bg-base-100 m-5 shadow">
               <div className="card-body">
@@ -105,28 +118,13 @@ export const ProblemPage = () => {
                       </li>
                     ))}
                 </ul>
-                <div className="card-actions justify-end">
-                  <button
-                    className="btn"
-                    onClick={() =>
-                      (
-                        document.getElementById(
-                          "my_modal_1"
-                        ) as HTMLDialogElement
-                      ).showModal()
-                    }
-                    disabled={btnDisabled}
-                  >
-                    Use
-                  </button>
-                </div>
               </div>
             </div>
 
             <dialog id="my_modal_1" className="modal">
               <div className="modal-box">
                 <p className="py-4">
-                  Are you sure you want to use the spare parts?
+                  Are you sure you want to start the repair?
                 </p>
                 <div className="modal-action">
                   <form method="dialog">
