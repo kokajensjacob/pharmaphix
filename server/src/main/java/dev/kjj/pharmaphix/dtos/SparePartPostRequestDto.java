@@ -8,9 +8,16 @@ public record SparePartPostRequestDto(
         double cost,
         double failureRate,
         int quantityInStock,
+        double repairTime,
         String machineId
         ) {
     public SparePart toSparePart(Machine associatedMachine) {
-        return new SparePart(this.name(), this.quantityInStock(), this.cost(), this.failureRate(), associatedMachine);
+        return new SparePart(
+                this.name(),
+                this.quantityInStock(),
+                this.cost(),
+                this.failureRate(),
+                this.repairTime(),
+                associatedMachine);
     }
 }

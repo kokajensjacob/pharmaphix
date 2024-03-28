@@ -32,12 +32,6 @@ public class Controller {
         return ResponseEntity.ok(ProblemResponseDto.convertToDto(problem));
     }
 
-    @PatchMapping("/spare-parts/{id}")
-    public ResponseEntity<SparePartDto> deductSparePartFromInventory(@PathVariable String id, @RequestParam int amountToDeduct) {
-        SparePart sparePart = service.deductFromInventory(id, amountToDeduct);
-        return ResponseEntity.ok(SparePartDto.convertToDtos(sparePart));
-    }
-
     @PostMapping("/spare-parts")
     public ResponseEntity<Void> createSparePart(@RequestBody SparePartPostRequestDto body) {
         SparePart created = service.createNewSparePart(body);
