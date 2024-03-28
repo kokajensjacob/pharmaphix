@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { getInvStatus } from "../api";
 
 export const Home = () => {
-  // const orderQuantity = useLoaderData() as number;
-  const [orderQuantity, setOrderQuantity] = useState();
+  const [repairQuantity, setRepairQuantity] = useState();
 
   useEffect(() => {
-    getInvStatus().then((num) => setOrderQuantity(num));
+    getInvStatus().then((num) => setRepairQuantity(num));
   }, []);
 
   return (
@@ -16,10 +15,17 @@ export const Home = () => {
           <a href="/">Home</a>
         </li>
       </ul>
-      <h1>Spare parts inventory status</h1>
-      {orderQuantity && orderQuantity > 0 && (
-        <p>Order new ({orderQuantity}) </p>
+
+      {repairQuantity && (
+        <h1>
+          There are currently {repairQuantity} spare parts undergoing repair in
+          the workshop
+        </h1>
       )}
+      <div className="home__button-container">
+        <button className="btn btn-wide m-5">Machines</button>
+        <button className="btn btn-wide m-5">Spare Parts</button>
+      </div>
     </div>
   );
 };
