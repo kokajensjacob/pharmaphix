@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -50,5 +51,14 @@ public class Controller {
                 .map(MachineDto::convertToDto)
                 .toList();
         return ResponseEntity.ok(machineDtos);
+    }
+
+    @GetMapping("/machines/{machine_id}/problems")
+    public ResponseEntity<List<ProblemListDto>> getProblemsForMachine(@PathVariable("machine_id") String machineId) {
+        List<ProblemListDto> problemList = service.getProblemsForMachine(machineId)
+                .stream()
+                .map(ProblemListDto::convertToDto)
+                .toList();
+        return ResponseEntity.ok(problemList);
     }
 }

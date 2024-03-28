@@ -22,6 +22,6 @@ public class Machine {
     private Set<SparePart> sparePart;
 
     @OneToMany(mappedBy = "machine")
-    private Set<Problem> problem;
+    private Set<Problem> problems;
 
 }
