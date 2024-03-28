@@ -75,4 +75,11 @@ public class PharmaPhixService {
         Machine associatedMachine = machineRepo.findById(body.machineId()).orElseThrow();
         return spRepo.save(body.toSparePart(associatedMachine));
     }
+
+    public long getTotalSparePartsInReapir() {
+        return spRepo.findSparePartsByQuantityInRepairGreaterThan(0).stream()
+                .map(SparePart::getQuantityInRepair)
+                .reduce(Integer::sum)
+                .orElse(0);
+    }
 }

@@ -22,7 +22,7 @@ public class Controller {
 
     @GetMapping("/inventoryStatus")
     public ResponseEntity<InventoryResponseDto> getInventoryStatus() {
-        long needToBeOrdered = service.getInventoryStatus();
+        long needToBeOrdered = service.getTotalSparePartsInReapir();
         return ResponseEntity.ok(new InventoryResponseDto(needToBeOrdered));
     }
 
