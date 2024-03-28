@@ -46,7 +46,9 @@ public class Controller {
 
     @GetMapping("/machines")
     public ResponseEntity<List<MachineDto>> getAllMachines() {
-        List<MachineDto> machineDtos =  service.getAllMachines().stream().map(MachineDto::convertToDto).toList();
+        List<MachineDto> machineDtos = service.getAllMachines().stream()
+                .map(MachineDto::convertToDto)
+                .toList();
         return ResponseEntity.ok(machineDtos);
     }
 }
