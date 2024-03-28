@@ -40,13 +40,15 @@ public class SparePart {
     public SparePart() {
     }
 
-    public SparePart(String name, int quantityInStock, double cost, double failureRate, Machine machine) {
+    public SparePart(String name, int quantityInStock, double cost, double failureRate, double repairTime, Machine machine) {
         this.name = name;
         this.quantityInStock = quantityInStock;
         this.cost = cost;
         this.failureRate = failureRate;
         this.machine = machine;
-        this.optimalQuantity = SparePartCalculator.optimalStockValue(this.failureRate, this.cost, this.machine.getCost());
+        this.repairTime = repairTime;
+        this.optimalQuantity = SparePartCalculator.optimalStockValue(this.failureRate * this.repairTime, this.cost, this.machine.getCost());
+        this.quantityInRepair = 0;
     }
 
     public void setQuantityInStock(int newQuantity) {

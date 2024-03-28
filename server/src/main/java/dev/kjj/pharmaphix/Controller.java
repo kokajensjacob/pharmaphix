@@ -22,7 +22,7 @@ public class Controller {
 
     @GetMapping("/inventoryStatus")
     public ResponseEntity<InventoryResponseDto> getInventoryStatus() {
-        long needToBeOrdered = service.getInventoryStatus();
+        long needToBeOrdered = service.getTotalSparePartsInReapir();
         return ResponseEntity.ok(new InventoryResponseDto(needToBeOrdered));
     }
 
@@ -32,12 +32,6 @@ public class Controller {
         return ResponseEntity.ok(ProblemResponseDto.convertToDto(problem));
     }
 
-    @PatchMapping("/spare-parts/{id}")
-    public ResponseEntity<SparePartDto> deductSparePartFromInventory(@PathVariable String id, @RequestParam int amountToDeduct) {
-        SparePart sparePart = service.deductFromInventory(id, amountToDeduct);
-        return ResponseEntity.ok(SparePartDto.convertToDtos(sparePart));
-    }
-
     @PostMapping("/spare-parts")
     public ResponseEntity<Void> createSparePart(@RequestBody SparePartPostRequestDto body) {
         SparePart created = service.createNewSparePart(body);
@@ -45,8 +39,8 @@ public class Controller {
     }
 
     @PatchMapping("/spare-parts")
-    public ResponseEntity<List<SparePartDto>> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
-        SparePart[] spareParts = service.deductFromInventory(body);
-        return ResponseEntity.ok(SparePartDto.convertToDtos(spareParts));
+    public ResponseEntity<Void> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
+        service.deductFromInventory(body);
+        return ResponseEntity.ok().build();
     }
 }

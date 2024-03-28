@@ -35,6 +35,7 @@ public class PharmaPhixService {
         SparePart[] spareParts = getSpareParts(spRequests);
         for( int i = 0; i < spRequests.length; i++) {
             spareParts[i].setQuantityInStock(spareParts[i].getQuantityInStock() - spRequests[i].amountToDeduct());
+            spareParts[i].setQuantityInRepair(spareParts[i].getQuantityInRepair() + spRequests[i].amountToDeduct());
             spareParts[i] = spRepo.save(spareParts[i]);
         }
         return spareParts;
@@ -73,5 +74,12 @@ public class PharmaPhixService {
     public SparePart createNewSparePart(SparePartPostRequestDto body) {
         Machine associatedMachine = machineRepo.findById(body.machineId()).orElseThrow();
         return spRepo.save(body.toSparePart(associatedMachine));
+    }
+
+    public long getTotalSparePartsInReapir() {
+        return spRepo.findSparePartsByQuantityInRepairGreaterThan(0).stream()
+                .map(SparePart::getQuantityInRepair)
+                .reduce(Integer::sum)
+                .orElse(0);
     }
 }
