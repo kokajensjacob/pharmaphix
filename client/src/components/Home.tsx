@@ -17,7 +17,10 @@ export const Home = () => {
       </ul>
       <h1>Spare parts inventory status</h1>
       {orderQuantity && orderQuantity > 0 && (
-        <p>Order new ({orderQuantity}) </p>
+        <p>
+          There are currently ({orderQuantity}) spare parts undergoing repair in
+          the workshop
+        </p>
       )}
     </div>
   );
