@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { Aside } from "./components/Aside";
 import { Nav } from "./components/Nav";
 import { Home } from "./components/Home";
 import { ProblemPage } from "./components/ProblemPage";
@@ -8,7 +7,6 @@ function App() {
   return (
     <>
       <Nav />
-      <Aside />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

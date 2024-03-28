@@ -11,7 +11,7 @@ export const Home = () => {
 
   return (
     <div>
-      <ul className="breadcrumb">
+      <ul className="text-sm breadcrumbs">
         <li>
           <a href="/">Home</a>
         </li>
