@@ -15,12 +15,12 @@ export const Home = () => {
           <a href="/">Home</a>
         </li>
       </ul>
-      <h1>Spare parts inventory status</h1>
+
       {repairQuantity && (
-        <p>
+        <h1>
           There are currently ({repairQuantity}) spare parts undergoing repair
           in the workshop
-        </p>
+        </h1>
       )}
     </div>
   );
