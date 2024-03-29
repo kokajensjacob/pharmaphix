@@ -23,6 +23,7 @@ export type ProblemData = {
     toolName: string;
   }[];
   instructions: string;
+  associatedMachineName: string;
 };
 
 export type SparePartDeductReqDto = {

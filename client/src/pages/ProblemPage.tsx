@@ -8,7 +8,6 @@ export const ProblemPage = () => {
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const { machine_type_id, problem_id } = useParams();
 
-
   useEffect(() => {
     getAndSetProblemData();
   }, []);
@@ -48,7 +47,9 @@ export const ProblemPage = () => {
             <a href="/machines">Machines</a>
           </li>
           <li>
-            <a href={`/machines/${machine_type_id}`}>MachineName</a>
+            <a href={`/machines/${machine_type_id}`}>
+              {problemData?.associatedMachineName}
+            </a>
           </li>
           <li>
             <a href={`/machines/${machine_type_id}/${problemData?.problemId}`}>
