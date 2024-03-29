@@ -1,27 +1,7 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import { deductSparePartFromInventory, getProblemData } from "../api";
 import { useParams } from "react-router-dom";
-
-type ProblemData = {
-  problemName: string;
-  problemId: string;
-  problemDescription: string;
-  sparePartsNeeded: {
-    sparePartName: string;
-    sparePartId: string;
-    quantityNeeded: number;
-    quantityInStock: number;
-  }[];
-  toolsNeeded: {
-    toolName: string;
-  }[];
-  instructions: string;
-};
-
-export type SparePartDeductReqDto = {
-  sparePartId: string;
-  amountToDeduct: number;
-};
+import { ProblemData, SparePartDeductReqDto } from "../types";
 
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
