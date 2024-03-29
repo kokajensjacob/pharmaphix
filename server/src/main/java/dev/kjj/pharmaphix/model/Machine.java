@@ -19,6 +19,8 @@ public class Machine {
     @Column(name ="purchase_cost", nullable = false)
     private double cost;
 
+    private int quantity;
+
     @OneToMany(mappedBy = "machine")
     private Set<SparePart> sparePart;
 
