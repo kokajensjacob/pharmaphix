@@ -13,10 +13,13 @@ public class Machine {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(nullable = false)
     private String name;
 
     @Column(name ="purchase_cost", nullable = false)
     private double cost;
+
+    private int quantity;
 
     @OneToMany(mappedBy = "machine")
     private Set<SparePart> sparePart;
