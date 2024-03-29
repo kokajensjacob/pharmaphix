@@ -1,27 +1,7 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import { deductSparePartFromInventory, getProblemData } from "../api";
 import { useParams } from "react-router-dom";
-
-type ProblemData = {
-  problemName: string;
-  problemId: string;
-  problemDescription: string;
-  sparePartsNeeded: {
-    sparePartName: string;
-    sparePartId: string;
-    quantityNeeded: number;
-    quantityInStock: number;
-  }[];
-  toolsNeeded: {
-    toolName: string;
-  }[];
-  instructions: string;
-};
-
-export type SparePartDeductReqDto = {
-  sparePartId: string;
-  amountToDeduct: number;
-};
+import { ProblemData, SparePartDeductReqDto } from "../types";
 
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
@@ -37,8 +17,8 @@ export const ProblemPage = () => {
       setProblemData(data);
       setBtnDisabled(
         !data.sparePartsNeeded.every(
-          (sp) => sp.quantityInStock >= sp.quantityNeeded
-        )
+          (sp) => sp.quantityInStock >= sp.quantityNeeded,
+        ),
       );
     });
   };
@@ -50,7 +30,7 @@ export const ProblemPage = () => {
       body.push({
         sparePartId: sp.sparePartId,
         amountToDeduct: sp.quantityNeeded,
-      })
+      }),
     );
     deductSparePartFromInventory(body).then(() => getAndSetProblemData());
     (document.getElementById("my_modal_1") as HTMLDialogElement).close();
@@ -106,8 +86,8 @@ export const ProblemPage = () => {
                       return sp1compare < sp2compare
                         ? -1
                         : sp2compare < sp1compare
-                        ? 1
-                        : 0;
+                          ? 1
+                          : 0;
                     })
                     .map((sp) => (
                       <li key={sp.sparePartId}>
