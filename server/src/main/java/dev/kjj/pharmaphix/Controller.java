@@ -2,6 +2,7 @@ package dev.kjj.pharmaphix;
 
 import dev.kjj.pharmaphix.domain.PharmaPhixService;
 import dev.kjj.pharmaphix.dtos.*;
+import dev.kjj.pharmaphix.model.Machine;
 import dev.kjj.pharmaphix.model.Problem;
 import dev.kjj.pharmaphix.model.SparePart;
 import org.springframework.http.ResponseEntity;
@@ -62,11 +63,8 @@ public class Controller {
     }
 
     @GetMapping("/machines/{machine_id}/problems")
-    public ResponseEntity<List<ProblemListDto>> getProblemsForMachine(@PathVariable("machine_id") String machineId) {
-        List<ProblemListDto> problemList = service.getProblemsForMachine(machineId)
-                .stream()
-                .map(ProblemListDto::convertToDto)
-                .toList();
-        return ResponseEntity.ok(problemList);
+    public ResponseEntity<MachineProblemsResponseDto> getProblemsForMachine(@PathVariable("machine_id") String machineId) {
+        Machine retrieved = service.getMachine(machineId);
+        return ResponseEntity.ok(MachineProblemsResponseDto.convertToDto(retrieved));
     }
 }

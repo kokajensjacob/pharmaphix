@@ -97,4 +97,8 @@ public class PharmaPhixService {
     public List<SparePart> getAllSpareParts() {
         return spRepo.findAll();
     }
+
+    public Machine getMachine(String machineId) {
+        return machineRepo.findById(machineId).orElseThrow();
+    }
 }
