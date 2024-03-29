@@ -28,13 +28,24 @@ export const MachinesPage = () => {
       </div>
       <h1>Machines</h1>
       {machines ? (
-        <ul>
+        <>
           {machines.map((machine) => (
-            <li key={machine.machineId}>
-              <Link to={machine.machineId}>{machine.machineName}</Link>
-            </li>
+            <div className="inline-flex">
+              <div className="card w-72 bg-base-100 m-5 shadow">
+                <div className="card-body">
+                  <h2 className="card-title">{machine.machineName}</h2>
+                  <div className="card-actions justify-center">
+                    <Link to={machine.machineId}>
+                      <button className="btn btn-neutral">
+                        Related Problems
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </>
       ) : (
         <p>Loading...</p>
       )}
