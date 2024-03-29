@@ -10,7 +10,8 @@ public record ProblemResponseDto(
         String problemDescription,
         List<SparePartDto> sparePartsNeeded,
         List<ToolDto> toolsNeeded,
-        String instructions) {
+        String instructions,
+        String associatedMachineName) {
     public static ProblemResponseDto convertToDto(Problem problem) {
         return new ProblemResponseDto(
                 problem.getId(),
@@ -24,7 +25,8 @@ public record ProblemResponseDto(
                                 spn.getSparePart().getQuantityInStock())
                 ).toList(),
                 problem.getTools().stream().map(ToolDto::convertToDto).toList(),
-                problem.getInstructions()
+                problem.getInstructions(),
+                problem.getMachine().getName()
         );
     }
 }
