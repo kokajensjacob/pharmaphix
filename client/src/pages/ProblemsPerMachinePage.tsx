@@ -4,13 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import { getProblemPerMachineList } from "../api";
 
 export const ProblemsPerMachinePage = () => {
-  const [problems, setProblems] = useState<ProblemPerMachine[]>();
+  const [machineProblemsData, setMachineProblemsData] =
+    useState<ProblemPerMachine>();
   const { machine_type_id } = useParams<string>();
   const [breadcrumbUrl, setBreadcrumbUrl] = useState<string>();
 
   useEffect(() => {
     getProblemPerMachineList(machine_type_id as string).then((data) => {
-      setProblems(data);
+      setMachineProblemsData(data);
       setBreadcrumbUrl(`/machines/${machine_type_id}`);
     });
   }, []);
@@ -26,14 +27,18 @@ export const ProblemsPerMachinePage = () => {
             <a href="/machines">Machines</a>
           </li>
           <li>
-            <a href={breadcrumbUrl}>MachineNameCHANGEME</a>
+            <a href={breadcrumbUrl}>
+              {machineProblemsData
+                ? machineProblemsData.machineName
+                : "<machine_name>"}
+            </a>
           </li>
         </ul>
       </div>
       <h1>Related problems:</h1>
-      {problems ? (
+      {machineProblemsData ? (
         <div>
-          {problems.map((problem) => (
+          {machineProblemsData.problems.map((problem) => (
             <div className="inline-flex" key={problem.problemId}>
               <div className="card w-72 bg-base-100 m-5 shadow">
                 <div className="card-body">
