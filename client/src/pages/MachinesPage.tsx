@@ -11,9 +11,7 @@ export const MachinesPage = () => {
   const [machines, setMachines] = useState<Machine[]>();
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchMachines().then((data: Machine[]) => setMachines(data));
-    }, 3000);
+    fetchMachines().then((data: Machine[]) => setMachines(data));
   });
 
   return (

@@ -8,9 +8,7 @@ export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchSpareParts().then((data) => setSpareParts(data));
-    }, 3000);
+    fetchSpareParts().then((data) => setSpareParts(data));
   });
 
   return (
