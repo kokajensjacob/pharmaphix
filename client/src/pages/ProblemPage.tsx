@@ -6,7 +6,8 @@ import { ProblemData, SparePartDeductReqDto } from "../types";
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
-  const { problem_id } = useParams();
+  const { machine_type_id, problem_id } = useParams();
+
 
   useEffect(() => {
     getAndSetProblemData();
@@ -44,13 +45,13 @@ export const ProblemPage = () => {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/">Machines</a>
+            <a href="/machines">Machines</a>
           </li>
           <li>
-            <a href="/">MachineName</a>
+            <a href={`/machines/${machine_type_id}`}>MachineName</a>
           </li>
           <li>
-            <a href={`/machines/:machine_id/${problemData?.problemId}`}>
+            <a href={`/machines/${machine_type_id}/${problemData?.problemId}`}>
               {problemData?.problemName}
             </a>
           </li>

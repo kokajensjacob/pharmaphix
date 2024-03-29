@@ -13,6 +13,16 @@ export const SparePartsPage = () => {
 
   return (
     <>
+    <div className="text-sm breadcrumbs">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/spare-parts">Spare Parts</a>
+          </li>
+        </ul>
+      </div>
       <h1>Spare Parts</h1>
       {spareParts ? (
         <SparePartTable spareParts={spareParts} />

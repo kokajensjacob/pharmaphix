@@ -11,11 +11,13 @@ export const Home = () => {
 
   return (
     <div>
-      <ul className="text-sm breadcrumbs">
-        <li>
-          <a href="/">Home</a>
-        </li>
-      </ul>
+      <div className="text-sm breadcrumbs">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+        </ul>
+      </div>
 
       {repairQuantity && repairQuantity === 0 ? (
         <h1>
