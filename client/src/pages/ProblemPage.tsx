@@ -44,10 +44,10 @@ export const ProblemPage = () => {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/">Machines</a>
+            <a href="/machines">Machines</a>
           </li>
           <li>
-            <a href="/">MachineName</a>
+            <a href="/machines/">MachineName</a>
           </li>
           <li>
             <a href={`/machines/:machine_id/${problemData?.problemId}`}>

@@ -16,6 +16,16 @@ export const MachinesPage = () => {
 
   return (
     <>
+      <div className="text-sm breadcrumbs">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/machines">Machines</a>
+          </li>
+        </ul>
+      </div>
       <h1>Machines</h1>
       {machines ? (
         <ul>
