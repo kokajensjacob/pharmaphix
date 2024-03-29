@@ -1,6 +1,7 @@
 package dev.kjj.pharmaphix.domain;
 
 import dev.kjj.pharmaphix.dtos.SparePartPostRequestDto;
+import dev.kjj.pharmaphix.dtos.SparePartRepairRequestDto;
 import dev.kjj.pharmaphix.dtos.SparePartsDeductRequestDto;
 import dev.kjj.pharmaphix.model.Machine;
 import dev.kjj.pharmaphix.model.Problem;
@@ -104,5 +105,15 @@ public class PharmaPhixService {
 
     public List<SparePart> getSparePartsInRepair() {
         return spRepo.findSparePartsByQuantityInRepairGreaterThan(0);
+    }
+
+    public SparePart repairSparePart(String sparePartId, int quantityToRepair) {
+        SparePart sparePart = spRepo.findById(sparePartId).orElseThrow();
+        if (sparePart.getQuantityInRepair() < quantityToRepair) {
+            throw new IllegalStateException();
+        }
+        sparePart.setQuantityInRepair(sparePart.getQuantityInRepair() - quantityToRepair);
+        sparePart.setQuantityInStock(sparePart.getQuantityInStock() + quantityToRepair);
+        return spRepo.save(sparePart);
     }
 }
