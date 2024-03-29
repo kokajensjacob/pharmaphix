@@ -4,17 +4,16 @@ import { Link, useParams } from "react-router-dom";
 import { getProblemPerMachineList } from "../api";
 
 export const ProblemsPerMachinePage = () => {
-const [problems, setProblems] = useState<ProblemPerMachine[]>();
-const {machine_type_id} = useParams<string>();
-const [breadcrumbUrl, setBreadcrumbUrl] = useState<string>();
+  const [problems, setProblems] = useState<ProblemPerMachine[]>();
+  const { machine_type_id } = useParams<string>();
+  const [breadcrumbUrl, setBreadcrumbUrl] = useState<string>();
 
-useEffect(() => {
-  getProblemPerMachineList(machine_type_id as string)
-  .then(data => {
-    setProblems(data);
-    setBreadcrumbUrl(`/machines/${machine_type_id}`)
-  });
-}, [])
+  useEffect(() => {
+    getProblemPerMachineList(machine_type_id as string).then((data) => {
+      setProblems(data);
+      setBreadcrumbUrl(`/machines/${machine_type_id}`);
+    });
+  }, []);
 
   return (
     <>
@@ -31,6 +30,7 @@ useEffect(() => {
           </li>
         </ul>
       </div>
+      <h1>Related problems:</h1>
       {problems ? (
         <div>
           {problems.map((problem) => (
@@ -40,15 +40,17 @@ useEffect(() => {
                   <h2 className="card-title">{problem.problemName}</h2>
                   <div className="card-actions justify-center">
                     <Link to={problem.problemId}>
-                      <button className="btn btn-neutral">
-                        See Details
-                      </button>
+                      <button className="btn btn-neutral">See Details</button>
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-      </div>) : ( <h1> Loading ... </h1> )}
-      </>);
+        </div>
+      ) : (
+        <h1> Loading ... </h1>
+      )}
+    </>
+  );
 };
