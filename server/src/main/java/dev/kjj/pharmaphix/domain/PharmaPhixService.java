@@ -80,7 +80,7 @@ public class PharmaPhixService {
     }
 
     public long getTotalSparePartsInRepair() {
-        return spRepo.findSparePartsByQuantityInRepairGreaterThan(0).stream()
+        return this.getSparePartsInRepair().stream()
                 .map(SparePart::getQuantityInRepair)
                 .reduce(Integer::sum)
                 .orElse(0);
@@ -100,5 +100,9 @@ public class PharmaPhixService {
 
     public Machine getMachine(String machineId) {
         return machineRepo.findById(machineId).orElseThrow();
+    }
+
+    public List<SparePart> getSparePartsInRepair() {
+        return spRepo.findSparePartsByQuantityInRepairGreaterThan(0);
     }
 }

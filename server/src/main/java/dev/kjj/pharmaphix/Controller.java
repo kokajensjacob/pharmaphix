@@ -28,6 +28,14 @@ public class Controller {
         return ResponseEntity.ok(new SparePartInRepairDto(unitsInRepair));
     }
 
+    @GetMapping("/spare-parts/in-repair-list")
+    public ResponseEntity<List<SparePartInRepairListResponseDto>> getUnitsInRepair() {
+        List<SparePartInRepairListResponseDto> responseBody = service.getSparePartsInRepair().stream()
+                .map(SparePartInRepairListResponseDto::convertToDto)
+                .toList();
+        return ResponseEntity.ok(responseBody);
+    }
+
     @GetMapping("/problems/{problem_id}")
     public ResponseEntity<ProblemResponseDto> getProblemData(@PathVariable("problem_id") String problemId) {
         Problem problem = service.getProblem(problemId);
