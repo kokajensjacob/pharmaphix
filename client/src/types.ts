@@ -29,3 +29,8 @@ export type SparePartDeductReqDto = {
   sparePartId: string;
   amountToDeduct: number;
 };
+
+export type ProblemPerMachine = {
+  problemId: string;
+  problemName: string;
+}

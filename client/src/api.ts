@@ -38,3 +38,9 @@ export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
     .then((resp) => resp.json())
     .catch(() => console.error("failed to fetch problem data"));
 };
+
+export const getProblemPerMachineList = (machineId: string) => {
+  return fetch(`${BASE_URL}/machines/${machineId}/problems`)
+    .then((resp) => resp.json())
+    .catch(() => console.error("failed to fetch problem list data"));
+}
