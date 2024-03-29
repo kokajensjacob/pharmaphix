@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 type Machine = {
   machineId: string;
   machineName: string;
+  machineQuantity: number;
 };
 
 export const MachinesPage = () => {
@@ -12,7 +13,7 @@ export const MachinesPage = () => {
 
   useEffect(() => {
     fetchMachines().then((data: Machine[]) => setMachines(data));
-  });
+  }, []);
 
   return (
     <>
@@ -30,10 +31,11 @@ export const MachinesPage = () => {
       {machines ? (
         <>
           {machines.map((machine) => (
-            <div className="inline-flex">
+            <div key={machine.machineId} className="inline-flex">
               <div className="card w-72 bg-base-100 m-5 shadow">
                 <div className="card-body">
                   <h2 className="card-title">{machine.machineName}</h2>
+                  <p>Quantity: {machine.machineQuantity}</p>
                   <div className="card-actions justify-center">
                     <Link to={machine.machineId}>
                       <button className="btn btn-neutral">
