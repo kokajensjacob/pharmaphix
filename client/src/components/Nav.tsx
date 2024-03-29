@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const Nav = () => {
   return (
@@ -12,10 +12,24 @@ export const Nav = () => {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <div>Machines</div>
+              <NavLink
+                to="/machines"
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
+              >
+                <div>Machines</div>
+              </NavLink>
             </li>
             <li>
-              <div>Spare Parts</div>
+              <NavLink
+                to="/spare-parts"
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
+              >
+                <div>Spare Parts</div>
+              </NavLink>
             </li>
           </ul>
         </div>
