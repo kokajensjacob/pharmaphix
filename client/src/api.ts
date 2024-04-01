@@ -21,8 +21,7 @@ export const getInvStatus = () => {
 
 export const getProblemData = (problem_id: string) => {
   return fetch(`${BASE_URL}/problems/${problem_id}`)
-    .then((resp) => resp.json())
-    .catch(() => console.error("failed to fetch problem data"));
+    .then((resp) => resp.json());
 };
 
 export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
@@ -32,9 +31,7 @@ export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  })
-    .then((resp) => resp.json())
-    .catch(() => console.error("failed to fetch problem data"));
+  });
 };
 
 export const getProblemPerMachineList = (machineId: string) => {

@@ -2,25 +2,30 @@ import { MouseEventHandler, useEffect, useState } from "react";
 import { deductSparePartFromInventory, getProblemData } from "../api";
 import { useParams } from "react-router-dom";
 import { ProblemData, SparePartDeductReqDto } from "../types";
+import { FetchError } from "../components/errors/FetchError";
 
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const { machine_type_id, problem_id } = useParams();
+  const [showGetError, setShowGetError] = useState<boolean>(false);
+  const [showPatchError, setShowPatchError] = useState<boolean>(false);
 
   useEffect(() => {
     getAndSetProblemData();
   }, []);
 
   const getAndSetProblemData = () => {
-    getProblemData(problem_id!).then((data: ProblemData) => {
-      setProblemData(data);
-      setBtnDisabled(
-        !data.sparePartsNeeded.every(
-          (sp) => sp.quantityInStock >= sp.quantityNeeded,
-        ),
-      );
-    });
+    getProblemData(problem_id!)
+      .then((data: ProblemData) => {
+        setProblemData(data);
+        setBtnDisabled(
+          !data.sparePartsNeeded.every(
+            (sp) => sp.quantityInStock >= sp.quantityNeeded
+          )
+        );
+      })
+      .catch(() => setShowGetError(true));
   };
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -30,37 +35,61 @@ export const ProblemPage = () => {
       body.push({
         sparePartId: sp.sparePartId,
         amountToDeduct: sp.quantityNeeded,
-      }),
+      })
     );
-    deductSparePartFromInventory(body).then(() => getAndSetProblemData());
-    (document.getElementById("my_modal_1") as HTMLDialogElement).close();
+    deductSparePartFromInventory(body)
+      .then((resp) => {
+        switch (resp.status) {
+          case 200:
+            getAndSetProblemData();
+            (
+              document.getElementById("my_modal_1") as HTMLDialogElement
+            ).close();
+            break;
+          case 404:
+          case 400:
+            setShowPatchError(true);
+            break;
+          default:
+            setShowPatchError(true);
+        }
+      })
+      .catch(() => setShowPatchError(true));
   };
 
   return (
     <>
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/machines">Machines</a>
-          </li>
-          <li>
-            <a href={`/machines/${machine_type_id}`}>
-              {problemData?.associatedMachineName}
-            </a>
-          </li>
-          <li>
-            <a href={`/machines/${machine_type_id}/${problemData?.problemId}`}>
-              {problemData?.problemName}
-            </a>
-          </li>
-        </ul>
-      </div>
-      <h3>problems</h3>
-      {problemData && (
+      {(showGetError || problemData) && (
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/machines">Machines</a>
+            </li>
+            <li>
+              <a href={`/machines/${machine_type_id}`}>
+                {problemData
+                  ? problemData.associatedMachineName
+                  : "<machine_name>"}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`/machines/${machine_type_id}/${problemData?.problemId}`}
+              >
+                {problemData ? problemData.problemName : "<problem_name>"}
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
+      {showGetError ? (
+        <FetchError />
+      ) : problemData ? (
         <>
+          <h3>problems</h3>
           <h1>{problemData.problemName}</h1>
           <p>{problemData.problemDescription}</p>
           <div className="card-actions justify-end">
@@ -88,8 +117,8 @@ export const ProblemPage = () => {
                       return sp1compare < sp2compare
                         ? -1
                         : sp2compare < sp1compare
-                          ? 1
-                          : 0;
+                        ? 1
+                        : 0;
                     })
                     .map((sp) => (
                       <li key={sp.sparePartId}>
@@ -108,6 +137,7 @@ export const ProblemPage = () => {
                 <p className="py-4">
                   Are you sure you want to start the repair?
                 </p>
+                {showPatchError && <p>Error</p>}
                 <div className="modal-action">
                   <form method="dialog">
                     <button className="btn" onClick={handleOnClick}>
@@ -134,6 +164,8 @@ export const ProblemPage = () => {
             <p>{problemData.instructions}</p>
           </div>
         </>
+      ) : (
+        <h1> Loading ... </h1>
       )}
     </>
   );
