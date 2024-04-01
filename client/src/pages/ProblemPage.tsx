@@ -9,7 +9,11 @@ export const ProblemPage = () => {
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const { machine_type_id, problem_id } = useParams();
   const [showGetError, setShowGetError] = useState<boolean>(false);
-  const [showPatchError, setShowPatchError] = useState<boolean>(false);
+  const [patchUserDialog, setPatchUserDialog] = useState<{
+    showMessage: boolean;
+    message: string;
+  }>({ showMessage: false, message: "" });
+  const [submitYesClicked, setSubmitYesClicked] = useState<boolean>(false);
 
   useEffect(() => {
     getAndSetProblemData();
@@ -30,6 +34,7 @@ export const ProblemPage = () => {
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
+    setSubmitYesClicked(true);
     const body: SparePartDeductReqDto[] = [];
     problemData!.sparePartsNeeded.forEach((sp) =>
       body.push({
@@ -41,20 +46,39 @@ export const ProblemPage = () => {
       .then((resp) => {
         switch (resp.status) {
           case 200:
-            getAndSetProblemData();
-            (
-              document.getElementById("my_modal_1") as HTMLDialogElement
-            ).close();
+            setPatchUserDialog({ showMessage: true, message: "Successful" });
+            setTimeout(() => {
+              setPatchUserDialog({ showMessage: false, message: "" });
+              getAndSetProblemData();
+              (
+                document.getElementById("my_modal_1") as HTMLDialogElement
+              ).close();
+            }, 800);
             break;
           case 404:
+            setPatchUserDialog({
+              showMessage: true,
+              message: "Spare Part not found",
+            });
+            break;
           case 400:
-            setShowPatchError(true);
+            setPatchUserDialog({
+              showMessage: true,
+              message: "Insufficient Inventory",
+            });
             break;
           default:
-            setShowPatchError(true);
+            setPatchUserDialog({ showMessage: true, message: "Unknown error" });
         }
       })
-      .catch(() => setShowPatchError(true));
+      .then(() => setSubmitYesClicked(false))
+      .catch(() => {
+        setPatchUserDialog({
+          showMessage: true,
+          message: "Server not available at the moment. Try again.",
+        });
+        setSubmitYesClicked(false);
+      });
   };
 
   return (
@@ -137,13 +161,45 @@ export const ProblemPage = () => {
                 <p className="py-4">
                   Are you sure you want to start the repair?
                 </p>
-                {showPatchError && <p>Error</p>}
+                {submitYesClicked && !patchUserDialog.showMessage && <span>Loading...</span>}
+                {patchUserDialog.showMessage && (
+                  <div
+                    role="alert"
+                    className={
+                      patchUserDialog.message === "Successful"
+                        ? "alert alert-success"
+                        : "alert alert-error"
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="stroke-current shrink-0 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span>{patchUserDialog.message}</span>
+                  </div>
+                )}
                 <div className="modal-action">
                   <form method="dialog">
                     <button className="btn" onClick={handleOnClick}>
                       Yes
                     </button>
-                    <button className="btn">Cancel</button>
+                    <button
+                      className="btn"
+                      onClick={() =>
+                        patchUserDialog.showMessage && getAndSetProblemData()
+                      }
+                    >
+                      Cancel
+                    </button>
                   </form>
                 </div>
               </div>
