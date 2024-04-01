@@ -9,11 +9,11 @@ export const SparePartsPage = () => {
 
   useEffect(() => {
     fetchSpareParts().then((data) => setSpareParts(data));
-  });
+  }, []);
 
   return (
     <>
-    <div className="text-sm breadcrumbs">
+      <div className="text-sm breadcrumbs">
         <ul>
           <li>
             <a href="/">Home</a>
@@ -24,6 +24,19 @@ export const SparePartsPage = () => {
         </ul>
       </div>
       <h1>Spare Parts</h1>
+      <div className="collapse collapse-arrow">
+        <input type="checkbox" className="peer" />
+        <div className="collapse-title text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+          Ongoing Repairs
+        </div>
+        <div className="collapse-content">
+          <ul>
+            <li>f</li>
+            <li>d</li>
+            <li>g</li>
+          </ul>
+        </div>
+      </div>
       {spareParts ? (
         <SparePartTable spareParts={spareParts} />
       ) : (
