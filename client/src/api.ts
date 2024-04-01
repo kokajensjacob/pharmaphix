@@ -5,7 +5,6 @@ const BASE_URL = "https://pharmaphix-server.azurewebsites.net/api";
 export const fetchMachines = async () => {
   return fetch(`${BASE_URL}/machines`)
     .then((resp) => resp.json());
-    // .catch(() => console.error("failed to fetch machines"));
 };
 
 export async function fetchSpareParts() {
@@ -40,8 +39,7 @@ export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
 
 export const getProblemPerMachineList = (machineId: string) => {
   return fetch(`${BASE_URL}/machines/${machineId}/problems`)
-    .then((resp) => resp.json())
-    .catch(() => console.error("failed to fetch problem list data"));
+    .then((resp) => resp.json());
 }
 
 export const getSparePartsInRepair = () => {

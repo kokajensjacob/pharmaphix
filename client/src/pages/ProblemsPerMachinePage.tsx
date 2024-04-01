@@ -2,18 +2,22 @@ import { useEffect, useState } from "react";
 import { ProblemPerMachine } from "../types";
 import { Link, useParams } from "react-router-dom";
 import { getProblemPerMachineList } from "../api";
+import { FetchError } from "../components/errors/FetchError";
 
 export const ProblemsPerMachinePage = () => {
   const [machineProblemsData, setMachineProblemsData] =
     useState<ProblemPerMachine>();
   const { machine_type_id } = useParams<string>();
   const [breadcrumbUrl, setBreadcrumbUrl] = useState<string>();
+  const [showError, setShowError] = useState<boolean>(false);
 
   useEffect(() => {
-    getProblemPerMachineList(machine_type_id as string).then((data) => {
+    getProblemPerMachineList(machine_type_id as string)
+    .then((data) => {
       setMachineProblemsData(data);
       setBreadcrumbUrl(`/machines/${machine_type_id}`);
-    });
+    })
+    .catch(() => setShowError(true));
   }, []);
 
   return (
@@ -35,7 +39,10 @@ export const ProblemsPerMachinePage = () => {
           </li>
         </ul>
       </div>
-      {machineProblemsData ? (
+      { showError ? (
+          <FetchError />
+        ) :
+      machineProblemsData ? (
         <>
           <h1>{machineProblemsData.machineName}</h1>
           <h2>Quantity: {machineProblemsData.machineQuantity}</h2>
