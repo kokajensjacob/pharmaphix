@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { SparePartsInRepair } from "../types";
+import { markSparePartAsRepaired } from "../api";
 
 export const SparePartInRepair = ({ sp }: { sp: SparePartsInRepair }) => {
   const [disableFixBtn, setDisableFixBtn] = useState<boolean>(true);
@@ -8,6 +9,10 @@ export const SparePartInRepair = ({ sp }: { sp: SparePartsInRepair }) => {
   const handleOnChange = () => {
     setDisableFixBtn(inputElement.current?.value === "0");
   };
+
+const handleClick = () => {
+  markSparePartAsRepaired(sp.id, Number(inputElement.current!.value));
+}
 
   return (
         <li>
@@ -42,7 +47,8 @@ export const SparePartInRepair = ({ sp }: { sp: SparePartsInRepair }) => {
                   ref={inputElement}
                   onChange={handleOnChange}
                 />
-                <button className="btn" disabled={disableFixBtn}>
+                <button className="btn" disabled={disableFixBtn}
+                onClick={handleClick}>
                   Mark as Fixed
                 </button>
                 <button className="btn">Close</button>

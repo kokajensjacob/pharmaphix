@@ -50,3 +50,15 @@ export const getSparePartsInRepair = () => {
     .then((resp) => resp.json())
     .catch(() => console.error("failed to fetch spare parts in repair"))
 }
+
+export const markSparePartAsRepaired = (sparePartId: string, quantityToRepair: number) => {
+  return fetch(`${BASE_URL}/spare-parts/${sparePartId}`, 
+  {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({quantityToRepair: quantityToRepair})
+  }
+  ).catch(() => console.error("Failed to update spare parts fixed"))
+}
