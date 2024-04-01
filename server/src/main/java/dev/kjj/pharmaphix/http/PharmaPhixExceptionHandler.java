@@ -4,6 +4,7 @@ import dev.kjj.pharmaphix.domain.exceptions.MachineEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.SparePartEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.InsufficientInventoryException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,4 +31,12 @@ public class PharmaPhixExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<String> handleSparePartInsufficientInventory() {
         return ResponseEntity.status(400).body("Insufficient inventory");
     }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    protected ResponseEntity<String> handleNonUniqueName() {
+        return ResponseEntity.status(409).body("Input not unique");
+    }
+
+
+
 }

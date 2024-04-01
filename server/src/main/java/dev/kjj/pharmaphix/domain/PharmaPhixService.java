@@ -31,12 +31,6 @@ public class PharmaPhixService {
         return problemRepo.findById(problemId).orElseThrow(ProblemEntityNotFoundException::new);
     }
 
-    public SparePart deductFromInventory(String id, int amountToDeduct) {
-        SparePart sparePart = spRepo.findById(id).orElseThrow();
-        sparePart.setQuantityInStock(sparePart.getQuantityInStock() - amountToDeduct);
-        return spRepo.save(sparePart);
-    }
-
     public SparePart[] deductFromInventory(SparePartsDeductRequestDto[] spRequests) {
 
         SparePart[] spareParts = getSpareParts(spRequests);
@@ -61,17 +55,6 @@ public class PharmaPhixService {
         return retrievedSpareParts;
     }
 
-    public long getInventoryStatus() {
-        return spRepo.findAll().stream().filter(sparePart -> sparePart.getQuantityInStock() < sparePart.getOptimalQuantity()).count();
-    }
-
-    private void setOptimalQuantity(SparePart sparePart) {
-        if (sparePart.getOptimalQuantity() == 0) {
-            sparePart.setOptimalQuantity(SparePartCalculator.optimalStockValue(sparePart.getFailureRate(), sparePart.getCost(), sparePart.getMachine().getCost()));
-            spRepo.save(sparePart);
-        }
-    }
-
     public SparePart createNewSparePart(SparePartPostRequestDto body) {
         Machine associatedMachine = machineRepo.findById(body.machineId()).orElseThrow(MachineEntityNotFoundException::new);
         return spRepo.save(body.toSparePart(associatedMachine));
@@ -83,10 +66,6 @@ public class PharmaPhixService {
 
     public List<Machine> getAllMachines() {
         return machineRepo.findAll();
-    }
-
-    public Collection<Problem> getProblemsForMachine(String machineId) {
-        return machineRepo.findById(machineId).orElseThrow().getProblems();
     }
 
     public List<SparePart> getAllSpareParts() {
