@@ -9,8 +9,7 @@ export const fetchMachines = async () => {
 
 export async function fetchSpareParts() {
   return fetch(`${BASE_URL}/spare-parts`)
-    .then((resp) => resp.json())
-    .catch(() => console.error("failed to fetch spare parts"));
+    .then((resp) => resp.json());
 }
 
 export const getInvStatus = () => {
@@ -41,8 +40,7 @@ export const getProblemPerMachineList = (machineId: string) => {
 
 export const getSparePartsInRepair = () => {
   return fetch(`${BASE_URL}/spare-parts/in-repair-list`)
-    .then((resp) => resp.json())
-    .catch(() => console.error("failed to fetch spare parts in repair"))
+    .then((resp) => resp.json());
 }
 
 export const markSparePartAsRepaired = (sparePartId: string, quantityToRepair: number) => {
@@ -53,6 +51,5 @@ export const markSparePartAsRepaired = (sparePartId: string, quantityToRepair: n
       "Content-Type": "application/json",
     },
     body: JSON.stringify({quantityToRepair: quantityToRepair})
-  }
-  ).catch(() => console.error("Failed to update spare parts fixed"))
+  });
 }
