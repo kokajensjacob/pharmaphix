@@ -1,4 +1,11 @@
 package dev.kjj.pharmaphix.dtos;
 
-public record SparePartsDeductRequestDto(String sparePartId, int amountToDeduct) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
+public record SparePartsDeductRequestDto(
+        @NotBlank
+        String sparePartId,
+        @Positive
+        int amountToDeduct) {
 }

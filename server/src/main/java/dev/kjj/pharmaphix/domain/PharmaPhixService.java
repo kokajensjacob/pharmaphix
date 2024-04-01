@@ -2,6 +2,8 @@ package dev.kjj.pharmaphix.domain;
 
 import dev.kjj.pharmaphix.domain.exceptions.MachineEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
+import dev.kjj.pharmaphix.domain.exceptions.SparePartEntityNotFoundException;
+import dev.kjj.pharmaphix.domain.exceptions.InsufficientInventoryException;
 import dev.kjj.pharmaphix.dtos.SparePartPostRequestDto;
 import dev.kjj.pharmaphix.dtos.SparePartsDeductRequestDto;
 import dev.kjj.pharmaphix.model.Machine;
@@ -49,9 +51,9 @@ public class PharmaPhixService {
     private SparePart[] getSpareParts(SparePartsDeductRequestDto[] spRequests) {
         SparePart[] retrievedSpareParts = new SparePart[spRequests.length];
         for (int i = 0; i < spRequests.length; i++) {
-            SparePart sp = spRepo.findById(spRequests[i].sparePartId()).orElseThrow();
+            SparePart sp = spRepo.findById(spRequests[i].sparePartId()).orElseThrow(SparePartEntityNotFoundException::new);
             if (sp.getQuantityInStock() < spRequests[i].amountToDeduct()) {
-                throw new IllegalStateException("Not enough inventory.");
+                throw new InsufficientInventoryException();
             } else {
                 retrievedSpareParts[i] = sp;
             }
@@ -60,18 +62,12 @@ public class PharmaPhixService {
     }
 
     public long getInventoryStatus() {
-        return spRepo.findAll().stream()
-                .filter(sparePart -> sparePart.getQuantityInStock() < sparePart.getOptimalQuantity())
-                .count();
+        return spRepo.findAll().stream().filter(sparePart -> sparePart.getQuantityInStock() < sparePart.getOptimalQuantity()).count();
     }
 
     private void setOptimalQuantity(SparePart sparePart) {
         if (sparePart.getOptimalQuantity() == 0) {
-            sparePart.setOptimalQuantity(SparePartCalculator.optimalStockValue(
-                    sparePart.getFailureRate(),
-                    sparePart.getCost(),
-                    sparePart.getMachine().getCost()
-            ));
+            sparePart.setOptimalQuantity(SparePartCalculator.optimalStockValue(sparePart.getFailureRate(), sparePart.getCost(), sparePart.getMachine().getCost()));
             spRepo.save(sparePart);
         }
     }
@@ -82,10 +78,7 @@ public class PharmaPhixService {
     }
 
     public long getTotalSparePartsInRepair() {
-        return this.getSparePartsInRepair().stream()
-                .map(SparePart::getQuantityInRepair)
-                .reduce(Integer::sum)
-                .orElse(0);
+        return this.getSparePartsInRepair().stream().map(SparePart::getQuantityInRepair).reduce(Integer::sum).orElse(0);
     }
 
     public List<Machine> getAllMachines() {
@@ -101,7 +94,7 @@ public class PharmaPhixService {
     }
 
     public Machine getMachine(String machineId) {
-        return machineRepo.findById(machineId).orElseThrow();
+        return machineRepo.findById(machineId).orElseThrow(MachineEntityNotFoundException::new);
     }
 
     public List<SparePart> getSparePartsInRepair() {
@@ -109,9 +102,9 @@ public class PharmaPhixService {
     }
 
     public SparePart repairSparePart(String sparePartId, int quantityToRepair) {
-        SparePart sparePart = spRepo.findById(sparePartId).orElseThrow();
+        SparePart sparePart = spRepo.findById(sparePartId).orElseThrow(SparePartEntityNotFoundException::new);
         if (sparePart.getQuantityInRepair() < quantityToRepair) {
-            throw new IllegalStateException();
+            throw new InsufficientInventoryException();
         }
         sparePart.setQuantityInRepair(sparePart.getQuantityInRepair() - quantityToRepair);
         sparePart.setQuantityInStock(sparePart.getQuantityInStock() + quantityToRepair);

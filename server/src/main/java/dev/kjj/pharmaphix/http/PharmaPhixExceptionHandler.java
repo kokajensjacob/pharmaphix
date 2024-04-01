@@ -2,6 +2,8 @@ package dev.kjj.pharmaphix.http;
 
 import dev.kjj.pharmaphix.domain.exceptions.MachineEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
+import dev.kjj.pharmaphix.domain.exceptions.SparePartEntityNotFoundException;
+import dev.kjj.pharmaphix.domain.exceptions.InsufficientInventoryException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,5 +19,15 @@ public class PharmaPhixExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({MachineEntityNotFoundException.class})
     protected ResponseEntity<String> handleMachineEntityNotFound() {
         return ResponseEntity.status(404).body("Couldn't find machine entity");
+    }
+
+    @ExceptionHandler({SparePartEntityNotFoundException.class})
+    protected ResponseEntity<String> handleSparePartEntityNotFound() {
+        return ResponseEntity.status(404).body("Couldn't find spare part entity");
+    }
+
+    @ExceptionHandler({InsufficientInventoryException.class})
+    protected ResponseEntity<String> handleSparePartInsufficientInventory() {
+        return ResponseEntity.status(400).body("Insufficient inventory");
     }
 }

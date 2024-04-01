@@ -58,7 +58,7 @@ public class Controller {
     }
 
     @PatchMapping("/spare-parts")
-    public ResponseEntity<Void> deductSparePartsFromInventory(@RequestBody SparePartsDeductRequestDto[] body) {
+    public ResponseEntity<Void> deductSparePartsFromInventory(@Valid @RequestBody SparePartsDeductRequestDto[] body) {
         service.deductFromInventory(body);
         return ResponseEntity.ok().build();
     }
