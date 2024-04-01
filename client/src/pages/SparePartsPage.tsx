@@ -36,7 +36,7 @@ export const SparePartsPage = () => {
         <div className="collapse-content">
           <ul>
             {sparePartsInRepair?.map((sp) => (
-              <SparePartInRepair sp={sp} />
+              <SparePartInRepair key={sp.id} sp={sp} />
             ))}
           </ul>
         </div>
