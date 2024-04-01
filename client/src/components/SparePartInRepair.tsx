@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { MouseEventHandler, useRef, useState } from "react";
 import { markSparePartAsRepaired } from "../api";
 import { SparePartsInRepair } from "../types";
+import { PatchUserDialog } from "./PatchUserDialog";
 
 type SparePartInRepairProps = {
   sp: SparePartsInRepair;
@@ -17,17 +18,27 @@ export const SparePartInRepair = ({
     showMessage: boolean;
     message: string;
   }>({ showMessage: false, message: "" });
+  const [submitYesClicked, setSubmitYesClicked] = useState<boolean>(false);
 
   const handleOnChange = () => {
     setDisableFixBtn(inputElement.current?.value === "0");
   };
 
-  const handleClick = () => {
-    markSparePartAsRepaired(sp.id, Number(inputElement.current!.value)).then(
-      (resp) => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    setSubmitYesClicked(true);
+    markSparePartAsRepaired(sp.id, Number(inputElement.current!.value))
+      .then((resp) => {
         switch (resp.status) {
           case 204:
-            triggerRerenderOnParent();
+            setUserDialog({ showMessage: true, message: "Successful" });
+            setTimeout(() => {
+              setUserDialog({ showMessage: false, message: "" });
+              triggerRerenderOnParent();
+              (
+                document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
+              ).close();
+            }, 800);
             break;
           case 400:
             setUserDialog({
@@ -48,8 +59,15 @@ export const SparePartInRepair = ({
               message: "Unexpected error",
             });
         }
-      }
-    );
+      })
+      .then(() => setSubmitYesClicked(false))
+      .catch(() => {
+        setUserDialog({
+          showMessage: true,
+          message: "Server not available at the moment. Try again.",
+        });
+        setSubmitYesClicked(false);
+      });
   };
 
   return (
@@ -60,7 +78,6 @@ export const SparePartInRepair = ({
         onClick={() => {
           inputElement.current!.value = "0";
           setDisableFixBtn(true);
-
           (
             document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
           ).showModal();
@@ -73,18 +90,22 @@ export const SparePartInRepair = ({
           <h3 className="font-bold text-lg">{sp.name}</h3>
           <p className="py-4">Related Machine: {sp.associatedMachineName}</p>
           <p className="py-4">Quantity in repair: {sp.quantityInRepair}</p>
+          {submitYesClicked && !userDialog.showMessage && <span>Loading...</span>}
+          {userDialog.showMessage && (
+            <PatchUserDialog message={userDialog.message} />
+          )}
           <div className="modal-action">
+            <label htmlFor={`input_${sp.id}`}>Mark as fixed: </label>
+            <input
+              type="number"
+              id={`input_${sp.id}`}
+              min={0}
+              max={sp.quantityInRepair}
+              defaultValue={0}
+              ref={inputElement}
+              onChange={handleOnChange}
+            />
             <form method="dialog">
-              <label htmlFor={`input_${sp.id}`}>Mark as fixed: </label>
-              <input
-                type="number"
-                id={`input_${sp.id}`}
-                min={0}
-                max={sp.quantityInRepair}
-                defaultValue={0}
-                ref={inputElement}
-                onChange={handleOnChange}
-              />
               <button
                 className="btn"
                 disabled={disableFixBtn}
