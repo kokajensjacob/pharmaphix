@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
-import { fetchSpareParts } from "../api";
+import { fetchSpareParts, getSparePartsInRepair } from "../api";
 import "../SparePartsPage.css";
-import { SparePart } from "../types";
+import { SparePart, SparePartsInRepair } from "../types";
 import { SparePartTable } from "../components/SparePartTable";
+import { Link } from "react-router-dom";
 
 export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
+  const [sparePartsInRepair, setSparePartsInRepair] =
+    useState<SparePartsInRepair[]>();
 
   useEffect(() => {
     fetchSpareParts().then((data) => setSpareParts(data));
+    getSparePartsInRepair().then((data) => setSparePartsInRepair(data));
   }, []);
 
   return (
@@ -31,9 +35,15 @@ export const SparePartsPage = () => {
         </div>
         <div className="collapse-content">
           <ul>
-            <li>f</li>
-            <li>d</li>
-            <li>g</li>
+            {sparePartsInRepair?.map((sp) => (
+             <>
+             <li key={sp.id}>
+                {" "}
+                {sp.name}
+              </li>
+              <button>Details</button>
+              </>
+            ))}
           </ul>
         </div>
       </div>

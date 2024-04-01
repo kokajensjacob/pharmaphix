@@ -39,3 +39,10 @@ export type ProblemPerMachine = {
     problemName: string;
   }[];
 };
+
+export type SparePartsInRepair = {
+  id: string;
+  name: string;
+  quantityInRepair: number;
+  associatedMachineName: string;
+}

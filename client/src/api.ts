@@ -44,3 +44,9 @@ export const getProblemPerMachineList = (machineId: string) => {
     .then((resp) => resp.json())
     .catch(() => console.error("failed to fetch problem list data"));
 }
+
+export const getSparePartsInRepair = () => {
+  return fetch(`${BASE_URL}/spare-parts/in-repair-list`)
+    .then((resp) => resp.json())
+    .catch(() => console.error("failed to fetch spare parts in repair"))
+}
