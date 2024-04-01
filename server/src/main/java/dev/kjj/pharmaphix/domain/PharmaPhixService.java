@@ -1,5 +1,6 @@
 package dev.kjj.pharmaphix.domain;
 
+import dev.kjj.pharmaphix.domain.exceptions.MachineEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
 import dev.kjj.pharmaphix.dtos.SparePartPostRequestDto;
 import dev.kjj.pharmaphix.dtos.SparePartsDeductRequestDto;
@@ -76,7 +77,7 @@ public class PharmaPhixService {
     }
 
     public SparePart createNewSparePart(SparePartPostRequestDto body) {
-        Machine associatedMachine = machineRepo.findById(body.machineId()).orElseThrow();
+        Machine associatedMachine = machineRepo.findById(body.machineId()).orElseThrow(MachineEntityNotFoundException::new);
         return spRepo.save(body.toSparePart(associatedMachine));
     }
 

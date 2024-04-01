@@ -5,6 +5,7 @@ import dev.kjj.pharmaphix.dtos.*;
 import dev.kjj.pharmaphix.model.Machine;
 import dev.kjj.pharmaphix.model.Problem;
 import dev.kjj.pharmaphix.model.SparePart;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +52,7 @@ public class Controller {
     }
 
     @PostMapping("/spare-parts")
-    public ResponseEntity<Void> createSparePart(@RequestBody SparePartPostRequestDto body) {
+    public ResponseEntity<Void> createSparePart(@Valid @RequestBody SparePartPostRequestDto body) {
         SparePart created = service.createNewSparePart(body);
         return ResponseEntity.created(URI.create("/api/spare-parts/" + created.getId())).build();
     }

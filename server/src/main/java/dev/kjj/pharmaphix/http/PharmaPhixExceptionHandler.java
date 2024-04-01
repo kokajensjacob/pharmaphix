@@ -1,5 +1,6 @@
 package dev.kjj.pharmaphix.http;
 
+import dev.kjj.pharmaphix.domain.exceptions.MachineEntityNotFoundException;
 import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,5 +12,10 @@ public class PharmaPhixExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ProblemEntityNotFoundException.class})
     protected ResponseEntity<String> handleProblemEntityNotFound() {
         return ResponseEntity.status(404).body("Couldn't find problem entity");
+    }
+
+    @ExceptionHandler({MachineEntityNotFoundException.class})
+    protected ResponseEntity<String> handleMachineEntityNotFound() {
+        return ResponseEntity.status(404).body("Couldn't find machine entity");
     }
 }
