@@ -1,7 +1,7 @@
 package dev.kjj.pharmaphix.domain;
 
+import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
 import dev.kjj.pharmaphix.dtos.SparePartPostRequestDto;
-import dev.kjj.pharmaphix.dtos.SparePartRepairRequestDto;
 import dev.kjj.pharmaphix.dtos.SparePartsDeductRequestDto;
 import dev.kjj.pharmaphix.model.Machine;
 import dev.kjj.pharmaphix.model.Problem;
@@ -25,7 +25,7 @@ public class PharmaPhixService {
     }
 
     public Problem getProblem(String problemId) {
-        return problemRepo.findById(problemId).orElseThrow();
+        return problemRepo.findById(problemId).orElseThrow(ProblemEntityNotFoundException::new);
     }
 
     public SparePart deductFromInventory(String id, int amountToDeduct) {
@@ -37,7 +37,7 @@ public class PharmaPhixService {
     public SparePart[] deductFromInventory(SparePartsDeductRequestDto[] spRequests) {
 
         SparePart[] spareParts = getSpareParts(spRequests);
-        for( int i = 0; i < spRequests.length; i++) {
+        for (int i = 0; i < spRequests.length; i++) {
             spareParts[i].setQuantityInStock(spareParts[i].getQuantityInStock() - spRequests[i].amountToDeduct());
             spareParts[i].setQuantityInRepair(spareParts[i].getQuantityInRepair() + spRequests[i].amountToDeduct());
             spareParts[i] = spRepo.save(spareParts[i]);

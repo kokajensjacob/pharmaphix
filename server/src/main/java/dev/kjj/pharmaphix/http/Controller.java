@@ -1,4 +1,4 @@
-package dev.kjj.pharmaphix;
+package dev.kjj.pharmaphix.http;
 
 import dev.kjj.pharmaphix.domain.PharmaPhixService;
 import dev.kjj.pharmaphix.dtos.*;
