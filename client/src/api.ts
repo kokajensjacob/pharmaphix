@@ -1,15 +1,13 @@
-import { SparePartDeductReqDto } from "./types";
+import { SparePartDeductReqDto, SparePartPostRequest } from "./types";
 
 const BASE_URL = "https://pharmaphix-server.azurewebsites.net/api";
 
 export const fetchMachines = async () => {
-  return fetch(`${BASE_URL}/machines`)
-    .then((resp) => resp.json());
+  return fetch(`${BASE_URL}/machines`).then((resp) => resp.json());
 };
 
 export async function fetchSpareParts() {
-  return fetch(`${BASE_URL}/spare-parts`)
-    .then((resp) => resp.json());
+  return fetch(`${BASE_URL}/spare-parts`).then((resp) => resp.json());
 }
 
 export const getInvStatus = () => {
@@ -19,8 +17,9 @@ export const getInvStatus = () => {
 };
 
 export const getProblemData = (problem_id: string) => {
-  return fetch(`${BASE_URL}/problems/${problem_id}`)
-    .then((resp) => resp.json());
+  return fetch(`${BASE_URL}/problems/${problem_id}`).then((resp) =>
+    resp.json(),
+  );
 };
 
 export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
@@ -34,22 +33,36 @@ export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
 };
 
 export const getProblemPerMachineList = (machineId: string) => {
-  return fetch(`${BASE_URL}/machines/${machineId}/problems`)
-    .then((resp) => resp.json());
-}
+  return fetch(`${BASE_URL}/machines/${machineId}/problems`).then((resp) =>
+    resp.json(),
+  );
+};
 
 export const getSparePartsInRepair = () => {
-  return fetch(`${BASE_URL}/spare-parts/in-repair-list`)
-    .then((resp) => resp.json());
-}
+  return fetch(`${BASE_URL}/spare-parts/in-repair-list`).then((resp) =>
+    resp.json(),
+  );
+};
 
-export const markSparePartAsRepaired = (sparePartId: string, quantityToRepair: number) => {
-  return fetch(`${BASE_URL}/spare-parts/${sparePartId}`, 
-  {
+export const markSparePartAsRepaired = (
+  sparePartId: string,
+  quantityToRepair: number,
+) => {
+  return fetch(`${BASE_URL}/spare-parts/${sparePartId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({quantityToRepair: quantityToRepair})
+    body: JSON.stringify({ quantityToRepair: quantityToRepair }),
+  });
+};
+
+export function postNewSparePart(body: SparePartPostRequest) {
+  return fetch(`${BASE_URL}/spare-parts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
 }

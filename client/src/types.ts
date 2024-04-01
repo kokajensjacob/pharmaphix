@@ -52,3 +52,12 @@ export type SparePartsInRepair = {
   quantityInRepair: number;
   associatedMachineName: string;
 };
+
+export type SparePartPostRequest = {
+  name: string;
+  cost: number;
+  failureRate: number;
+  quantityInStock: number;
+  repairTime: number;
+  machineId: string;
+};
