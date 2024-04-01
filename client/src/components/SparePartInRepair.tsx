@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { SparePartsInRepair } from "../types";
 
-export const SparePartInRepairModal = ({ sp }: { sp: SparePartsInRepair }) => {
+export const SparePartInRepair = ({ sp }: { sp: SparePartsInRepair }) => {
   const [disableFixBtn, setDisableFixBtn] = useState<boolean>(true);
   const inputElement = useRef<HTMLInputElement>(null);
 
@@ -15,15 +15,14 @@ export const SparePartInRepairModal = ({ sp }: { sp: SparePartsInRepair }) => {
         <p> {sp.name}</p>
         <button
           className="btn"
-          onClick={() =>
-            {
-              inputElement.current!.value = "0";
-              setDisableFixBtn(true);
+          onClick={() => {
+            inputElement.current!.value = "0";
+            setDisableFixBtn(true);
 
-              (
+            (
               document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
-            ).showModal()}
-          }
+            ).showModal();
+          }}
         >
           Details
         </button>
@@ -43,10 +42,7 @@ export const SparePartInRepairModal = ({ sp }: { sp: SparePartsInRepair }) => {
                 ref={inputElement}
                 onChange={handleOnChange}
               />
-              <button
-                className="btn"
-                disabled={disableFixBtn}
-              >
+              <button className="btn" disabled={disableFixBtn}>
                 Mark as Fixed
               </button>
               <button className="btn">Close</button>

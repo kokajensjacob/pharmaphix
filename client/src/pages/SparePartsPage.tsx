@@ -3,29 +3,17 @@ import { fetchSpareParts, getSparePartsInRepair } from "../api";
 import "../SparePartsPage.css";
 import { SparePart, SparePartsInRepair } from "../types";
 import { SparePartTable } from "../components/SparePartTable";
-import { SparePartInRepairModal } from "../components/SparePartInRepairModal";
+import { SparePartInRepair } from "../components/SparePartInRepair";
 
 export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
   const [sparePartsInRepair, setSparePartsInRepair] =
     useState<SparePartsInRepair[]>();
-  const [sparePartInRepairSelected, setSparePartInRepairSelected] =
-    useState<SparePartsInRepair>({
-      id: "string",
-      name: "name",
-      quantityInRepair: 0,
-      associatedMachineName: "machine",
-    });
 
   useEffect(() => {
     fetchSpareParts().then((data) => setSpareParts(data));
     getSparePartsInRepair().then((data) => setSparePartsInRepair(data));
   }, []);
-
-  const handleClick = (sp: SparePartsInRepair) => {
-    setSparePartInRepairSelected(sp);
-    (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
-  };
 
   return (
     <>
@@ -48,7 +36,7 @@ export const SparePartsPage = () => {
         <div className="collapse-content">
           <ul>
             {sparePartsInRepair?.map((sp) => (
-              <SparePartInRepairModal sp={sp} />
+              <SparePartInRepair sp={sp} />
             ))}
           </ul>
         </div>
