@@ -9,11 +9,16 @@ export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
   const [sparePartsInRepair, setSparePartsInRepair] =
     useState<SparePartsInRepair[]>();
+  const [trigger, setTrigger] = useState<boolean>(true);
 
   useEffect(() => {
     fetchSpareParts().then((data) => setSpareParts(data));
     getSparePartsInRepair().then((data) => setSparePartsInRepair(data));
-  }, []);
+  }, [trigger]);
+
+  const triggerRerenderOnParent = () => {
+    setTrigger(!trigger);
+  }
 
   return (
     <>
@@ -36,7 +41,7 @@ export const SparePartsPage = () => {
         <div className="collapse-content">
           <ul>
             {sparePartsInRepair?.map((sp) => (
-              <SparePartInRepair key={sp.id} sp={sp} />
+              <SparePartInRepair key={sp.id} sp={sp} triggerRerenderOnParent={triggerRerenderOnParent} />
             ))}
           </ul>
         </div>

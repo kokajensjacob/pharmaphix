@@ -1,8 +1,13 @@
 import { useRef, useState } from "react";
-import { SparePartsInRepair } from "../types";
 import { markSparePartAsRepaired } from "../api";
+import { SparePartsInRepair } from "../types";
 
-export const SparePartInRepair = ({ sp }: { sp: SparePartsInRepair }) => {
+type SparePartInRepairProps = {
+  sp: SparePartsInRepair;
+  triggerRerenderOnParent: () => void;
+}
+
+export const SparePartInRepair = ({ sp, triggerRerenderOnParent }:  SparePartInRepairProps ) => {
   const [disableFixBtn, setDisableFixBtn] = useState<boolean>(true);
   const inputElement = useRef<HTMLInputElement>(null);
 
@@ -11,7 +16,7 @@ export const SparePartInRepair = ({ sp }: { sp: SparePartsInRepair }) => {
   };
 
 const handleClick = () => {
-  markSparePartAsRepaired(sp.id, Number(inputElement.current!.value));
+  markSparePartAsRepaired(sp.id, Number(inputElement.current!.value)).then(() => triggerRerenderOnParent());
 }
 
   return (
