@@ -18,7 +18,6 @@ export const getInvStatus = () => {
   return fetch(`${BASE_URL}/spare-parts/in-repair`)
     .then((resp) => resp.json())
     .then((data) => data.unitsInRepair);
-    // .catch(() => console.error("failed to fetch"));
 };
 
 export const getProblemData = (problem_id: string) => {
