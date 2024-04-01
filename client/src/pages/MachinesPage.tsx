@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchMachines } from "../api";
 import { Link } from "react-router-dom";
+import { FetchError } from "../components/errors/FetchError";
 
 type Machine = {
   machineId: string;
@@ -10,9 +11,12 @@ type Machine = {
 
 export const MachinesPage = () => {
   const [machines, setMachines] = useState<Machine[]>();
+  const [showError, setShowError] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchMachines().then((data: Machine[]) => setMachines(data));
+    fetchMachines()
+    .then((data: Machine[]) => setMachines(data))
+    .catch(() => setShowError(true));
   }, []);
 
   return (
@@ -27,9 +31,13 @@ export const MachinesPage = () => {
           </li>
         </ul>
       </div>
-      <h1>Machines</h1>
-      {machines ? (
+      {
+        showError ? (
+          <FetchError />
+        ): 
+      machines ? (
         <>
+        <h1>Machines</h1>
           {machines.map((machine) => (
             <div key={machine.machineId} className="inline-flex">
               <div className="card w-72 bg-base-100 m-5 shadow">
