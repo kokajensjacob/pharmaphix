@@ -5,6 +5,7 @@ import { SparePartTable } from "../components/SparePartTable";
 import { SparePartInRepair } from "../components/SparePartInRepair";
 import { FetchError } from "../components/errors/FetchError";
 import { Link } from "react-router-dom";
+import { Loading } from "../components/Loading";
 
 export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
@@ -78,7 +79,7 @@ export const SparePartsPage = () => {
           {spareParts ? (
             <SparePartTable spareParts={spareParts} />
           ) : (
-            <p>Loading...</p>
+            <Loading />
           )}
         </>
       )}

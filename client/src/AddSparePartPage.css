@@ -1,9 +1,0 @@
-form {
-    max-width: 320px
-}
-
-form > input,
-form > select,
-form > div {
-    margin-bottom: 20px;
-}

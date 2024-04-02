@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import "../AddSparePartPage.css";
 import { AddSparePartForm } from "../components/AddSparePartForm";
 import { Machine } from "../types";
 import { fetchMachines } from "../api";
 import { FetchError } from "../components/errors/FetchError";
+import { Loading } from "../components/Loading";
 
 export const AddSparePartPage = () => {
   const [machines, setMachines] = useState<Machine[]>();
@@ -37,7 +37,7 @@ export const AddSparePartPage = () => {
           <AddSparePartForm machines={machines} />
         </div>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </>
   );

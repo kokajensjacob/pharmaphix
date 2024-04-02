@@ -2,6 +2,7 @@ import { MouseEventHandler, useRef, useState } from "react";
 import { markSparePartAsRepaired } from "../api";
 import { SparePartsInRepair } from "../types";
 import { PatchUserDialog } from "./PatchUserDialog";
+import { Loading } from "./Loading";
 
 type SparePartInRepairProps = {
   sp: SparePartsInRepair;
@@ -79,7 +80,7 @@ export const SparePartInRepair = ({
 
   return (
     <li>
-      <div className="flex flex-row items-baseline justify-around">
+      <div className="flex flex-row items-baseline justify-between m-2">
         <p> {sp.name}</p>
         <button
           className="btn btn-sm"
@@ -99,9 +100,7 @@ export const SparePartInRepair = ({
           <h3 className="font-bold text-lg">{sp.name}</h3>
           <p className="py-4">Related Machine: {sp.associatedMachineName}</p>
           <p className="py-4">Quantity in repair: {sp.quantityInRepair}</p>
-          {submitYesClicked && !userDialog.showMessage && (
-            <span>Loading...</span>
-          )}
+          {submitYesClicked && !userDialog.showMessage && <Loading />}
           {userDialog.showMessage && (
             <PatchUserDialog message={userDialog.message} />
           )}
