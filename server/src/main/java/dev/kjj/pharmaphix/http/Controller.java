@@ -31,10 +31,10 @@ public class Controller {
 
     @GetMapping("/spare-parts/optimalQuantityDeviation")
     public ResponseEntity<SparePartOptimalDeviationDto> getSparePartOptimalQuantityDeviation() {
-        long sparePartsOverstocked = service.getSparePartsOverstocked();
-        long sparePartUnitsOverstocked = service.getSparePartUnitsOverstocked();
-        long sparePartsUnderstocked = service.getSparePartsUnderstocked();
-        long sparePartUnitsUnderstocked = service.getSparePartUnitsUnderstocked();
+        int sparePartsOverstocked = service.getSparePartsOverstockedCount();
+        int sparePartUnitsOverstocked = service.getSparePartUnitsCountOverstocked();
+        int sparePartsUnderstocked = service.getSparePartsUnderstockedCount();
+        int sparePartUnitsUnderstocked = service.getSparePartUnitsCountUnderstocked();
         return ResponseEntity.ok(SparePartOptimalDeviationDto.createDto(
                 sparePartsOverstocked, sparePartUnitsOverstocked, sparePartsUnderstocked, sparePartUnitsUnderstocked)
         );

@@ -92,4 +92,42 @@ public class PharmaPhixService {
         sparePart.setQuantityInStock(sparePart.getQuantityInStock() + quantityToRepair);
         return spRepo.save(sparePart);
     }
+
+    private List<SparePart> getSparePartsOverstocked() {
+        return spRepo.findAll().stream()
+                .filter(sp -> sp.getQuantityInRepair() + sp.getQuantityInStock() > sp.getOptimalQuantity())
+                .toList();
+    }
+
+    private List<SparePart> getSparePartsUnderstocked() {
+        return spRepo.findAll().stream()
+                .filter(sp -> sp.getQuantityInRepair() + sp.getQuantityInStock() < sp.getOptimalQuantity())
+                .toList();
+    }
+
+    public int getSparePartsOverstockedCount() {
+        return this.getSparePartsOverstocked().size();
+    }
+
+    public int getSparePartUnitsCountOverstocked() {
+        return this.getSparePartsOverstocked().stream()
+                .map(sp -> sp.getQuantityInStock() + sp.getQuantityInRepair() - sp.getOptimalQuantity())
+                .reduce(Integer::sum)
+                .orElse(0);
+    }
+
+    public int getSparePartsUnderstockedCount() {
+        return this.getSparePartsUnderstocked().size();
+    }
+
+    public int getSparePartUnitsCountUnderstocked() {
+        return getSparePartsUnitsDeviation(getSparePartsUnderstocked());
+    }
+
+    private int getSparePartsUnitsDeviation(List<SparePart> spareParts) {
+        return spareParts.stream()
+                .map(sp -> Math.abs(sp.getQuantityInStock() + sp.getQuantityInRepair() - sp.getOptimalQuantity()))
+                .reduce(Integer::sum)
+                .orElse(0);
+    }
 }
