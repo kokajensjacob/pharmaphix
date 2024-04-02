@@ -134,8 +134,7 @@ export const ProblemPage = () => {
             </button>
           </div>
           <p>{problemData.problemDescription}</p>
-          <div className="card-actions justify-end"></div>
-          <div className="inline-flex">
+          <div className="flex flex-row justify-center">
             <div className="card w-72 bg-base-100 m-5 shadow">
               <div className="card-body">
                 <h2 className="card-title">Spare Parts Needed</h2>
