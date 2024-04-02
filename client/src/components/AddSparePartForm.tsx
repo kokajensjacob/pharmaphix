@@ -214,28 +214,25 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       {userDialog.showMessage && (
         <PatchUserDialog message={userDialog.message} />
       )}
-      {createdSparePart && (
-        <dialog id="my_modal_1" className="modal">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">
-              Spare part created successfully
-            </h3>
-            <p className="py-4">ID: {createdSparePart.id}</p>
-            <p className="py-4 bold">
-              Calculated optimal quantity
-              {/* based on the purchase cost of the
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Spare part created successfully</h3>
+          <p className="py-4">ID: {createdSparePart?.id}</p>
+          <p className="py-4 bold">
+            Calculated optimal quantity
+            {/* based on the purchase cost of the
               part itself and the associated machine, and the average repair
       time and the breakage frequancy of the part is*/}
-              : {createdSparePart.optimalQuantity}
-            </p>
-            <div className="modal-action">
-              <form method="dialog">
-                <button className="btn">Close</button>
-              </form>
-            </div>
+            : {createdSparePart?.optimalQuantity}
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
           </div>
-        </dialog>
-      )}
+        </div>
+      </dialog>
     </>
   );
 };
