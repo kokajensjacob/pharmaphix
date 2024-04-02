@@ -31,7 +31,7 @@ export const MachinesPage = () => {
         <FetchError />
       ) : machines ? (
         <>
-          <h1>Machines</h1>
+          <h1 className="text-xl font-medium m-5">Machines</h1>
           {machines.map((machine) => (
             <div key={machine.machineId} className="inline-flex">
               <div className="card w-72 bg-base-100 m-5 shadow">
