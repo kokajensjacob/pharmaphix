@@ -43,7 +43,7 @@ export const SparePartsPage = () => {
       ) : (
         <>
           <h1>Spare Parts</h1>
-          <div className="collapse collapse-arrow w-6/12">
+          <div className="collapse collapse-plus w-6/12">
             <input type="checkbox" className="peer" />
             <div className="collapse-title text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
               Ongoing Repairs
