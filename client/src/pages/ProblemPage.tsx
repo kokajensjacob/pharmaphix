@@ -117,7 +117,7 @@ export const ProblemPage = () => {
         <FetchError />
       ) : problemData ? (
         <>
-          <div className="flex flex-row items-baseline justify-around ">
+          <div className="flex flex-row items-baseline justify-between ">
             <h1 className="text-4xl font-extrabold dark:text-white">
               {problemData.problemName}
             </h1>
