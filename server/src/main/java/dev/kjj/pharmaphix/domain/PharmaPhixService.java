@@ -130,4 +130,8 @@ public class PharmaPhixService {
                 .reduce(Integer::sum)
                 .orElse(0);
     }
+
+    public SparePart getSparePart(String sparePartId) {
+        return spRepo.findById(sparePartId).orElseThrow(SparePartEntityNotFoundException::new);
+    }
 }

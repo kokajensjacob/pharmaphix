@@ -75,6 +75,12 @@ public class Controller {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/spare-parts/{sparePartId}")
+    public ResponseEntity<SparePartGetResponseDto> getSparePart(@PathVariable String sparePartId) {
+        SparePart retrieved = service.getSparePart(sparePartId);
+        return ResponseEntity.ok(SparePartGetResponseDto.convertToDto(retrieved));
+    }
+
     @PatchMapping("/spare-parts/{sparePartId}")
     public ResponseEntity<Void> repairSparePart(@PathVariable String sparePartId, @RequestBody SparePartRepairRequestDto body) {
         SparePart sparePart = service.repairSparePart(sparePartId, body.quantityToRepair());
