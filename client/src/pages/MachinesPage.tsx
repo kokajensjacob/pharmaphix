@@ -32,6 +32,8 @@ export const MachinesPage = () => {
       ) : machines ? (
         <>
           <h1 className="text-xl font-medium m-5">Machines</h1>
+          {
+            <div className="flex flex-wrap items-center justify-center">
           {machines
             .sort((m1, m2) => {
               let m1compare = m1.machineName.toUpperCase();
@@ -39,7 +41,7 @@ export const MachinesPage = () => {
               return m1compare < m2compare ? -1 : m2compare < m1compare ? 1 : 0;
             })
             .map((machine) => (
-              <div key={machine.machineId} className="inline-flex">
+              <div key={machine.machineId} className="inline-flex justify-center">
                 <div className="card w-72 h-72 bg-base-100 m-5 shadow">
                   <div className="card-body">
                     <h2 className="card-title">{machine.machineName}</h2>
@@ -52,7 +54,8 @@ export const MachinesPage = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          }</div>}
         </>
       ) : (
         <Loading />
