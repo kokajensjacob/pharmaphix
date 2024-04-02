@@ -4,6 +4,7 @@ import { SparePart, SparePartsInRepair } from "../types";
 import { SparePartTable } from "../components/SparePartTable";
 import { SparePartInRepair } from "../components/SparePartInRepair";
 import { FetchError } from "../components/errors/FetchError";
+import { Link } from "react-router-dom";
 
 export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
@@ -59,6 +60,9 @@ export const SparePartsPage = () => {
                 ))}
               </ul>
             </div>
+            <Link to="/spare-parts/add-new">
+              <button className="btn">Add spare part</button>
+            </Link>
           </div>
           {spareParts ? (
             <SparePartTable spareParts={spareParts} />
