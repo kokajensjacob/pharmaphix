@@ -104,26 +104,42 @@ export const SparePartInRepair = ({
           {userDialog.showMessage && (
             <PatchUserDialog message={userDialog.message} />
           )}
-          <div className="modal-action">
-            <label htmlFor={`input_${sp.id}`}>Mark as fixed: </label>
-            <input
-              type="number"
-              id={`input_${sp.id}`}
-              min={0}
-              max={sp.quantityInRepair}
-              defaultValue={0}
-              ref={inputElement}
-              onChange={() => handleOnChange(sp.quantityInRepair)}
-            />
-            <form method="dialog">
+          <div className="modal-action flex-auto justify-between mt-5">
+            <label className="form-control w-2/5 max-w-xs">
+              <div className="label">
+                <span className="label-text text-lg">Mark as fixed:</span>
+              </div>
+              <input
+                type="number"
+                placeholder="0"
+                className="input input-bordered w-3/4 max-w-xs"
+                id={`input_${sp.id}`}
+                min={0}
+                max={sp.quantityInRepair}
+                defaultValue={0}
+                ref={inputElement}
+                onChange={() => handleOnChange(sp.quantityInRepair)}
+              />
+            </label>
+            <form method="dialog" className="place-items-center place-self-end">
               <button
-                className="btn"
+                className="btn mx-2"
                 disabled={disableFixBtn}
                 onClick={handleClick}
               >
                 Mark as Fixed
               </button>
-              <button className="btn">Close</button>
+              <button
+                className="btn"
+                onClick={() =>
+                  setUserDialog({
+                    showMessage: false,
+                    message: "",
+                  })
+                }
+              >
+                Close
+              </button>
             </form>
           </div>
         </div>
