@@ -22,13 +22,6 @@ export const Home = () => {
 
   return (
     <div>
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-        </ul>
-      </div>
       {showError ? (
         <FetchError />
       ) : repairQuantity === undefined || deviation === undefined ? (
