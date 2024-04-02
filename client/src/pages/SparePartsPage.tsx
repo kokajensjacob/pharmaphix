@@ -63,7 +63,7 @@ export const SparePartsPage = () => {
               </div>
             </div>
             <Link to="/spare-parts/add-new">
-              <button className="btn">Add spare part</button>
+              <button className="btn ml-60">Add spare part</button>
             </Link>
           </div>
           {spareParts ? (
