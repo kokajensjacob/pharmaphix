@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Machine, SparePartPostRequest } from "../types";
 import { postNewSparePart } from "../api";
 import { PatchUserDialog } from "./PatchUserDialog";
@@ -23,8 +23,10 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
   }>({ showMessage: false, message: "" });
   const [createdSparePart, setCreatedSparePart] = useState<{
     id: string;
+    name: string;
     optimalQuantity: number;
   }>();
+  const nameInput = useRef<HTMLInputElement>(null);
 
   function resetUserDialog() {
     setUserDialog({ showMessage: false, message: "" });
@@ -56,6 +58,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       const data = await resp.json();
       setCreatedSparePart(data);
       (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
+      nameInput.current!.value = "";
     }
 
     postNewSparePart(request)
@@ -121,6 +124,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
           type="text"
           name="sparePartName"
           id="sparePartName"
+          ref={nameInput}
           disabled={disableForm}
           className="input input-bordered w-full max-w-xs"
         />
@@ -218,8 +222,9 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Spare part created successfully</h3>
-          <p className="py-4">ID: {createdSparePart?.id}</p>
-          <p className="py-4 bold">
+          <p className="py-4">
+            Name: {createdSparePart?.name}
+            <br />
             Calculated optimal quantity
             {/* based on the purchase cost of the
               part itself and the associated machine, and the average repair
