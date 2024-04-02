@@ -1,3 +1,9 @@
+export type Machine = {
+  machineId: string;
+  machineName: string;
+  machineQuantity: number;
+};
+
 export type SparePart = {
   id: string;
   name: string;
@@ -45,4 +51,13 @@ export type SparePartsInRepair = {
   name: string;
   quantityInRepair: number;
   associatedMachineName: string;
-}
+};
+
+export type SparePartPostRequest = {
+  name: string;
+  cost: number;
+  failureRate: number;
+  quantityInStock: number;
+  repairTime: number;
+  machineId: string;
+};
