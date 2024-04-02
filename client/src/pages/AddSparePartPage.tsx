@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../AddSparePartPage.css";
 import { AddSparePartForm } from "../components/AddSparePartForm";
 import { Machine } from "../types";
 import { fetchMachines } from "../api";
