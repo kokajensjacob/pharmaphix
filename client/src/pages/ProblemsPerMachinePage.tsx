@@ -3,6 +3,7 @@ import { ProblemPerMachine } from "../types";
 import { Link, useParams } from "react-router-dom";
 import { getProblemPerMachineList } from "../api";
 import { FetchError } from "../components/errors/FetchError";
+import { Loading } from "../components/Loading";
 import { RelatedProblem } from "../components/RelatedProblem";
 import { NoRelatedProblems } from "../components/NoRelatedProblems";
 
@@ -60,7 +61,7 @@ export const ProblemsPerMachinePage = () => {
           </div>}
         </>
       ) : (
-        <h1> Loading ... </h1>
+        <Loading />
       )}
     </>
   );

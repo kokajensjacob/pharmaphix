@@ -55,12 +55,12 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       cost: Number(e.target.sparePartCost.value),
       failureRate: getFailureRate(
         Number(e.target.failAmount.value),
-        e.target.failDivisor.value,
+        e.target.failDivisor.value
       ),
       quantityInStock: Number(e.target.sparePartInStock.value),
       repairTime: repairTimeInYears(
         Number(e.target.repairTime.value),
-        e.target.repairTimeUnit.value,
+        e.target.repairTimeUnit.value
       ),
       machineId: e.target.associatedMachineId.value,
     };
@@ -74,19 +74,19 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
           case 400:
             displayUserDialog(
               "Spare part was not created because the request was bad",
-              5000,
+              5000
             );
             break;
           case 404:
             displayUserDialog(
               "Couldn't find the associated machine in the database. It might have been recently deleted by another user. Try reloading the page",
-              10000,
+              10000
             );
             break;
           case 409:
             displayUserDialog(
               "That spare part already exists in the database!",
-              5000,
+              5000
             );
             break;
           default:
@@ -118,7 +118,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
 
   function repairTimeInYears(
     repairTime: number,
-    timeUnit: "hours" | "days" | "months",
+    timeUnit: "hours" | "days" | "months"
   ) {
     let divisor = 1;
     switch (timeUnit) {
@@ -136,125 +136,151 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
   return (
     <>
       <form onSubmit={handleOnSubmit}>
-        <label htmlFor="sparePartName" className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Spare part name *</span>
-          </div>
-        </label>
-        <input
-          type="text"
-          name="sparePartName"
-          id="sparePartName"
-          ref={nameInput}
-          disabled={disableForm}
-          className="input input-bordered w-full max-w-xs"
-        />
-        <label htmlFor="sparePartCost" className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Purchase cost per spare part *</span>
-          </div>
-        </label>
-        <input
-          type="text"
-          id="sparePartCost"
-          placeholder="1194.99"
-          disabled={disableForm}
-          className="input input-bordered w-full max-w-xs"
-        />
-        <label
-          htmlFor="sparePartFailureRate"
-          className="form-control w-full max-w-xs"
-        >
-          <div className="label">
-            <span className="label-text">
-              How often does the spare part need replacing? (on average) *
-            </span>
-          </div>
-        </label>
-        <div id="sparePartFailureRate">
-          <input
-            type="number"
-            name=""
-            id="failAmount"
-            defaultValue={1}
-            min={1}
-            disabled={disableForm}
-            className="input input-bordered max-w-xs"
-          />
-          /
-          <select defaultValue="month" id="failDivisor" disabled={disableForm}>
-            <option value="week">week</option>
-            <option value="month">month</option>
-            <option value="year">year</option>
-          </select>
-        </div>
-        <label
-          htmlFor="sparePartInStock"
-          className="form-control w-full max-w-xs"
-        >
-          <div className="label">
-            <span className="label-text">
-              How many are in stock right now? *
-            </span>
-          </div>
-        </label>
-        <input
-          type="number"
-          name="sparePartInStock"
-          id="sparePartInStock"
-          disabled={disableForm}
-          min="0"
-          className="input input-bordered w-full max-w-xs"
-        />
+        <div className="flex flex-row justify-center mt-10">
+          <div className="flex-column">
+            <label
+              htmlFor="sparePartName"
+              className="form-control w-full max-w-xs"
+            >
+              <div className="label">
+                <span className="label-text">Spare part name </span>
+              </div>
+            </label>
+            <input
+              type="text"
+              name="sparePartName"
+              id="sparePartName"
+              ref={nameInput}
+              disabled={disableForm}
+              className="input input-bordered w-full max-w-xs"
+            />
+            <label
+              htmlFor="sparePartCost"
+              className="form-control w-full max-w-xs"
+            >
+              <div className="label">
+                <span className="label-text">Purchase cost per spare part</span>
+              </div>
+            </label>
+            <input
+              type="text"
+              id="sparePartCost"
+              placeholder="1194.99"
+              disabled={disableForm}
+              className="input input-bordered w-full max-w-xs"
+            />
+            <label
+              htmlFor="sparePartFailureRate"
+              className="form-control w-full max-w-xs"
+            >
+              <div className="label">
+                <span className="label-text">
+                  Average spare part failure rate
+                </span>
+              </div>
+            </label>
 
-        <label
-          htmlFor="sparePartRepairTime"
-          className="form-control w-full max-w-xs"
-        >
-          <div className="label">
-            <span className="label-text">
-              What's the average repair time? *
-            </span>
-          </div>
-        </label>
-        <div id="sparePartRepairTime">
-          <input
-            type="number"
-            name=""
-            id="repairTime"
-            defaultValue={1}
-            min={1}
-            disabled={disableForm}
-            className="input input-bordered max-w-xs"
-          />
-          <select
-            defaultValue="month"
-            id="repairTimeUnit"
-            disabled={disableForm}
-          >
-            <option value="hours">hours</option>
-            <option value="days">days</option>
-            <option value="months">months</option>
-          </select>
-        </div>
+            <div className="flex flex-row" id="sparePartFailureRate">
+              <input
+                type="number"
+                name=""
+                id="failAmount"
+                defaultValue={1}
+                min={1}
+                disabled={disableForm}
+                className="input input-bordered max-w-xs"
+              />
 
-        <select
-          name="associatedMachineId"
-          id="associatedMachineId"
-          className="select select-bordered w-full max-w-xs"
-          disabled={disableForm}
-          defaultValue="default"
-        >
-          <option disabled value="default">
-            Select associated machine *
-          </option>
-          {machines.map((machine) => (
-            <option key={machine.machineId} value={machine.machineId}>
-              {machine.machineName}
-            </option>
-          ))}
-        </select>
-        <input type="submit" className="btn" value="Add new spare part" />
+              <select
+                className="input input-bordered max-w-xs"
+                defaultValue="month"
+                id="failDivisor"
+                disabled={disableForm}
+              >
+                <option value="week">week</option>
+                <option value="month">month</option>
+                <option value="year">year</option>
+              </select>
+            </div>
+          </div>
+          <div className="flex-column mx-10">
+            <label
+              htmlFor="sparePartInStock"
+              className="form-control w-full max-w-xs"
+            >
+              <div className="label">
+                <span className="label-text">
+                  How many are in stock right now?
+                </span>
+              </div>
+            </label>
+            <input
+              type="number"
+              name="sparePartInStock"
+              id="sparePartInStock"
+              disabled={disableForm}
+              min="0"
+              className="input input-bordered w-full max-w-xs"
+            />
+
+            <label
+              htmlFor="sparePartRepairTime"
+              className="form-control w-full max-w-xs"
+            >
+              <div className="label">
+                <span className="label-text">
+                  What's the average repair time?
+                </span>
+              </div>
+            </label>
+            <div className="flex flex-row" id="sparePartRepairTime">
+              <input
+                type="number"
+                name=""
+                id="repairTime"
+                defaultValue={1}
+                min={1}
+                disabled={disableForm}
+                className="input input-bordered max-w-xs"
+              />
+              <select
+                className="input input-bordered max-w-xs"
+                defaultValue="month"
+                id="repairTimeUnit"
+                disabled={disableForm}
+              >
+                <option value="hours">hours</option>
+                <option value="days">days</option>
+                <option value="months">months</option>
+              </select>
+            </div>
+
+            <label
+              htmlFor="associatedMachineId"
+              className="form-control w-full max-w-xs"
+            >
+              <div className="label">
+                <span className="label-text">Select associated machine </span>
+              </div>
+            </label>
+
+            <select
+              name="associatedMachineId"
+              id="associatedMachineId"
+              className="select select-bordered w-full max-w-xs"
+              disabled={disableForm}
+              defaultValue="default"
+            >
+              <option disabled value="default"></option>
+              {machines.map((machine) => (
+                <option key={machine.machineId} value={machine.machineId}>
+                  {machine.machineName}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <input type="submit" className="btn my-5" value="Add new spare part" />
         {userDialog.showMessage && (
           <PatchUserDialog message={userDialog.message} />
         )}

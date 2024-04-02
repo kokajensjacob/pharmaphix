@@ -3,6 +3,7 @@ import { fetchMachines } from "../api";
 import { Link } from "react-router-dom";
 import { FetchError } from "../components/errors/FetchError";
 import { Machine } from "../types";
+import { Loading } from "../components/Loading";
 
 export const MachinesPage = () => {
   const [machines, setMachines] = useState<Machine[]>();
@@ -30,18 +31,16 @@ export const MachinesPage = () => {
         <FetchError />
       ) : machines ? (
         <>
-          <h1>Machines</h1>
+          <h1 className="text-xl font-medium m-5">Machines</h1>
           {machines.map((machine) => (
             <div key={machine.machineId} className="inline-flex">
-              <div className="card w-72 bg-base-100 m-5 shadow">
+              <div className="card w-72 h-72 bg-base-100 m-5 shadow">
                 <div className="card-body">
                   <h2 className="card-title">{machine.machineName}</h2>
                   <p>Quantity: {machine.machineQuantity}</p>
                   <div className="card-actions justify-center">
                     <Link to={machine.machineId}>
-                      <button className="btn btn-neutral">
-                        Related Problems
-                      </button>
+                      <button className="btn">Related Problems</button>
                     </Link>
                   </div>
                 </div>
@@ -50,7 +49,7 @@ export const MachinesPage = () => {
           ))}
         </>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </>
   );
