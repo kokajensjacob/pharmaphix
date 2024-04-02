@@ -69,7 +69,10 @@ export const ProblemPage = () => {
             });
             break;
           default:
-            setPatchUserDialog({ showMessage: true, message: "Unexpected error" });
+            setPatchUserDialog({
+              showMessage: true,
+              message: "Unexpected error",
+            });
         }
       })
       .then(() => setSubmitYesClicked(false))
@@ -114,12 +117,12 @@ export const ProblemPage = () => {
         <FetchError />
       ) : problemData ? (
         <>
-          <h3>problems</h3>
-          <h1>{problemData.problemName}</h1>
-          <p>{problemData.problemDescription}</p>
-          <div className="card-actions justify-end">
+          <div className="flex flex-row items-baseline justify-around ">
+            <h1 className="text-4xl font-extrabold dark:text-white">
+              {problemData.problemName}
+            </h1>
             <button
-              className="btn absolute top-50 right-20"
+              className="btn"
               onClick={() =>
                 (
                   document.getElementById("my_modal_1") as HTMLDialogElement
@@ -130,6 +133,8 @@ export const ProblemPage = () => {
               Start Repair
             </button>
           </div>
+          <p>{problemData.problemDescription}</p>
+          <div className="card-actions justify-end"></div>
           <div className="inline-flex">
             <div className="card w-72 bg-base-100 m-5 shadow">
               <div className="card-body">
@@ -162,8 +167,12 @@ export const ProblemPage = () => {
                 <p className="py-4">
                   Are you sure you want to start the repair?
                 </p>
-                {submitYesClicked && !patchUserDialog.showMessage && <span>Loading...</span>}
-                {patchUserDialog.showMessage && (<PatchUserDialog message={patchUserDialog.message}/>)}
+                {submitYesClicked && !patchUserDialog.showMessage && (
+                  <span>Loading...</span>
+                )}
+                {patchUserDialog.showMessage && (
+                  <PatchUserDialog message={patchUserDialog.message} />
+                )}
                 <div className="modal-action">
                   <form method="dialog">
                     <button className="btn" onClick={handleOnClick}>
