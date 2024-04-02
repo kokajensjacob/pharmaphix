@@ -3,6 +3,7 @@ import { ProblemPerMachine } from "../types";
 import { Link, useParams } from "react-router-dom";
 import { getProblemPerMachineList } from "../api";
 import { FetchError } from "../components/errors/FetchError";
+import { Loading } from "../components/Loading";
 
 export const ProblemsPerMachinePage = () => {
   const [machineProblemsData, setMachineProblemsData] =
@@ -67,7 +68,7 @@ export const ProblemsPerMachinePage = () => {
           </div>
         </>
       ) : (
-        <h1> Loading ... </h1>
+        <Loading />
       )}
     </>
   );

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ProblemData, SparePartDeductReqDto } from "../types";
 import { FetchError } from "../components/errors/FetchError";
 import { PatchUserDialog } from "../components/PatchUserDialog";
+import { Loading } from "../components/Loading";
 
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
@@ -167,7 +168,7 @@ export const ProblemPage = () => {
                   Are you sure you want to start the repair?
                 </p>
                 {submitYesClicked && !patchUserDialog.showMessage && (
-                  <span>Loading...</span>
+                  <Loading />
                 )}
                 {patchUserDialog.showMessage && (
                   <PatchUserDialog message={patchUserDialog.message} />
@@ -206,7 +207,7 @@ export const ProblemPage = () => {
           </div>
         </>
       ) : (
-        <h1> Loading ... </h1>
+        <Loading />
       )}
     </>
   );

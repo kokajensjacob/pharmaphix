@@ -3,6 +3,7 @@ import { fetchMachines } from "../api";
 import { Link } from "react-router-dom";
 import { FetchError } from "../components/errors/FetchError";
 import { Machine } from "../types";
+import { Loading } from "../components/Loading";
 
 export const MachinesPage = () => {
   const [machines, setMachines] = useState<Machine[]>();
@@ -50,7 +51,7 @@ export const MachinesPage = () => {
           ))}
         </>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </>
   );
