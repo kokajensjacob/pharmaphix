@@ -80,7 +80,7 @@ export const SparePartInRepair = ({
 
   return (
     <li>
-      <div className="flex flex-row items-baseline justify-around">
+      <div className="flex flex-row items-baseline justify-between m-2">
         <p> {sp.name}</p>
         <button
           className="btn btn-sm"
