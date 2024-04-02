@@ -33,7 +33,9 @@ export const AddSparePartPage = () => {
       {showError ? (
         <FetchError />
       ) : machines ? (
-        <AddSparePartForm machines={machines} />
+        <div className="flex justify-center">
+          <AddSparePartForm machines={machines} />
+        </div>
       ) : (
         <p>Loading...</p>
       )}
