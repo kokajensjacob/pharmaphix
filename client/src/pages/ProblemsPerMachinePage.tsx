@@ -52,12 +52,25 @@ export const ProblemsPerMachinePage = () => {
           <h1 className="text-xl font-extrabold dark:text-white my-8">
             Related problems:
           </h1>
-          {machineProblemsData.problems.length === 0 ? (<NoRelatedProblems />) :
-          <div>
-            {machineProblemsData.problems.map((problem) => (
-              <RelatedProblem problem={problem}/>
-            ))}
-          </div>}
+          {machineProblemsData.problems.length === 0 ? (
+            <NoRelatedProblems />
+          ) : (
+            <div>
+              {machineProblemsData.problems
+                .sort((p1, p2) => {
+                  let p1compare = p1.problemName.toUpperCase();
+                  let p2compare = p2.problemName.toUpperCase();
+                  return p1compare < p2compare
+                    ? -1
+                    : p2compare < p1compare
+                    ? 1
+                    : 0;
+                })
+                .map((problem) => (
+                  <RelatedProblem problem={problem} />
+                ))}
+            </div>
+          )}
         </>
       ) : (
         <h1> Loading ... </h1>

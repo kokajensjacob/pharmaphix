@@ -194,9 +194,19 @@ export const ProblemPage = () => {
               <div className="card-body">
                 <h2 className="card-title">Tools</h2>
                 <ul>
-                  {problemData.toolsNeeded.map(({ toolName }) => (
-                    <li key={toolName}>{toolName}</li>
-                  ))}
+                  {problemData.toolsNeeded
+                    .sort((t1, t2) => {
+                      let t1compare = t1.toolName.toUpperCase();
+                      let t2compare = t2.toolName.toUpperCase();
+                      return t1compare < t2compare
+                        ? -1
+                        : t2compare < t1compare
+                        ? 1
+                        : 0;
+                    })
+                    .map(({ toolName }) => (
+                      <li key={toolName}>{toolName}</li>
+                    ))}
                 </ul>
               </div>
             </div>
