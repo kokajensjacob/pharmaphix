@@ -4,6 +4,7 @@ import { SparePart, SparePartsInRepair } from "../types";
 import { SparePartTable } from "../components/SparePartTable";
 import { SparePartInRepair } from "../components/SparePartInRepair";
 import { FetchError } from "../components/errors/FetchError";
+import { Link } from "react-router-dom";
 
 export const SparePartsPage = () => {
   const [spareParts, setSpareParts] = useState<SparePart[]>();
@@ -42,24 +43,29 @@ export const SparePartsPage = () => {
         <FetchError />
       ) : (
         <>
-          <h1>Spare Parts</h1>
-          <div className="collapse collapse-arrow">
-            <input type="checkbox" className="peer" />
-            <div className="collapse-title text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-              Ongoing Repairs
+          <div className="flex flex-row justify-around">
+            <div className="collapse collapse-plus w-4/12">
+              <input type="checkbox" className="peer" />
+              <div className="collapse-title text-xl font-medium">
+                Ongoing Repairs
+              </div>
+              <div className="collapse-content">
+                <ul>
+                  {sparePartsInRepair?.map((sp) => (
+                    <SparePartInRepair
+                      key={sp.id}
+                      sp={sp}
+                      triggerRerenderOnParent={triggerRerenderOnParent}
+                    />
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="collapse-content">
-              <ul>
-                {sparePartsInRepair?.map((sp) => (
-                  <SparePartInRepair
-                    key={sp.id}
-                    sp={sp}
-                    triggerRerenderOnParent={triggerRerenderOnParent}
-                  />
-                ))}
-              </ul>
-            </div>
+            <Link to="/spare-parts/add-new">
+              <button className="btn">Add spare part</button>
+            </Link>
           </div>
+          <div className="divider"></div>
           {spareParts ? (
             <SparePartTable spareParts={spareParts} />
           ) : (

@@ -20,8 +20,15 @@ export const SparePartInRepair = ({
   }>({ showMessage: false, message: "" });
   const [submitYesClicked, setSubmitYesClicked] = useState<boolean>(false);
 
-  const handleOnChange = () => {
-    setDisableFixBtn(inputElement.current?.value === "0");
+  const handleOnChange = (inputMaxLimit: number) => {
+    if (
+      inputElement.current?.valueAsNumber &&
+      inputElement.current?.valueAsNumber > inputMaxLimit
+    ) {
+      setDisableFixBtn(true);
+    } else {
+      setDisableFixBtn(inputElement.current?.value === "0");
+    }
   };
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -72,25 +79,29 @@ export const SparePartInRepair = ({
 
   return (
     <li>
-      <p> {sp.name}</p>
-      <button
-        className="btn"
-        onClick={() => {
-          inputElement.current!.value = "0";
-          setDisableFixBtn(true);
-          (
-            document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
-          ).showModal();
-        }}
-      >
-        Details
-      </button>
+      <div className="flex flex-row items-baseline justify-around">
+        <p> {sp.name}</p>
+        <button
+          className="btn btn-sm"
+          onClick={() => {
+            inputElement.current!.value = "0";
+            setDisableFixBtn(true);
+            (
+              document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
+            ).showModal();
+          }}
+        >
+          Details
+        </button>
+      </div>
       <dialog id={`modal_${sp.id}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">{sp.name}</h3>
           <p className="py-4">Related Machine: {sp.associatedMachineName}</p>
           <p className="py-4">Quantity in repair: {sp.quantityInRepair}</p>
-          {submitYesClicked && !userDialog.showMessage && <span>Loading...</span>}
+          {submitYesClicked && !userDialog.showMessage && (
+            <span>Loading...</span>
+          )}
           {userDialog.showMessage && (
             <PatchUserDialog message={userDialog.message} />
           )}
@@ -103,7 +114,7 @@ export const SparePartInRepair = ({
               max={sp.quantityInRepair}
               defaultValue={0}
               ref={inputElement}
-              onChange={handleOnChange}
+              onChange={() => handleOnChange(sp.quantityInRepair)}
             />
             <form method="dialog">
               <button
