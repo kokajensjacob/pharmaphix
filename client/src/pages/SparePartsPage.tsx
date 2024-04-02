@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { fetchSpareParts, getSparePartsInRepair } from "../api";
-import "../SparePartsPage.css";
 import { SparePart, SparePartsInRepair } from "../types";
 import { SparePartTable } from "../components/SparePartTable";
 import { SparePartInRepair } from "../components/SparePartInRepair";
@@ -17,7 +16,7 @@ export const SparePartsPage = () => {
     fetchSpareParts()
       .then((data) => setSpareParts(data))
       .catch(() => setShowGetError(true));
-      
+
     getSparePartsInRepair()
       .then((data) => setSparePartsInRepair(data))
       .catch(() => setShowGetError(true));
