@@ -4,11 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import { fetchSparePart } from "../api";
 import { Loading } from "../components/Loading";
 import { SparePartDetailsFormTable } from "../components/SparePartDetailsFormTable";
-import { FetchError } from "../components/errors/FetchError";
+import { JhFetchError } from "../components/errors/JhFetchError";
 
 export const SparePartPage = () => {
   const [sparePartData, setSparePartData] = useState<SparePartGetResponseDto>();
-  const [showFetchError, setShowFetchError] = useState<boolean>(false);
+  const [fetchError, setFetchError] = useState<{
+    show: boolean;
+    message: string;
+  }>({ show: false, message: "" });
   const { spare_part_id } = useParams();
 
   useEffect(() => {
@@ -19,13 +22,24 @@ export const SparePartPage = () => {
             resp.json().then((data) => setSparePartData(data));
             break;
           case 404:
-            console.log("fetch returned 404 yo"); // TO DO
+            setFetchError({
+              show: true,
+              message: "404. spare part does not exist",
+            });
             break;
           default:
-            console.log("sum unexpected happaned"); // TO DO
+            setFetchError({
+              show: true,
+              message: `Error: Server returned something unexpected. HTTP status code: ${resp.status}`,
+            });
         }
       })
-      .catch(() => setShowFetchError(true));
+      .catch(() =>
+        setFetchError({
+          show: true,
+          message: "Server not available at the moment. Try again later",
+        }),
+      );
   }, []);
 
   return (
@@ -47,8 +61,8 @@ export const SparePartPage = () => {
           </li>
         </ul>
       </div>
-      {showFetchError ? (
-        <FetchError />
+      {fetchError.show ? (
+        <JhFetchError message={fetchError.message} />
       ) : sparePartData ? (
         <>
           <p>Spare Part:</p>
