@@ -47,7 +47,7 @@ export const SparePartsPage = () => {
           <div className="flex flex-row">
             <div className="collapse collapse-plus w-6/12">
               <input type="checkbox" className="peer" />
-              <div className="collapse-title text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+              <div className="collapse-title text-xl font-medium">
                 Ongoing Repairs
               </div>
               <div className="collapse-content">
