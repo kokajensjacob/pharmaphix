@@ -120,7 +120,7 @@ export const ProblemPage = () => {
       ) : problemData ? (
         <>
           <div className="flex flex-row items-baseline justify-between ">
-            <h1 className="text-4xl font-extrabold dark:text-white">
+            <h1 className="text-4xl font-extrabold dark:text-white mt-5">
               {problemData.problemName}
             </h1>
             <button
@@ -135,7 +135,8 @@ export const ProblemPage = () => {
               Start Repair
             </button>
           </div>
-          <p>{problemData.problemDescription}</p>
+          <h2 className="text-xl">Problem description: </h2>
+          <p className="mb-5">{problemData.problemDescription}</p>
           <div className="flex flex-row justify-center">
             <div className="card w-72 bg-base-100 m-5 shadow">
               <div className="card-body">
@@ -153,21 +154,30 @@ export const ProblemPage = () => {
                     })
                     .map((sp) => (
                       <li key={sp.sparePartId}>
-                        <div>{sp.sparePartName}</div>
                         {sp.quantityNeeded > sp.quantityInStock ? (
-                          <div>
-                            {sp.quantityNeeded}/{sp.quantityInStock}
-                            <div className="flex flex-column badge badge-error badge-outline">
+                          <>
+                            <div className="flex">
+                              <div>{sp.sparePartName}</div>
+                              <span className="badge badge-lg ml-4 rounded-lg bg-red-400">
+                                {sp.quantityNeeded}/{sp.quantityInStock}
+                              </span>
+                            </div>
+                            <div className="flex flex-column badge badge-error badge-outline mt-2">
                               Out of stock
                             </div>
-                          </div>
+                          </>
                         ) : (
-                          <div>
-                            {sp.quantityNeeded}/{sp.quantityInStock}
-                            <div className="flex flex-column badge badge-success badge-outline">
+                          <>
+                            <div className="flex">
+                              <div>{sp.sparePartName}</div>
+                              <span className="badge badge-lg ml-4 rounded-lg bg-green-400">
+                                {sp.quantityNeeded}/{sp.quantityInStock}
+                              </span>
+                            </div>
+                            <div className="flex flex-column badge badge-success badge-outline mt-2">
                               In Stock
                             </div>
-                          </div>
+                          </>
                         )}
                       </li>
                     ))}
@@ -225,7 +235,9 @@ export const ProblemPage = () => {
             </div>
           </div>
           <div>
-            <h3>INSTRUCTIONS:</h3>
+            <h3 className="text-xl font-extrabold dark:text-white my-8">
+              Instructions:
+            </h3>
             <Instructions instructions={problemData.instructions.toString()} />
           </div>
         </>
