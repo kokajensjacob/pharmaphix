@@ -44,26 +44,28 @@ export const SparePartsPage = () => {
       ) : (
         <>
           <h1>Spare Parts</h1>
-          <div className="collapse collapse-plus w-6/12">
-            <input type="checkbox" className="peer" />
-            <div className="collapse-title text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-              Ongoing Repairs
+          <div className="flex flex-row">
+            <div className="collapse collapse-plus w-6/12">
+              <input type="checkbox" className="peer" />
+              <div className="collapse-title text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+                Ongoing Repairs
+              </div>
+              <div className="collapse-content">
+                <ul>
+                  {sparePartsInRepair?.map((sp) => (
+                    <SparePartInRepair
+                      key={sp.id}
+                      sp={sp}
+                      triggerRerenderOnParent={triggerRerenderOnParent}
+                    />
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="collapse-content">
-              <ul>
-                {sparePartsInRepair?.map((sp) => (
-                  <SparePartInRepair
-                    key={sp.id}
-                    sp={sp}
-                    triggerRerenderOnParent={triggerRerenderOnParent}
-                  />
-                ))}
-              </ul>
-            </div>
+            <Link to="/spare-parts/add-new">
+              <button className="btn">Add spare part</button>
+            </Link>
           </div>
-          <Link to="/spare-parts/add-new">
-            <button className="btn">Add spare part</button>
-          </Link>
           {spareParts ? (
             <SparePartTable spareParts={spareParts} />
           ) : (
