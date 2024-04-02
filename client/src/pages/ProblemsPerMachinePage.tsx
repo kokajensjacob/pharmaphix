@@ -13,11 +13,11 @@ export const ProblemsPerMachinePage = () => {
 
   useEffect(() => {
     getProblemPerMachineList(machine_type_id as string)
-    .then((data) => {
-      setMachineProblemsData(data);
-      setBreadcrumbUrl(`/machines/${machine_type_id}`);
-    })
-    .catch(() => setShowError(true));
+      .then((data) => {
+        setMachineProblemsData(data);
+        setBreadcrumbUrl(`/machines/${machine_type_id}`);
+      })
+      .catch(() => setShowError(true));
   }, []);
 
   return (
@@ -39,25 +39,27 @@ export const ProblemsPerMachinePage = () => {
           </li>
         </ul>
       </div>
-      { showError ? (
-          <FetchError />
-        ) :
-      machineProblemsData ? (
+      {showError ? (
+        <FetchError />
+      ) : machineProblemsData ? (
         <>
-          <h1>{machineProblemsData.machineName}</h1>
+          <h1 className="text-4xl font-extrabold dark:text-white">
+            {machineProblemsData.machineName}
+          </h1>
           <h2>Quantity: {machineProblemsData.machineQuantity}</h2>
-          <h1>Related problems:</h1>
+          <h1 className="text-xl font-extrabold dark:text-white my-2">
+            Related problems:
+          </h1>
           <div>
             {machineProblemsData.problems.map((problem) => (
-              <div className="inline-flex" key={problem.problemId}>
-                <div className="card w-72 bg-base-100 m-5 shadow">
-                  <div className="card-body">
-                    <h2 className="card-title">{problem.problemName}</h2>
-                    <div className="card-actions justify-center">
-                      <Link to={problem.problemId}>
-                        <button className="btn btn-neutral">See Details</button>
-                      </Link>
-                    </div>
+              <div key={problem.problemId}>
+                <div className="collapse collapse-close border border-base-200 bg-base-200 rounded-2xl">
+                  <div className="flex flex-row justify-between items-baseline  collapse-title text-xl font-medium">
+                    {problem.problemName}
+
+                    <Link to={problem.problemId}>
+                      <button className="btn btn-ghost">See Details</button>
+                    </Link>
                   </div>
                 </div>
               </div>
