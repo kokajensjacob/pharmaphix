@@ -42,6 +42,19 @@ export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
   });
 };
 
+export const setInStockForSparePart = (
+  id: string,
+  body: { setStock: number },
+) => {
+  return fetch(`${BASE_URL}/spare-parts/${id}/setStock`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+};
+
 export const getProblemPerMachineList = (machineId: string) => {
   return fetch(`${BASE_URL}/machines/${machineId}/problems`).then((resp) =>
     resp.json(),
