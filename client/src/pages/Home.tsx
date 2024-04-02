@@ -21,53 +21,64 @@ export const Home = () => {
   }, []);
 
   return (
-    <div>
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-        </ul>
-      </div>
-      {showError ? (
-        <FetchError />
-      ) : repairQuantity === undefined || deviation === undefined ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <p>
-            There are {deviation.overstocked.spareParts} spare parts overstocked
-            (for a total of {deviation.overstocked.sparePartUnits} units)
-          </p>
-          <p>
-            There are {deviation.understocked.spareParts} spare parts
-            understocked (for a total of {deviation.understocked.sparePartUnits}{" "}
-            units)
-          </p>
-          {repairQuantity === 0 ? (
-            <h1>
-              There are currently no spare parts undergoing repair in the
-              workshop
-            </h1>
-          ) : repairQuantity === 1 ? (
-            <h1>
-              There is currently 1 spare part undergoing repair in the workshop
-            </h1>
-          ) : (
-            <h1>
-              There are currently {repairQuantity} spare parts undergoing repair
-              in the workshop
-            </h1>
-          )}
-        </>
-      )}
-      <div className="home__button-container">
-        <Link to="machines" className="btn btn-wide m-5">
-          Machines
-        </Link>
-        <Link to="spare-parts" className="btn btn-wide m-5">
-          Spare Parts
-        </Link>
+    <div className="flex justify-center my-20">
+      <div className="flex-column">
+        {showError ? (
+          <FetchError />
+        ) : repairQuantity === undefined || deviation === undefined ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md">
+            <div className="stat">
+              <div className="stat-title">spare parts overstocked</div>
+              <div className="stat-value text-yellow-400">
+                {deviation.overstocked.spareParts}{" "}
+              </div>
+
+              <div className="stat-desc">
+                for a total of {deviation.overstocked.sparePartUnits} units
+              </div>
+            </div>
+            <div className="stat">
+              <div className="stat-title">spare parts understocked</div>
+              <div className="stat-value text-rose-500">
+                {deviation.understocked.spareParts}{" "}
+              </div>
+              <div className="stat-desc">
+                for a total of {deviation.understocked.sparePartUnits} units
+              </div>
+            </div>
+
+            {repairQuantity === 0 ? (
+              <div className="stat">
+                <div className="stat-title">There are</div>
+                <div className="stat-value text-blue-500">0</div>
+                <div className="stat-desc">Spare parts in repair</div>
+              </div>
+            ) : repairQuantity === 1 ? (
+              <div className="stat">
+                <div className="stat-title">There are</div>
+                <div className="stat-value text-blue-500">1</div>
+                <div className="stat-desc">Spare parts in repair</div>
+              </div>
+            ) : (
+              <div className="stat">
+                <div className="stat-title">There are</div>
+                <div className="stat-value text-blue-500">{repairQuantity}</div>
+                <div className="stat-desc">Spare parts in repair</div>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="my-5">
+          <Link to="machines" className="btn btn-wide m-5">
+            Machines
+          </Link>
+          <Link to="spare-parts" className="btn btn-wide m-5">
+            Spare Parts
+          </Link>
+        </div>
       </div>
     </div>
   );
