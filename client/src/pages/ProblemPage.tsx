@@ -234,7 +234,9 @@ export const ProblemPage = () => {
             </div>
           </div>
           <div>
-            <h3>INSTRUCTIONS:</h3>
+            <h3 className="text-xl font-extrabold dark:text-white my-8">
+              Instructions:
+            </h3>
             <Instructions instructions={problemData.instructions.toString()} />
           </div>
         </>
