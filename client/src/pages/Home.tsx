@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getInvStatus, getSparePartsDeviation } from "../api";
 import { Link } from "react-router-dom";
 import { FetchError } from "../components/errors/FetchError";
+import { Loading } from "../components/Loading";
 
 export const Home = () => {
   const [repairQuantity, setRepairQuantity] = useState();
@@ -26,7 +27,7 @@ export const Home = () => {
         {showError ? (
           <FetchError />
         ) : repairQuantity === undefined || deviation === undefined ? (
-          <p>Loading...</p>
+          <Loading />
         ) : (
           <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md">
             <div className="stat">
