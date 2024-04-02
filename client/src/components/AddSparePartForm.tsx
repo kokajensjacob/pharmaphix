@@ -10,7 +10,8 @@ type NewSparePartFormEvent = FormEvent<HTMLFormElement> & {
     failAmount: { value: string };
     failDivisor: { value: "week" | "month" | "year" };
     sparePartInStock: { value: string };
-    sparePartRepairTime: { value: string };
+    repairTime: { value: string };
+    repairTimeUnit: { value: "hours" | "days" | "months" };
     associatedMachineId: { value: string };
   };
 };
@@ -39,6 +40,13 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
     }, duration);
   }
 
+  async function handle201(resp: Response) {
+    const data = await resp.json();
+    setCreatedSparePart(data);
+    (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
+    nameInput.current!.value = "";
+  }
+
   function handleOnSubmit(e: NewSparePartFormEvent) {
     e.preventDefault();
     setDisableForm(true);
@@ -50,16 +58,12 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
         e.target.failDivisor.value,
       ),
       quantityInStock: Number(e.target.sparePartInStock.value),
-      repairTime: Number(e.target.sparePartRepairTime.value),
+      repairTime: repairTimeInYears(
+        Number(e.target.repairTime.value),
+        e.target.repairTimeUnit.value,
+      ),
       machineId: e.target.associatedMachineId.value,
     };
-
-    async function handle201(resp: Response) {
-      const data = await resp.json();
-      setCreatedSparePart(data);
-      (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
-      nameInput.current!.value = "";
-    }
 
     postNewSparePart(request)
       .then((resp) => {
@@ -112,6 +116,23 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
     return amount * mult;
   }
 
+  function repairTimeInYears(
+    repairTime: number,
+    timeUnit: "hours" | "days" | "months",
+  ) {
+    let divisor = 1;
+    switch (timeUnit) {
+      // fallthrough deliberate /jh
+      case "hours":
+        divisor *= 24;
+      case "days":
+        divisor *= 30;
+      case "months":
+        divisor *= 12;
+    }
+    return repairTime / divisor;
+  }
+
   return (
     <>
       <form onSubmit={handleOnSubmit}>
@@ -158,6 +179,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             defaultValue={1}
             min={1}
             disabled={disableForm}
+            className="input input-bordered max-w-xs"
           />
           /
           <select defaultValue="month" id="failDivisor" disabled={disableForm}>
@@ -171,7 +193,9 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
           className="form-control w-full max-w-xs"
         >
           <div className="label">
-            <span className="label-text">How many are in stock right now?</span>
+            <span className="label-text">
+              How many are in stock right now? *
+            </span>
           </div>
         </label>
         <input
@@ -179,45 +203,62 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
           name="sparePartInStock"
           id="sparePartInStock"
           disabled={disableForm}
+          min="0"
+          className="input input-bordered w-full max-w-xs"
         />
+
         <label
           htmlFor="sparePartRepairTime"
           className="form-control w-full max-w-xs"
         >
           <div className="label">
             <span className="label-text">
-              Enter average repair time of spare part:
+              What's the average repair time? *
             </span>
           </div>
         </label>
-        <input
-          type="number"
-          name="sparePartRepairTime"
-          id="sparePartRepairTime"
+        <div id="sparePartRepairTime">
+          <input
+            type="number"
+            name=""
+            id="repairTime"
+            defaultValue={1}
+            min={1}
+            disabled={disableForm}
+            className="input input-bordered max-w-xs"
+          />
+          <select
+            defaultValue="month"
+            id="repairTimeUnit"
+            disabled={disableForm}
+          >
+            <option value="hours">hours</option>
+            <option value="days">days</option>
+            <option value="months">months</option>
+          </select>
+        </div>
+
+        <select
+          name="associatedMachineId"
+          id="associatedMachineId"
+          className="select select-bordered w-full max-w-xs"
           disabled={disableForm}
-        />{" "}
-        years
-        <fieldset disabled={disableForm}>
-          <legend className="label-text">
-            Select the associated machine from the list below
-          </legend>
-          {machines.map(({ machineId, machineName }) => (
-            <label className="label cursor-pointer" key={machineId}>
-              <span className="label-text">{machineName}</span>
-              <input
-                type="radio"
-                name="associatedMachineId"
-                value={machineId}
-                className="radio checked:bg-blue-500"
-              />
-            </label>
+          defaultValue="default"
+        >
+          <option disabled value="default">
+            Select associated machine *
+          </option>
+          {machines.map((machine) => (
+            <option key={machine.machineId} value={machine.machineId}>
+              {machine.machineName}
+            </option>
           ))}
-        </fieldset>
+        </select>
         <input type="submit" className="btn" value="Add new spare part" />
+        {userDialog.showMessage && (
+          <PatchUserDialog message={userDialog.message} />
+        )}
       </form>
-      {userDialog.showMessage && (
-        <PatchUserDialog message={userDialog.message} />
-      )}
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
