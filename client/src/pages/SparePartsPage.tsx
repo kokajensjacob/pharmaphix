@@ -43,9 +43,8 @@ export const SparePartsPage = () => {
         <FetchError />
       ) : (
         <>
-          <h1>Spare Parts</h1>
           <div className="flex flex-row justify-around">
-            <div className="collapse collapse-plus w-6/12">
+            <div className="collapse collapse-plus w-4/12">
               <input type="checkbox" className="peer" />
               <div className="collapse-title text-xl font-medium">
                 Ongoing Repairs
@@ -66,6 +65,7 @@ export const SparePartsPage = () => {
               <button className="btn">Add spare part</button>
             </Link>
           </div>
+          <div className="divider"></div>
           {spareParts ? (
             <SparePartTable spareParts={spareParts} />
           ) : (
