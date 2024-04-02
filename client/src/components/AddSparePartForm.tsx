@@ -21,6 +21,10 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
     showMessage: boolean;
     message: string;
   }>({ showMessage: false, message: "" });
+  const [createdSparePart, setCreatedSparePart] = useState<{
+    id: string;
+    optimalQuantity: number;
+  }>();
 
   function resetUserDialog() {
     setUserDialog({ showMessage: false, message: "" });
@@ -47,11 +51,19 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       repairTime: Number(e.target.sparePartRepairTime.value),
       machineId: e.target.associatedMachineId.value,
     };
+
+    async function handle201(resp: Response) {
+      const data = await resp.json();
+      setCreatedSparePart(data);
+      console.log(createdSparePart);
+      (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
+    }
+
     postNewSparePart(request)
       .then((resp) => {
         switch (resp.status) {
           case 201:
-            displayUserDialog("Successful", 5000);
+            handle201(resp);
             break;
           case 400:
             displayUserDialog(
@@ -202,6 +214,28 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       </form>
       {userDialog.showMessage && (
         <PatchUserDialog message={userDialog.message} />
+      )}
+      {createdSparePart && (
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">
+              Spare part created successfully
+            </h3>
+            <p className="py-4">ID: {createdSparePart.id}</p>
+            <p className="py-4 bold">
+              Calculated optimal quantity
+              {/* based on the purchase cost of the
+              part itself and the associated machine, and the average repair
+      time and the breakage frequancy of the part is*/}
+              : {createdSparePart.optimalQuantity}
+            </p>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn">Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       )}
     </>
   );
