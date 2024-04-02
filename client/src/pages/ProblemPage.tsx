@@ -135,7 +135,8 @@ export const ProblemPage = () => {
               Start Repair
             </button>
           </div>
-          <p>{problemData.problemDescription}</p>
+          <h2 className="text-xl">Problem description: </h2>
+          <p className="mb-5">{problemData.problemDescription}</p>
           <div className="flex flex-row justify-center">
             <div className="card w-72 bg-base-100 m-5 shadow">
               <div className="card-body">
