@@ -134,4 +134,10 @@ public class PharmaPhixService {
     public SparePart getSparePart(String sparePartId) {
         return spRepo.findById(sparePartId).orElseThrow(SparePartEntityNotFoundException::new);
     }
+
+    public SparePart setStockSparePart(String sparePartId, int stock) {
+        SparePart sparePart = spRepo.findById(sparePartId).orElseThrow(SparePartEntityNotFoundException::new);
+        sparePart.setQuantityInStock(stock);
+        return spRepo.save(sparePart);
+    }
 }
