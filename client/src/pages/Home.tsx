@@ -34,32 +34,37 @@ export const Home = () => {
       ) : repairQuantity === undefined || deviation === undefined ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <p>
-            There are {deviation.overstocked.spareParts} spare parts overstocked
-            (for a total of {deviation.overstocked.sparePartUnits} units)
-          </p>
-          <p>
-            There are {deviation.understocked.spareParts} spare parts
-            understocked (for a total of {deviation.understocked.sparePartUnits}{" "}
-            units)
-          </p>
-          {repairQuantity === 0 ? (
-            <h1>
-              There are currently no spare parts undergoing repair in the
-              workshop
-            </h1>
-          ) : repairQuantity === 1 ? (
-            <h1>
-              There is currently 1 spare part undergoing repair in the workshop
-            </h1>
-          ) : (
-            <h1>
-              There are currently {repairQuantity} spare parts undergoing repair
-              in the workshop
-            </h1>
-          )}
-        </>
+        <div className="card lg:card-side bg-base-100 shadow-xl">
+          <div className="card-body">
+            <h2 className="card-title">Inventory Status</h2>
+            <p>
+              There are {deviation.overstocked.spareParts} spare parts
+              overstocked (for a total of {deviation.overstocked.sparePartUnits}{" "}
+              units)
+            </p>
+            <p>
+              There are {deviation.understocked.spareParts} spare parts
+              understocked (for a total of{" "}
+              {deviation.understocked.sparePartUnits} units)
+            </p>
+            {repairQuantity === 0 ? (
+              <h1>
+                There are currently no spare parts undergoing repair in the
+                workshop
+              </h1>
+            ) : repairQuantity === 1 ? (
+              <h1>
+                There is currently 1 spare part undergoing repair in the
+                workshop
+              </h1>
+            ) : (
+              <h1>
+                There are currently {repairQuantity} spare parts undergoing
+                repair in the workshop
+              </h1>
+            )}
+          </div>
+        </div>
       )}
       <div className="home__button-container">
         <Link to="machines" className="btn btn-wide m-5">
