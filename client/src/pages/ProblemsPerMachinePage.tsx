@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { getProblemPerMachineList } from "../api";
 import { FetchError } from "../components/errors/FetchError";
 import { Loading } from "../components/Loading";
+import { RelatedProblem } from "../components/RelatedProblem";
+import { NoRelatedProblems } from "../components/NoRelatedProblems";
 
 export const ProblemsPerMachinePage = () => {
   const [machineProblemsData, setMachineProblemsData] =
@@ -44,28 +46,19 @@ export const ProblemsPerMachinePage = () => {
         <FetchError />
       ) : machineProblemsData ? (
         <>
-          <h1 className="text-4xl font-extrabold dark:text-white">
+          <h1 className="text-4xl font-extrabold dark:text-white mt-5">
             {machineProblemsData.machineName}
           </h1>
           <h2>Quantity: {machineProblemsData.machineQuantity}</h2>
-          <h1 className="text-xl font-extrabold dark:text-white my-2">
+          <h1 className="text-xl font-extrabold dark:text-white my-8">
             Related problems:
           </h1>
+          {machineProblemsData.problems.length === 0 ? (<NoRelatedProblems />) :
           <div>
             {machineProblemsData.problems.map((problem) => (
-              <div key={problem.problemId}>
-                <div className="collapse collapse-close border border-base-200 bg-base-200 rounded-2xl">
-                  <div className="flex flex-row justify-between items-baseline  collapse-title text-xl font-medium">
-                    {problem.problemName}
-
-                    <Link to={problem.problemId}>
-                      <button className="btn btn-ghost">See Details</button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <RelatedProblem problem={problem}/>
             ))}
-          </div>
+          </div>}
         </>
       ) : (
         <Loading />

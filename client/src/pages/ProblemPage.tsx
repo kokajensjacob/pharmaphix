@@ -5,6 +5,8 @@ import { ProblemData, SparePartDeductReqDto } from "../types";
 import { FetchError } from "../components/errors/FetchError";
 import { PatchUserDialog } from "../components/PatchUserDialog";
 import { Loading } from "../components/Loading";
+import { Instructions } from "../components/Instructions";
+
 
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
@@ -203,7 +205,7 @@ export const ProblemPage = () => {
           </div>
           <div>
             <h3>INSTRUCTIONS:</h3>
-            <p>{problemData.instructions}</p>
+            <Instructions instructions={problemData.instructions.toString()} />
           </div>
         </>
       ) : (
