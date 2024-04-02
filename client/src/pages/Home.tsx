@@ -58,9 +58,9 @@ export const Home = () => {
               </div>
             ) : repairQuantity === 1 ? (
               <div className="stat">
-                <div className="stat-title">There are</div>
+                <div className="stat-title">There is</div>
                 <div className="stat-value text-blue-500">1</div>
-                <div className="stat-desc">Spare parts in repair</div>
+                <div className="stat-desc">Spare part in repair</div>
               </div>
             ) : (
               <div className="stat">
