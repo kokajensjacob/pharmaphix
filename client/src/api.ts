@@ -6,6 +6,10 @@ export const fetchMachines = async () => {
   return fetch(`${BASE_URL}/machines`).then((resp) => resp.json());
 };
 
+export const fetchSparePart = (id: string) => {
+  return fetch(`${BASE_URL}/spare-parts/${id}`);
+};
+
 export async function fetchSpareParts() {
   return fetch(`${BASE_URL}/spare-parts`).then((resp) => resp.json());
 }
