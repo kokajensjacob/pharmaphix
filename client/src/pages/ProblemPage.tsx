@@ -7,7 +7,6 @@ import { PatchUserDialog } from "../components/PatchUserDialog";
 import { Loading } from "../components/Loading";
 import { Instructions } from "../components/Instructions";
 
-
 export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
@@ -177,7 +176,7 @@ export const ProblemPage = () => {
                 )}
                 <div className="modal-action">
                   <form method="dialog">
-                    <button className="btn" onClick={handleOnClick}>
+                    <button className="btn mx-1" onClick={handleOnClick}>
                       Yes
                     </button>
                     <button
