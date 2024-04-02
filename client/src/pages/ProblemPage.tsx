@@ -120,7 +120,7 @@ export const ProblemPage = () => {
       ) : problemData ? (
         <>
           <div className="flex flex-row items-baseline justify-between ">
-            <h1 className="text-4xl font-extrabold dark:text-white">
+            <h1 className="text-4xl font-extrabold dark:text-white mt-5">
               {problemData.problemName}
             </h1>
             <button
