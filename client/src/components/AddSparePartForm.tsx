@@ -254,12 +254,11 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             </option>
           ))}
         </select>
-
         <input type="submit" className="btn" value="Add new spare part" />
+        {userDialog.showMessage && (
+          <PatchUserDialog message={userDialog.message} />
+        )}
       </form>
-      {userDialog.showMessage && (
-        <PatchUserDialog message={userDialog.message} />
-      )}
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
