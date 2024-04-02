@@ -154,9 +154,21 @@ export const ProblemPage = () => {
                     .map((sp) => (
                       <li key={sp.sparePartId}>
                         <div>{sp.sparePartName}</div>
-                        <div>
-                          {sp.quantityNeeded}/{sp.quantityInStock}
-                        </div>
+                        {sp.quantityNeeded > sp.quantityInStock ? (
+                          <div>
+                            {sp.quantityNeeded}/{sp.quantityInStock}
+                            <div className="flex flex-column badge badge-error badge-outline">
+                              Out of stock
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            {sp.quantityNeeded}/{sp.quantityInStock}
+                            <div className="flex flex-column badge badge-success badge-outline">
+                              In Stock
+                            </div>
+                          </div>
+                        )}
                       </li>
                     ))}
                 </ul>
