@@ -44,7 +44,7 @@ export const SparePartsPage = () => {
       ) : (
         <>
           <h1>Spare Parts</h1>
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-around">
             <div className="collapse collapse-plus w-6/12">
               <input type="checkbox" className="peer" />
               <div className="collapse-title text-xl font-medium">
@@ -63,7 +63,7 @@ export const SparePartsPage = () => {
               </div>
             </div>
             <Link to="/spare-parts/add-new">
-              <button className="btn ml-60">Add spare part</button>
+              <button className="btn">Add spare part</button>
             </Link>
           </div>
           {spareParts ? (
