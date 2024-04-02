@@ -29,6 +29,17 @@ public class Controller {
         return ResponseEntity.ok(new SparePartInRepairDto(unitsInRepair));
     }
 
+    @GetMapping("/spare-parts/optimalQuantityDeviation")
+    public ResponseEntity<SparePartOptimalDeviationDto> getSparePartOptimalQuantityDeviation() {
+        long sparePartsOverstocked = service.getSparePartsOverstocked();
+        long sparePartUnitsOverstocked = service.getSparePartUnitsOverstocked();
+        long sparePartsUnderstocked = service.getSparePartsUnderstocked();
+        long sparePartUnitsUnderstocked = service.getSparePartUnitsUnderstocked();
+        return ResponseEntity.ok(SparePartOptimalDeviationDto.createDto(
+                sparePartsOverstocked, sparePartUnitsOverstocked, sparePartsUnderstocked, sparePartUnitsUnderstocked)
+        );
+    }
+
     @GetMapping("/spare-parts/in-repair-list")
     public ResponseEntity<List<SparePartInRepairListResponseDto>> getUnitsInRepair() {
         List<SparePartInRepairListResponseDto> responseBody = service.getSparePartsInRepair().stream()
