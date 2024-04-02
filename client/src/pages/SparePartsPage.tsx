@@ -60,10 +60,10 @@ export const SparePartsPage = () => {
                 ))}
               </ul>
             </div>
-            <Link to="/spare-parts/add-new">
-              <button className="btn">Add spare part</button>
-            </Link>
           </div>
+          <Link to="/spare-parts/add-new">
+            <button className="btn">Add spare part</button>
+          </Link>
           {spareParts ? (
             <SparePartTable spareParts={spareParts} />
           ) : (
