@@ -34,36 +34,46 @@ export const Home = () => {
       ) : repairQuantity === undefined || deviation === undefined ? (
         <p>Loading...</p>
       ) : (
-        <div className="card lg:card-side bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Inventory Status</h2>
-            <p>
-              There are {deviation.overstocked.spareParts} spare parts
-              overstocked (for a total of {deviation.overstocked.sparePartUnits}{" "}
-              units)
-            </p>
-            <p>
-              There are {deviation.understocked.spareParts} spare parts
-              understocked (for a total of{" "}
-              {deviation.understocked.sparePartUnits} units)
-            </p>
-            {repairQuantity === 0 ? (
-              <h1>
-                There are currently no spare parts undergoing repair in the
-                workshop
-              </h1>
-            ) : repairQuantity === 1 ? (
-              <h1>
-                There is currently 1 spare part undergoing repair in the
-                workshop
-              </h1>
-            ) : (
-              <h1>
-                There are currently {repairQuantity} spare parts undergoing
-                repair in the workshop
-              </h1>
-            )}
+        <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md">
+          <div className="stat">
+            <div className="stat-title">spare parts overstocked</div>
+            <div className="stat-value">
+              {deviation.overstocked.spareParts}{" "}
+            </div>
+
+            <div className="stat-desc">
+              for a total of {deviation.overstocked.sparePartUnits} units
+            </div>
           </div>
+          <div className="stat">
+            <div className="stat-title">spare parts understocked</div>
+            <div className="stat-value">
+              {deviation.understocked.spareParts}{" "}
+            </div>
+            <div className="stat-desc">
+              for a total of {deviation.understocked.sparePartUnits} units
+            </div>
+          </div>
+
+          {repairQuantity === 0 ? (
+            <div className="stat">
+              <div className="stat-title">There are</div>
+              <div className="stat-value">0</div>
+              <div className="stat-desc">Spare parts in repair</div>
+            </div>
+          ) : repairQuantity === 1 ? (
+            <div className="stat">
+              <div className="stat-title">There are</div>
+              <div className="stat-value">1</div>
+              <div className="stat-desc">Spare parts in repair</div>
+            </div>
+          ) : (
+            <div className="stat">
+              <div className="stat-title">There are</div>
+              <div className="stat-value">{repairQuantity}</div>
+              <div className="stat-desc">Spare parts in repair</div>
+            </div>
+          )}
         </div>
       )}
       <div className="home__button-container">
