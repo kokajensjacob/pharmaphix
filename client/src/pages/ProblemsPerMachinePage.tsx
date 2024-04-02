@@ -68,7 +68,9 @@ export const ProblemsPerMachinePage = () => {
                     : 0;
                 })
                 .map((problem) => (
-                  <RelatedProblem problem={problem} />
+                  <div key={problem.problemId}>
+                    <RelatedProblem problem={problem} />
+                  </div>
                 ))}
             </div>
           )}
