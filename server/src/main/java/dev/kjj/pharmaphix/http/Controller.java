@@ -52,9 +52,10 @@ public class Controller {
     }
 
     @PostMapping("/spare-parts")
-    public ResponseEntity<Void> createSparePart(@Valid @RequestBody SparePartPostRequestDto body) {
+    public ResponseEntity<SparePartPostResponseDto> createSparePart(@Valid @RequestBody SparePartPostRequestDto body) {
         SparePart created = service.createNewSparePart(body);
-        return ResponseEntity.created(URI.create("/api/spare-parts/" + created.getId())).build();
+        return ResponseEntity.created(URI.create("/api/spare-parts/" + created.getId()))
+                .body(SparePartPostResponseDto.convertToDto(created));
     }
 
     @PatchMapping("/spare-parts")
