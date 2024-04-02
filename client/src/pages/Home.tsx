@@ -29,7 +29,7 @@ export const Home = () => {
         ) : repairQuantity === undefined || deviation === undefined ? (
           <Loading />
         ) : (
-          <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md">
+          <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md h-48">
             <div className="stat">
               <div className="stat-title">spare parts overstocked</div>
               <div className="stat-value text-yellow-400">
