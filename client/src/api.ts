@@ -16,6 +16,12 @@ export const getInvStatus = () => {
     .then((data) => data.unitsInRepair);
 };
 
+export const getSparePartsDeviation = () => {
+  return fetch(`${BASE_URL}/spare-parts/optimalQuantityDeviation`).then(
+    (resp) => resp.json(),
+  );
+};
+
 export const getProblemData = (problem_id: string) => {
   return fetch(`${BASE_URL}/problems/${problem_id}`).then((resp) =>
     resp.json(),
