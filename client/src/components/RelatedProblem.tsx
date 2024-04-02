@@ -5,7 +5,6 @@ export const RelatedProblem = ({
 }: {
   problem: { problemId: string; problemName: string };
 }) => {
-            console.log(problem.problemId);
   return (
     <div key={problem.problemId} className="my-5">
       <div className="collapse collapse-close border border-base-200 bg-base-200 rounded-1xl">
