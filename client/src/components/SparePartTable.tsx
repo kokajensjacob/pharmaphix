@@ -3,7 +3,7 @@ import { SparePart } from "../types";
 export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="table table-sm">
+      <table className="table table-sm table-zebra">
         <thead>
           <tr>
             <th>Name</th>
