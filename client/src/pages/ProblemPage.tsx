@@ -153,21 +153,30 @@ export const ProblemPage = () => {
                     })
                     .map((sp) => (
                       <li key={sp.sparePartId}>
-                        <div>{sp.sparePartName}</div>
                         {sp.quantityNeeded > sp.quantityInStock ? (
-                          <div>
-                            {sp.quantityNeeded}/{sp.quantityInStock}
-                            <div className="flex flex-column badge badge-error badge-outline">
+                          <>
+                            <div className="flex">
+                              <div>{sp.sparePartName}</div>
+                              <span className="badge badge-lg ml-4 rounded-lg bg-red-400">
+                                {sp.quantityNeeded}/{sp.quantityInStock}
+                              </span>
+                            </div>
+                            <div className="flex flex-column badge badge-error badge-outline mt-2">
                               Out of stock
                             </div>
-                          </div>
+                          </>
                         ) : (
-                          <div>
-                            {sp.quantityNeeded}/{sp.quantityInStock}
-                            <div className="flex flex-column badge badge-success badge-outline">
+                          <>
+                            <div className="flex">
+                              <div>{sp.sparePartName}</div>
+                              <span className="badge badge-lg ml-4 rounded-lg bg-green-400">
+                                {sp.quantityNeeded}/{sp.quantityInStock}
+                              </span>
+                            </div>
+                            <div className="flex flex-column badge badge-success badge-outline mt-2">
                               In Stock
                             </div>
-                          </div>
+                          </>
                         )}
                       </li>
                     ))}
