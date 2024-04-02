@@ -34,7 +34,7 @@ export const MachinesPage = () => {
           <h1 className="text-xl font-medium m-5">Machines</h1>
           {machines.map((machine) => (
             <div key={machine.machineId} className="inline-flex">
-              <div className="card w-72 bg-base-100 m-5 shadow">
+              <div className="card w-72 h-72 bg-base-100 m-5 shadow">
                 <div className="card-body">
                   <h2 className="card-title">{machine.machineName}</h2>
                   <p>Quantity: {machine.machineQuantity}</p>
