@@ -61,7 +61,10 @@ public class PharmaPhixService {
     }
 
     public long getTotalSparePartsInRepair() {
-        return this.getSparePartsInRepair().stream().map(SparePart::getQuantityInRepair).reduce(Integer::sum).orElse(0);
+        return this.getSparePartsInRepair().stream()
+                .map(SparePart::getQuantityInRepair)
+                .reduce(Integer::sum)
+                .orElse(0);
     }
 
     public List<Machine> getAllMachines() {
