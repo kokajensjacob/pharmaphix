@@ -79,19 +79,21 @@ export const SparePartInRepair = ({
 
   return (
     <li>
-      <p> {sp.name}</p>
-      <button
-        className="btn"
-        onClick={() => {
-          inputElement.current!.value = "0";
-          setDisableFixBtn(true);
-          (
-            document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
-          ).showModal();
-        }}
-      >
-        Details
-      </button>
+      <div className="flex flex-row items-baseline justify-around">
+        <p> {sp.name}</p>
+        <button
+          className="btn btn-sm"
+          onClick={() => {
+            inputElement.current!.value = "0";
+            setDisableFixBtn(true);
+            (
+              document.getElementById(`modal_${sp.id}`) as HTMLDialogElement
+            ).showModal();
+          }}
+        >
+          Details
+        </button>
+      </div>
       <dialog id={`modal_${sp.id}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">{sp.name}</h3>
