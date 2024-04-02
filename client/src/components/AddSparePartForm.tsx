@@ -99,7 +99,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       >
         <div className="label">
           <span className="label-text">
-            How often does he spare part need replacing? (on average) *
+            How often does the spare part need replacing? (on average) *
           </span>
         </div>
       </label>
