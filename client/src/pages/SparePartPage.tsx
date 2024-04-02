@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { SparePartGetResponseDto } from "../types";
 import { Link, useParams } from "react-router-dom";
 import { fetchSparePart } from "../api";
 import { Loading } from "../components/Loading";
+import { SparePartDetailsFormTable } from "../components/SparePartDetailsFormTable";
+import { FetchError } from "../components/errors/FetchError";
 
 export const SparePartPage = () => {
   const [sparePartData, setSparePartData] = useState<SparePartGetResponseDto>();
-  const [editable, setEditable] = useState<boolean>(false);
-  const [updatable, setUpdatable] = useState<boolean>(false);
+  const [showFetchError, setShowFetchError] = useState<boolean>(false);
   const { spare_part_id } = useParams();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const SparePartPage = () => {
             console.log("sum unexpected happaned"); // TO DO
         }
       })
-      .catch(() => console.log("fetch failed yo"));
+      .catch(() => setShowFetchError(true));
   }, []);
 
   return (
@@ -46,7 +47,9 @@ export const SparePartPage = () => {
           </li>
         </ul>
       </div>
-      {sparePartData ? (
+      {showFetchError ? (
+        <FetchError />
+      ) : sparePartData ? (
         <>
           <p>Spare Part:</p>
           <p>{sparePartData.sparePart.name}</p>
@@ -70,81 +73,7 @@ export const SparePartPage = () => {
           </ul>
 
           <p>Details:</p>
-          {editable ? (
-            <div>
-              <button onClick={() => setEditable(false)}>Cancel</button>
-              <button disabled={!updatable}>Update</button>
-            </div>
-          ) : (
-            <button onClick={() => setEditable(true)}>Edit</button>
-          )}
-          <form>
-            <table>
-              <tbody>
-                <tr>
-                  <th>In Stock</th>
-                  <td>
-                    <input
-                      type="number"
-                      disabled={!editable}
-                      onChange={() => setUpdatable(true)}
-                      defaultValue={sparePartData.sparePart.quantityInStock}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <th>In Workshop</th>
-                  <td>
-                    <input
-                      type="number"
-                      disabled
-                      value={sparePartData.sparePart.quantityInRepair}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <th>Optimal quantity</th>
-                  <td>
-                    <input
-                      type="number"
-                      disabled
-                      value={sparePartData.sparePart.optimalQuantity}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <th>Cost</th>
-                  <td>
-                    <input
-                      type="number"
-                      disabled
-                      value={sparePartData.sparePart.cost}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <th>Failure rate (times/year)</th>
-                  <td>
-                    <input
-                      type="number"
-                      disabled
-                      value={sparePartData.sparePart.failureRate}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <th>Repair time (years)</th>
-                  <td>
-                    <input
-                      type="number"
-                      disabled
-                      value={sparePartData.sparePart.repairTime}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+          <SparePartDetailsFormTable sparePart={sparePartData.sparePart} />
         </>
       ) : (
         <Loading />
