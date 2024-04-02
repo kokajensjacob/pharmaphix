@@ -40,9 +40,7 @@ export const MachinesPage = () => {
                   <p>Quantity: {machine.machineQuantity}</p>
                   <div className="card-actions justify-center">
                     <Link to={machine.machineId}>
-                      <button className="btn btn-neutral">
-                        Related Problems
-                      </button>
+                      <button className="btn">Related Problems</button>
                     </Link>
                   </div>
                 </div>
