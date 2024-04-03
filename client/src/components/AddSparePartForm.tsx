@@ -2,6 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { Machine, SparePartPostRequest } from "../types";
 import { postNewSparePart } from "../api";
 import { PatchUserDialog } from "./PatchUserDialog";
+import { Link } from "react-router-dom";
 
 type NewSparePartFormEvent = FormEvent<HTMLFormElement> & {
   target: {
@@ -287,7 +288,17 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             </div>
           </div>
         </div>
-        <input type="submit" className="btn my-5 bg-green-500 hover:bg-green-600" value="Add new spare part" />
+        <input
+          type="submit"
+          className="btn my-5 mx-5 bg-green-500 hover:bg-green-600"
+          value="Add new spare part"
+        />
+        <Link
+          to="/spare-parts"
+          className="btn btn-outline place-self-center mx-5"
+        >
+          Cancel
+        </Link>
         {userDialog.showMessage && (
           <PatchUserDialog message={userDialog.message} />
         )}
@@ -299,8 +310,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
           <p className="py-4">
             Name: {createdSparePart?.name}
             <br />
-            Calculated optimal quantity
-            : {createdSparePart?.optimalQuantity}
+            Calculated optimal quantity : {createdSparePart?.optimalQuantity}
           </p>
           <div className="modal-action">
             <form method="dialog">

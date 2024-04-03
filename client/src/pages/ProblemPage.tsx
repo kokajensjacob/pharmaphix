@@ -11,7 +11,10 @@ export const ProblemPage = () => {
   const [problemData, setProblemData] = useState<ProblemData>();
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const { machine_type_id, problem_id } = useParams();
-  const [showGetError, setShowGetError] = useState<boolean>(false);
+  const [getError, setGetError] = useState<{
+    showError: boolean;
+    message: string;
+  }>({ showError: false, message: "" });
   const [patchUserDialog, setPatchUserDialog] = useState<{
     showMessage: boolean;
     message: string;
@@ -24,15 +27,24 @@ export const ProblemPage = () => {
 
   const getAndSetProblemData = () => {
     getProblemData(problem_id!)
-      .then((data: ProblemData) => {
-        setProblemData(data);
-        setBtnDisabled(
-          !data.sparePartsNeeded.every(
-            (sp) => sp.quantityInStock >= sp.quantityNeeded
-          )
-        );
+      .then((resp) => {
+        switch (resp.status) {
+          case 200:
+            resp.json().then((data: ProblemData) => {
+              setProblemData(data);
+              setBtnDisabled(
+                !data.sparePartsNeeded.every(
+                  (sp) => sp.quantityInStock >= sp.quantityNeeded
+                )
+              );
+            });
+            break;
+          case 404: setGetError({showError: true, message: "404 - Couldn't find problem"})
+            break;
+          default: setGetError({showError: true, message: `Unexpected error: ${resp.status}`})
+        }
       })
-      .catch(() => setShowGetError(true));
+      .catch(() => setGetError({showError: true, message: "Server not available at the moment. Try again later"}));
   };
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -61,7 +73,7 @@ export const ProblemPage = () => {
           case 404:
             setPatchUserDialog({
               showMessage: true,
-              message: "Spare Part not found",
+              message: "404 - Couldn't find spare part",
             });
             break;
           case 400:
@@ -81,7 +93,7 @@ export const ProblemPage = () => {
       .catch(() => {
         setPatchUserDialog({
           showMessage: true,
-          message: "Server not available at the moment. Try again.",
+          message: "Server not available at the moment. Try again later",
         });
         setSubmitYesClicked(false);
       });
@@ -89,7 +101,7 @@ export const ProblemPage = () => {
 
   return (
     <>
-      {(showGetError || problemData) && (
+      {(getError || problemData) && (
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
@@ -115,8 +127,8 @@ export const ProblemPage = () => {
           </ul>
         </div>
       )}
-      {showGetError ? (
-        <FetchError />
+      {getError.showError ? (
+        <FetchError msg={getError.message}/>
       ) : problemData ? (
         <>
           <div className="flex flex-row items-baseline justify-between ">
@@ -199,7 +211,10 @@ export const ProblemPage = () => {
                 )}
                 <div className="modal-action">
                   <form method="dialog">
-                    <button className="btn mx-1 bg-green-500 hover:bg-green-600 w-20" onClick={handleOnClick}>
+                    <button
+                      className="btn mx-1 bg-green-500 hover:bg-green-600 w-20"
+                      onClick={handleOnClick}
+                    >
                       Yes
                     </button>
                     <button

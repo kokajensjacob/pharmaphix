@@ -26,9 +26,7 @@ export const getSparePartsDeviation = () => {
 };
 
 export const getProblemData = (problem_id: string) => {
-  return fetch(`${BASE_URL}/problems/${problem_id}`).then((resp) =>
-    resp.json(),
-  );
+  return fetch(`${BASE_URL}/problems/${problem_id}`);
 };
 
 export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
@@ -55,9 +53,7 @@ export const setInStockForSparePart = (
 };
 
 export const getProblemPerMachineList = (machineId: string) => {
-  return fetch(`${BASE_URL}/machines/${machineId}/problems`).then((resp) =>
-    resp.json(),
-  );
+  return fetch(`${BASE_URL}/machines/${machineId}/problems`);
 };
 
 export const getSparePartsInRepair = () => {

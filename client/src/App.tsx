@@ -7,6 +7,7 @@ import { MachinePage } from "./pages/MachinePage";
 import { SparePartsPage } from "./pages/SparePartsPage";
 import { AddSparePartPage } from "./pages/AddSparePartPage";
 import { SparePartPage } from "./pages/SparePartPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             path="machines/:machine_type_id/:problem_id"
             element={<ProblemPage />}
           />
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </main>
     </>

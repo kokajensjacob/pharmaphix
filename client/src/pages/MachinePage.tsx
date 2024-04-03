@@ -12,15 +12,27 @@ export const MachinePage = () => {
     useState<ProblemPerMachine>();
   const { machine_type_id } = useParams<string>();
   const [breadcrumbUrl, setBreadcrumbUrl] = useState<string>();
-  const [showError, setShowError] = useState<boolean>(false);
+  const [userDialog, setUserDialog] = useState<{
+    showError: boolean;
+    message: string;
+  }>({ showError: false, message: "" });
 
   useEffect(() => {
     getProblemPerMachineList(machine_type_id as string)
-      .then((data) => {
-        setMachineProblemsData(data);
-        setBreadcrumbUrl(`/machines/${machine_type_id}`);
+      .then((resp) => {
+        switch (resp.status) {
+          case 200:
+            resp.json().then((data) => {
+              setMachineProblemsData(data);
+              setBreadcrumbUrl(`/machines/${machine_type_id}`);
+            });
+            break;
+          case 404: setUserDialog({showError: true, message: "404 - Couldn't find machine"});
+            break;
+          default: setUserDialog({showError: true, message: `Unexpected error: ${resp.status}`});
+        }
       })
-      .catch(() => setShowError(true));
+      .catch(() => setUserDialog({showError: true, message: "Server not available at the moment. Try again later"}));
   }, []);
 
   return (
@@ -42,8 +54,8 @@ export const MachinePage = () => {
           </li>
         </ul>
       </div>
-      {showError ? (
-        <FetchError />
+      {userDialog.showError ? (
+        <FetchError msg={userDialog.message}/>
       ) : machineProblemsData ? (
         <>
           <h1 className="text-4xl font-extrabold mt-5">

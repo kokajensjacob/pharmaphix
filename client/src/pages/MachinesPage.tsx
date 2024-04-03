@@ -28,7 +28,7 @@ export const MachinesPage = () => {
         </ul>
       </div>
       {showError ? (
-        <FetchError />
+        <FetchError msg={"Server not available at the moment. Try again later"}/>
       ) : machines ? (
         <>
           {
