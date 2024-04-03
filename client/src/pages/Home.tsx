@@ -29,6 +29,8 @@ export const Home = () => {
         ) : repairQuantity === undefined || deviation === undefined ? (
           <Loading />
         ) : (
+          <>
+          <h1 className="text-xl font-extrabold my-5">Spare parts inventory status</h1>
           <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md h-48 min-w-full grid-cols-3">
             <div className="stat w-1/3">
               <div className="stat-title">overstocked</div>
@@ -64,6 +66,7 @@ export const Home = () => {
               </div>
             )}
           </div>
+          </>
         )}
 
         <div className="my-5">
