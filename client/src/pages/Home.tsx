@@ -29,44 +29,44 @@ export const Home = () => {
         ) : repairQuantity === undefined || deviation === undefined ? (
           <Loading />
         ) : (
-          <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md h-48">
-            <div className="stat">
-              <div className="stat-title">spare parts overstocked</div>
+          <div className="stats stats-vertical lg:stats-horizontal shadow rounded-md h-48 min-w-full grid-cols-3">
+            <div className="stat w-1/3">
+              <div className="stat-title">overstocked</div>
               <div className="stat-value text-yellow-400">
-                {deviation.overstocked.spareParts}{" "}
+                {deviation.overstocked.spareParts}
               </div>
 
               <div className="stat-desc">
-                for a total of {deviation.overstocked.sparePartUnits} units
+                {deviation.overstocked.sparePartUnits} units in total
               </div>
             </div>
-            <div className="stat">
-              <div className="stat-title">spare parts understocked</div>
+            <div className="stat w-1/3">
+              <div className="stat-title">understocked</div>
               <div className="stat-value text-rose-500">
                 {deviation.understocked.spareParts}{" "}
               </div>
               <div className="stat-desc">
-                for a total of {deviation.understocked.sparePartUnits} units
+                {deviation.understocked.sparePartUnits} units in total
               </div>
             </div>
 
             {repairQuantity === 0 ? (
-              <div className="stat">
-                <div className="stat-title">There are</div>
+              <div className="stat w-1/3">
+                <div className="stat-title">in repair</div>
                 <div className="stat-value text-blue-500">0</div>
-                <div className="stat-desc">Spare parts in repair</div>
+                <div className="stat-desc">in workshop</div>
               </div>
             ) : repairQuantity === 1 ? (
-              <div className="stat">
-                <div className="stat-title">there is</div>
+              <div className="stat w-1/3">
+                <div className="stat-title">in repair</div>
                 <div className="stat-value text-blue-500">1</div>
-                <div className="stat-desc">Spare part in repair</div>
+                <div className="stat-desc">in workshop</div>
               </div>
             ) : (
-              <div className="stat">
-                <div className="stat-title">There are</div>
+              <div className="stat w-1/3">
+                <div className="stat-title">in repair</div>
                 <div className="stat-value text-blue-500">{repairQuantity}</div>
-                <div className="stat-desc">Spare parts in repair</div>
+                <div className="stat-desc">in workshop</div>
               </div>
             )}
           </div>
