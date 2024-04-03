@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, MouseEventHandler, useRef, useState } from "react";
 import { SparePart } from "../types";
 import { setInStockForSparePart } from "../api";
 import { PatchUserDialog } from "./PatchUserDialog";
@@ -78,6 +78,14 @@ export const SparePartDetailsFormTable = ({
       });
   };
 
+  const toggleEditMode: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    if (!editDisabled) {
+      inStockInput.current!.value = inStock.toString();
+    }
+    setEditDisabled(!editDisabled);
+  };
+
   return (
     <form onSubmit={handleOnSubmit}>
       {userDialog.showMessage && (
@@ -97,14 +105,7 @@ export const SparePartDetailsFormTable = ({
                 min="0"
                 className="w-1/2"
               />
-              <button
-                className="btn btn-xs w-2/5"
-                onClick={(e) => {
-                  e.preventDefault();
-                  inStockInput.current!.value = inStock.toString();
-                  setEditDisabled(!editDisabled);
-                }}
-              >
+              <button className="btn btn-xs w-2/5" onClick={toggleEditMode}>
                 Edit
               </button>
             </td>
