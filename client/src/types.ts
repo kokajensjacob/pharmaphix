@@ -52,6 +52,7 @@ export type ProblemPerMachine = {
   machineName: string;
   machineQuantity: number;
   problems: ProblemDto[];
+  machineCost: number;
 };
 
 export type SparePartsInRepair = {
