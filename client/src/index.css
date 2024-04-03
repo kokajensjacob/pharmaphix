@@ -4,3 +4,8 @@
 body {
   margin: 3px;
 }
+
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
+  width: 100px;
+}
