@@ -87,7 +87,7 @@ export const SparePartDetailsFormTable = ({
   };
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={handleOnSubmit} className="flex flex-col">
       <table className="table">
         <tbody>
           <tr>
@@ -103,7 +103,7 @@ export const SparePartDetailsFormTable = ({
                 className="w-1/2"
               />
               <button
-                className={`btn ${!editDisabled && "bg-red-300 hover:bg-red-400"} btn-xs w-2/5`}
+                className={`btn ${!editDisabled && "btn-outline"} btn-xs w-2/5`}
                 onClick={toggleEditMode}
               >
                 {editDisabled ? "Edit" : "Cancel"}
@@ -136,7 +136,7 @@ export const SparePartDetailsFormTable = ({
         <input
           type="submit"
           value="Update"
-          className="btn bg-green-300 hover:bg-green-400 btn-xs w-2/5 mb-4"
+          className="btn bg-green-500 hover:bg-green-600 mt-4 place-self-end"
         />
       )}
       {userDialog.showMessage && (
