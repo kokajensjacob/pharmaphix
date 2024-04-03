@@ -117,33 +117,20 @@ export const SparePartDetailsFormTable = ({
           </tr>
           <tr>
             <th>Cost (USD)</th>
-            <td>{sparePart.cost}
-            </td>
+            <td>{sparePart.cost}</td>
           </tr>
           <tr>
             <th>Failure rate (times/year)</th>
-            <td>{sparePart.failureRate}
-            </td>
+            <td>{sparePart.failureRate}</td>
           </tr>
           <tr>
             <th>Repair time (years)</th>
-            <td>{sparePart.repairTime}
-            </td>
+            <td>{sparePart.repairTime}</td>
           </tr>
         </tbody>
       </table>
       {editDisabled && (
-        <>
-          <button
-            onClick={() => {
-              setEditDisabled(true);
-              inStockInput.current!.value = inStock.toString();
-            }}
-          >
-            Cancel
-          </button>
-          <input type="submit" value="Update" />
-        </>
+        <input type="submit" value="Update" className="btn btn-xs w-2/5" />
       )}
     </form>
   );
