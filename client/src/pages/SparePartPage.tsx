@@ -71,7 +71,7 @@ export const SparePartPage = () => {
           <div className="flex justify-start mt-8">
             <SparePartDetailsFormTable sparePart={sparePartData.sparePart} />
             <div className="ml-20">
-              <p className="text-md text-gray-500">Associated machine</p>
+              <p className="text-md text-gray-500">Related machine</p>
               <Link
                 to={`/machines/${sparePartData.associatedMachine.machineId}`}
                 className="text-xl font-extrabold underline hover:text-blue-800"
@@ -80,8 +80,8 @@ export const SparePartPage = () => {
               </Link>
 
               <p className="text-md text-gray-500 mt-8">
-                {sparePartData.associatedProblems.length === 0 ? "No a" : "A"}
-                ssociated problems
+                {sparePartData.associatedProblems.length === 0 ? "No r" : "R"}
+                elated problems
               </p>
               <ul>
                 {sparePartData.associatedProblems.map((problem) => (
