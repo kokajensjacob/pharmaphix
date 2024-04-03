@@ -67,9 +67,7 @@ export const MachinePage = () => {
                     : 0;
                 })
                 .map((problem) => (
-                  <div key={problem.problemId}>
-                    <RelatedProblem problem={problem} />
-                  </div>
+                  <RelatedProblem key={problem.problemId} problem={problem} />
                 ))}
             </div>
           )}
