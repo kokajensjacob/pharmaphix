@@ -17,6 +17,7 @@ export const SparePartDetailsFormTable = ({
     showMessage: boolean;
     message: string;
   }>({ showMessage: false, message: "" });
+  const [inStock, setInStock] = useState<number>(sparePart.quantityInStock);
   const inStockInput = useRef<HTMLInputElement>(null);
 
   const handleOnSubmit = (e: SparePartEditEvent) => {
@@ -31,6 +32,7 @@ export const SparePartDetailsFormTable = ({
             setUserDialog({ showMessage: true, message: "Successful" });
             resp.json().then((data) => {
               sparePart = data;
+              setInStock(sparePart.quantityInStock);
               setEditDisabled(true);
               setTimeout(() => {
                 setUserDialog({ showMessage: false, message: "" });
@@ -84,15 +86,14 @@ export const SparePartDetailsFormTable = ({
             setEditDisabled(false);
           }}
         >
-          Edit
+          Edit stock
         </button>
       ) : (
         <>
           <button
             onClick={() => {
               setEditDisabled(true);
-              inStockInput.current!.value =
-                sparePart.quantityInStock.toString();
+              inStockInput.current!.value = inStock.toString();
             }}
           >
             Cancel
@@ -119,7 +120,7 @@ export const SparePartDetailsFormTable = ({
             </td>
           </tr>
           <tr>
-            <th>In Workshop</th>
+            <th>In Repair</th>
             <td>
               <input
                 type="number"
@@ -129,13 +130,13 @@ export const SparePartDetailsFormTable = ({
             </td>
           </tr>
           <tr>
-            <th>Optimal quantity</th>
+            <th>Optimal Quantity</th>
             <td>
               <input type="number" disabled value={sparePart.optimalQuantity} />
             </td>
           </tr>
           <tr>
-            <th>Cost</th>
+            <th>Cost (USD)</th>
             <td>
               <input type="number" disabled value={sparePart.cost} />
             </td>
