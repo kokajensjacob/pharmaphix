@@ -16,6 +16,7 @@ export const MachinePage = () => {
 
   useEffect(() => {
     getProblemPerMachineList(machine_type_id as string)
+    .then((resp) => resp.json())
       .then((data) => {
         setMachineProblemsData(data);
         setBreadcrumbUrl(`/machines/${machine_type_id}`);

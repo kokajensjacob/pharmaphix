@@ -55,9 +55,7 @@ export const setInStockForSparePart = (
 };
 
 export const getProblemPerMachineList = (machineId: string) => {
-  return fetch(`${BASE_URL}/machines/${machineId}/problems`).then((resp) =>
-    resp.json(),
-  );
+  return fetch(`${BASE_URL}/machines/${machineId}/problems`);
 };
 
 export const getSparePartsInRepair = () => {
