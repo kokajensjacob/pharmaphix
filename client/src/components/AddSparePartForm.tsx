@@ -241,7 +241,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
                 defaultValue={1}
                 min={1}
                 disabled={disableForm}
-                className="input input-bordered max-w-xs"
+                className="input input-bordered w-full max-w-xs"
               />
               <select
                 className="input input-bordered max-w-xs"
