@@ -271,9 +271,9 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
                 id="failDivisor"
                 disabled={disableForm}
               >
-                <option value="week">week</option>
-                <option value="month">month</option>
-                <option value="year">year</option>
+                <option value="week">/ week</option>
+                <option value="month">/ month</option>
+                <option value="year">/ year</option>
               </select>
             </div>
           </div>
