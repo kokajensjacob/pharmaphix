@@ -5,7 +5,7 @@ import { FetchError } from "../components/errors/FetchError";
 import { Loading } from "../components/Loading";
 
 export const Home = () => {
-  const [repairQuantity, setRepairQuantity] = useState();
+  const [repairQuantity, setRepairQuantity] = useState<{unitsInRepair: number, sparePartsInRepair: number}>();
   const [deviation, setDeviation] = useState<{
     overstocked: { spareParts: number; sparePartUnits: number };
     understocked: { spareParts: number; sparePartUnits: number };
@@ -14,7 +14,7 @@ export const Home = () => {
 
   useEffect(() => {
     getInvStatus()
-      .then((num) => setRepairQuantity(num))
+      .then((data) => setRepairQuantity(data))
       .catch(() => setShowError(true));
     getSparePartsDeviation()
       .then((data) => setDeviation(data))
@@ -50,23 +50,17 @@ export const Home = () => {
               </div>
             </div>
 
-            {repairQuantity === 0 ? (
-              <div className="stat w-1/3">
-                <div className="stat-title">in repair</div>
-                <div className="stat-value">0</div>
-                <div className="stat-desc">in workshop</div>
-              </div>
-            ) : repairQuantity === 1 ? (
+            {repairQuantity.sparePartsInRepair === 1 ? (
               <div className="stat w-1/3">
                 <div className="stat-title">in repair</div>
                 <div className="stat-value">1</div>
-                <div className="stat-desc">in workshop</div>
+                <div className="stat-desc">{repairQuantity.unitsInRepair} unit in total</div>
               </div>
             ) : (
               <div className="stat w-1/3">
                 <div className="stat-title">in repair</div>
-                <div className="stat-value">{repairQuantity}</div>
-                <div className="stat-desc">in workshop</div>
+                <div className="stat-value">{repairQuantity.sparePartsInRepair}</div>
+                <div className="stat-desc">{repairQuantity.unitsInRepair} units in total</div>
               </div>
             )}
           </div>
