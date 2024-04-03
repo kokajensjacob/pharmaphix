@@ -147,6 +147,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               </div>
             </label>
             <input
+              required
               type="text"
               name="sparePartName"
               id="sparePartName"
@@ -163,6 +164,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               </div>
             </label>
             <input
+              required
               type="number"
               id="sparePartCost"
               step="0.01"
@@ -181,13 +183,12 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             </label>
 
             <select
+              required
               name="associatedMachineId"
               id="associatedMachineId"
               className="select select-bordered w-full max-w-xs"
               disabled={disableForm}
-              defaultValue="default"
             >
-              <option disabled value="default"></option>
               {machines.map((machine) => (
                 <option key={machine.machineId} value={machine.machineId}>
                   {machine.machineName}
@@ -207,6 +208,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               </div>
             </label>
             <input
+              required
               type="number"
               name="sparePartInStock"
               id="sparePartInStock"
@@ -228,6 +230,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             </label>
             <div className="flex flex-row" id="sparePartRepairTime">
               <input
+                required
                 type="number"
                 name=""
                 id="repairTime"
@@ -259,6 +262,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             </label>
             <div className="flex flex-row" id="sparePartFailureRate">
               <input
+                required
                 type="number"
                 name=""
                 id="failAmount"
