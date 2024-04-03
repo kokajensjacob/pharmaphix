@@ -8,7 +8,7 @@ export const Nav = () => {
           PharmaPhix
         </Link>
       </div>
-      {useLocation().pathname !== "/" ? (
+      {useLocation().pathname !== "/" && (
         <div className="flex w-1/3 justify-center">
           <ul className="menu menu-horizontal px-1">
             <li>
@@ -33,8 +33,6 @@ export const Nav = () => {
             </li>
           </ul>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );
