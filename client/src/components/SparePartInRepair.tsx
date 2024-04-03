@@ -99,7 +99,7 @@ export const SparePartInRepair = ({
         <div className="modal-box">
           <h3 className="font-bold text-lg">{sp.name}</h3>
           <p className="py-4">Related Machine: {sp.associatedMachineName}</p>
-          <p className="py-4">Quantity in repair: {sp.quantityInRepair}</p>
+          <p className="py-4">Units in repair: {sp.quantityInRepair}</p>
           {submitYesClicked && !userDialog.showMessage && <Loading />}
           {userDialog.showMessage && (
             <PatchUserDialog message={userDialog.message} />
@@ -107,7 +107,7 @@ export const SparePartInRepair = ({
           <div className="modal-action flex-auto justify-between mt-5">
             <label className="form-control w-2/5 max-w-xs">
               <div className="label">
-                <span className="label-text text-lg">Mark as fixed:</span>
+                <span className="label-text text-lg">Mark as repaired:</span>
               </div>
               <input
                 type="number"
