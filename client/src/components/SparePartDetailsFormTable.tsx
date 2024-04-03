@@ -29,11 +29,11 @@ export const SparePartDetailsFormTable = ({
       .then((resp) => {
         switch (resp.status) {
           case 200:
-            setUserDialog({ showMessage: true, message: "Successful" });
             resp.json().then((data) => {
               sparePart = data;
               setInStock(sparePart.quantityInStock);
               setEditDisabled(true);
+              setUserDialog({ showMessage: true, message: "Successful" });
               setTimeout(() => {
                 setUserDialog({ showMessage: false, message: "" });
               }, 800);
@@ -88,9 +88,6 @@ export const SparePartDetailsFormTable = ({
 
   return (
     <form onSubmit={handleOnSubmit}>
-      {userDialog.showMessage && (
-        <PatchUserDialog message={userDialog.message} />
-      )}
       <table className="table">
         <tbody>
           <tr>
@@ -105,7 +102,10 @@ export const SparePartDetailsFormTable = ({
                 min="0"
                 className="w-1/2"
               />
-              <button className="btn btn-xs w-2/5" onClick={toggleEditMode}>
+              <button
+                className={`btn ${!editDisabled && "bg-green-300 hover:bg-green-400"} btn-xs w-2/5`}
+                onClick={toggleEditMode}
+              >
                 Edit
               </button>
             </td>
@@ -133,7 +133,10 @@ export const SparePartDetailsFormTable = ({
         </tbody>
       </table>
       {!editDisabled && (
-        <input type="submit" value="Update" className="btn btn-xs w-2/5" />
+        <input type="submit" value="Update" className="btn btn-xs w-2/5 mb-4" />
+      )}
+      {userDialog.showMessage && (
+        <PatchUserDialog message={userDialog.message} />
       )}
     </form>
   );
