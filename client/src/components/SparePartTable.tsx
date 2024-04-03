@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SparePart } from "../types";
 
 export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
@@ -19,7 +20,11 @@ export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
         <tbody>
           {spareParts.map((sp) => (
             <tr key={sp.id}>
-              <td>{sp.name}</td>
+              <td>
+                <Link className="underline hover:text-blue-800" to={`${sp.id}`}>
+                  {sp.name}
+                </Link>
+              </td>
               <td>{sp.quantityInStock}</td>
               <td>{sp.quantityInRepair}</td>
               <td>{sp.optimalQuantity}</td>
