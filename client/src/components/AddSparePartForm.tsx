@@ -169,7 +169,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               id="sparePartCost"
               step="0.01"
               min="0.01"
-              defaultValue="99.90"
+              placeholder="99.99"
               disabled={disableForm}
               className="input input-bordered w-full max-w-xs"
             />
@@ -213,7 +213,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               name="sparePartInStock"
               id="sparePartInStock"
               disabled={disableForm}
-              defaultValue={0}
+              placeholder="0"
               min="0"
               className="input input-bordered w-full max-w-xs"
             />
@@ -234,14 +234,14 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
                 type="number"
                 name=""
                 id="repairTime"
-                defaultValue={1}
+                placeholder="1"
                 min={1}
                 disabled={disableForm}
                 className="input input-bordered w-full max-w-xs"
               />
               <select
                 className="select input-bordered max-w-xs"
-                defaultValue="month"
+                defaultValue="days"
                 id="repairTimeUnit"
                 disabled={disableForm}
               >
@@ -266,7 +266,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
                 type="number"
                 name=""
                 id="failAmount"
-                defaultValue={1}
+                placeholder="1"
                 min={1}
                 disabled={disableForm}
                 className="input input-bordered max-w-xs"
