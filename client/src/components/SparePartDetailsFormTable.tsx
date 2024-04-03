@@ -127,8 +127,8 @@ export const SparePartDetailsFormTable = ({
             <td>{sparePart.failureRate}</td>
           </tr>
           <tr>
-            <th>Repair time (years)</th>
-            <td>{sparePart.repairTime}</td>
+            <th>Repair time (days)</th>
+            <td>{(sparePart.repairTime * 365).toLocaleString(undefined, {maximumFractionDigits:2})}</td>
           </tr>
         </tbody>
       </table>
