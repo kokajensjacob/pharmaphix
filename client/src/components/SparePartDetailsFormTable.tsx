@@ -103,10 +103,10 @@ export const SparePartDetailsFormTable = ({
                 className="w-1/2"
               />
               <button
-                className={`btn ${!editDisabled && "bg-green-300 hover:bg-green-400"} btn-xs w-2/5`}
+                className={`btn ${!editDisabled && "bg-red-300 hover:bg-red-400"} btn-xs w-2/5`}
                 onClick={toggleEditMode}
               >
-                {editDisabled ? "Edit" : "Edit enabled"}
+                {editDisabled ? "Edit" : "Cancel"}
               </button>
             </td>
           </tr>
@@ -133,7 +133,11 @@ export const SparePartDetailsFormTable = ({
         </tbody>
       </table>
       {!editDisabled && (
-        <input type="submit" value="Update" className="btn btn-xs w-2/5 mb-4" />
+        <input
+          type="submit"
+          value="Update"
+          className="btn bg-green-300 hover:bg-green-400 btn-xs w-2/5 mb-4"
+        />
       )}
       {userDialog.showMessage && (
         <PatchUserDialog message={userDialog.message} />
