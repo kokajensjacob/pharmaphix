@@ -38,7 +38,7 @@ export const SparePartPage = () => {
         setFetchError({
           show: true,
           message: "Server not available at the moment. Try again later",
-        }),
+        })
       );
   }, []);
 
@@ -65,27 +65,35 @@ export const SparePartPage = () => {
         <JhFetchError message={fetchError.message} />
       ) : sparePartData ? (
         <>
-          <p className="text-4xl font-extrabold mt-5">{sparePartData.sparePart.name}</p>
+          <p className="text-4xl font-extrabold mt-5">
+            {sparePartData.sparePart.name}
+          </p>
+          <div className="flex mt-8">
+            <SparePartDetailsFormTable sparePart={sparePartData.sparePart} />
+            <div className="ml-20">
+              <p className="text-md text-gray-500">Associated machine</p>
+              <Link
+                to={`/machines/${sparePartData.associatedMachine.machineId}`}
+                className="text-xl font-extrabold underline hover:text-blue-800 ml-6"
+              >
+                {sparePartData.associatedMachine.machineName}
+              </Link>
 
-          <p className="text-md text-gray-500 mt-8">Associated machine</p>
-          <Link to={`/machines/${sparePartData.associatedMachine.machineId}`} className="text-xl font-extrabold underline hover:text-blue-800 ml-6">
-            {sparePartData.associatedMachine.machineName}
-          </Link>
-
-          <p className="text-md text-gray-500 mt-8">Associated problems</p>
-          <ul className="list-disc ml-6">
-            {sparePartData.associatedProblems.map((problem) => (
-              <li key={problem.problemId}>
-                <Link
-                  to={`/machines/${sparePartData.associatedMachine.machineId}/${problem.problemId}`}
-                  className="text-xl font-extrabold underline hover:text-blue-800"
-                >
-                  {problem.problemName}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <SparePartDetailsFormTable sparePart={sparePartData.sparePart} />
+              <p className="text-md text-gray-500 mt-8">Associated problems</p>
+              <ul className="list-disc ml-6">
+                {sparePartData.associatedProblems.map((problem) => (
+                  <li key={problem.problemId}>
+                    <Link
+                      to={`/machines/${sparePartData.associatedMachine.machineId}/${problem.problemId}`}
+                      className="text-xl font-extrabold underline hover:text-blue-800"
+                    >
+                      {problem.problemName}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </>
       ) : (
         <Loading />

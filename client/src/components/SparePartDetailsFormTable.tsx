@@ -80,15 +80,59 @@ export const SparePartDetailsFormTable = ({
 
   return (
     <form onSubmit={handleOnSubmit}>
-      {editDisabled ? (
-        <button
-          onClick={() => {
-            setEditDisabled(false);
-          }}
-        >
-          Edit stock
-        </button>
-      ) : (
+      {userDialog.showMessage && (
+        <PatchUserDialog message={userDialog.message} />
+      )}
+      <table className="table">
+        <tbody>
+          <tr>
+            <th>In Stock</th>
+            <td className="flex justify-between w-48 pr-0">
+              <input
+                type="number"
+                ref={inStockInput}
+                disabled={editDisabled}
+                id="inStock"
+                defaultValue={sparePart.quantityInStock}
+                min="0"
+                className="w-1/2"
+              />
+              <button
+                className="btn btn-xs w-2/5"
+                onClick={() => {
+                  setEditDisabled(false);
+                }}
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th>In Repair</th>
+            <td>{sparePart.quantityInRepair}</td>
+          </tr>
+          <tr>
+            <th>Optimal Quantity</th>
+            <td>{sparePart.optimalQuantity}</td>
+          </tr>
+          <tr>
+            <th>Cost (USD)</th>
+            <td>{sparePart.cost}
+            </td>
+          </tr>
+          <tr>
+            <th>Failure rate (times/year)</th>
+            <td>{sparePart.failureRate}
+            </td>
+          </tr>
+          <tr>
+            <th>Repair time (years)</th>
+            <td>{sparePart.repairTime}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {editDisabled && (
         <>
           <button
             onClick={() => {
@@ -101,60 +145,6 @@ export const SparePartDetailsFormTable = ({
           <input type="submit" value="Update" />
         </>
       )}
-      {userDialog.showMessage && (
-        <PatchUserDialog message={userDialog.message} />
-      )}
-      <table>
-        <tbody>
-          <tr>
-            <th>In Stock</th>
-            <td>
-              <input
-                type="number"
-                ref={inStockInput}
-                disabled={editDisabled}
-                id="inStock"
-                defaultValue={sparePart.quantityInStock}
-                min="0"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>In Repair</th>
-            <td>
-              <input
-                type="number"
-                disabled
-                value={sparePart.quantityInRepair}
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Optimal Quantity</th>
-            <td>
-              <input type="number" disabled value={sparePart.optimalQuantity} />
-            </td>
-          </tr>
-          <tr>
-            <th>Cost (USD)</th>
-            <td>
-              <input type="number" disabled value={sparePart.cost} />
-            </td>
-          </tr>
-          <tr>
-            <th>Failure rate (times/year)</th>
-            <td>
-              <input type="number" disabled value={sparePart.failureRate} />
-            </td>
-          </tr>
-          <tr>
-            <th>Repair time (years)</th>
-            <td>
-              <input type="number" disabled value={sparePart.repairTime} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </form>
   );
 };
