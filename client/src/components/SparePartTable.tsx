@@ -9,11 +9,8 @@ export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
           <tr>
             <th>Name</th>
             <th>In Stock</th>
-            <th>In workshop</th>
+            <th>In Repair</th>
             <th>Optimal Quantity</th>
-            <th>Purchase Cost</th>
-            <th>Failure rate (per year)</th>
-            <th>Repair time (years)</th>
             <th>Inventory Status</th>
           </tr>
         </thead>
@@ -28,9 +25,6 @@ export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
               <td>{sp.quantityInStock}</td>
               <td>{sp.quantityInRepair}</td>
               <td>{sp.optimalQuantity}</td>
-              <td>{sp.cost}</td>
-              <td>{sp.failureRate}</td>
-              <td>{sp.repairTime}</td>
               <td>
                 {sp.quantityInRepair + sp.quantityInStock ===
                 sp.optimalQuantity ? (
