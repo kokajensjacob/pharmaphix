@@ -44,7 +44,7 @@ export const ProblemPage = () => {
           default: setGetError({showError: true, message: `Unexpected error: ${resp.status}`})
         }
       })
-      .catch(() => setGetError({showError: true, message: "Server unavailable"}));
+      .catch(() => setGetError({showError: true, message: "Server not available at the moment. Try again later"}));
   };
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -73,7 +73,7 @@ export const ProblemPage = () => {
           case 404:
             setPatchUserDialog({
               showMessage: true,
-              message: "Spare Part not found",
+              message: "404 - Couldn't find spare part",
             });
             break;
           case 400:
@@ -93,7 +93,7 @@ export const ProblemPage = () => {
       .catch(() => {
         setPatchUserDialog({
           showMessage: true,
-          message: "Server not available at the moment. Try again.",
+          message: "Server not available at the moment. Try again later",
         });
         setSubmitYesClicked(false);
       });

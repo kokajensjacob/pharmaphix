@@ -25,7 +25,7 @@ export const Home = () => {
     <div className="flex justify-center my-20">
       <div className="flex-column">
         {showError ? (
-          <FetchError msg={"Server unavailable"}/>
+          <FetchError msg={"Server not available at the moment. Try again later"}/>
         ) : repairQuantity === undefined || deviation === undefined ? (
           <Loading />
         ) : (

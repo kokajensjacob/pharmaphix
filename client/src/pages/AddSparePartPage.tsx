@@ -31,7 +31,7 @@ export const AddSparePartPage = () => {
         </ul>
       </div>
       {showError ? (
-        <FetchError />
+        <FetchError msg={"Server not available at the moment. Try again later"}/>
       ) : machines ? (
         <div className="flex justify-center">
           <AddSparePartForm machines={machines} />

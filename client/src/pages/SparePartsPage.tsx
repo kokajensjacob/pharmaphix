@@ -41,7 +41,7 @@ export const SparePartsPage = () => {
         </ul>
       </div>
       {showGetError ? (
-        <FetchError msg={"Server unavailable"}/>
+        <FetchError msg={"Server not available at the moment. Try again later"}/>
       ) : (
         <>
           <div className="flex flex-row justify-around">

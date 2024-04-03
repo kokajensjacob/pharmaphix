@@ -32,7 +32,7 @@ export const MachinePage = () => {
           default: setUserDialog({showError: true, message: `Unexpected error: ${resp.status}`});
         }
       })
-      .catch(() => setUserDialog({showError: true, message: "Server unavailable"}));
+      .catch(() => setUserDialog({showError: true, message: "Server not available at the moment. Try again later"}));
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { fetchSparePart } from "../api";
 import { Loading } from "../components/Loading";
 import { SparePartDetailsFormTable } from "../components/SparePartDetailsFormTable";
-import { JhFetchError } from "../components/errors/JhFetchError";
+import { FetchError } from "../components/errors/FetchError";
 
 export const SparePartPage = () => {
   const [sparePartData, setSparePartData] = useState<SparePartGetResponseDto>();
@@ -24,13 +24,13 @@ export const SparePartPage = () => {
           case 404:
             setFetchError({
               show: true,
-              message: "404. spare part does not exist",
+              message: "404 - Couldn't find spare part",
             });
             break;
           default:
             setFetchError({
               show: true,
-              message: `Error: Server returned something unexpected. HTTP status code: ${resp.status}`,
+              message: `Unexpected error: ${resp.status}`,
             });
         }
       })
@@ -62,7 +62,7 @@ export const SparePartPage = () => {
         </ul>
       </div>
       {fetchError.show ? (
-        <JhFetchError message={fetchError.message} />
+        <FetchError msg={fetchError.message} />
       ) : sparePartData ? (
         <>
           <p className="text-4xl font-extrabold mt-5">
