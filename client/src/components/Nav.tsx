@@ -1,14 +1,14 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 export const Nav = () => {
   return (
-    <>
-      <div className="navbar bg-base-300">
-        <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">
-            PharmaPhix
-          </Link>
-        </div>
+    <div className="navbar bg-base-300">
+      <div className="flex-1">
+        <Link to="/" className="btn btn-ghost text-xl">
+          PharmaPhix
+        </Link>
+      </div>
+      {useLocation().pathname !== "/" ? (
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
@@ -33,7 +33,9 @@ export const Nav = () => {
             </li>
           </ul>
         </div>
-      </div>
-    </>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 };
