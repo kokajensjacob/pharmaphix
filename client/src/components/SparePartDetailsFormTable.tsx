@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, MouseEventHandler, useRef, useState } from "react";
 import { SparePart } from "../types";
 import { setInStockForSparePart } from "../api";
 import { PatchUserDialog } from "./PatchUserDialog";
@@ -29,11 +29,11 @@ export const SparePartDetailsFormTable = ({
       .then((resp) => {
         switch (resp.status) {
           case 200:
-            setUserDialog({ showMessage: true, message: "Successful" });
             resp.json().then((data) => {
               sparePart = data;
               setInStock(sparePart.quantityInStock);
               setEditDisabled(true);
+              setUserDialog({ showMessage: true, message: "Successful" });
               setTimeout(() => {
                 setUserDialog({ showMessage: false, message: "" });
               }, 800);
@@ -78,11 +78,16 @@ export const SparePartDetailsFormTable = ({
       });
   };
 
+  const toggleEditMode: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    if (!editDisabled) {
+      inStockInput.current!.value = inStock.toString();
+    }
+    setEditDisabled(!editDisabled);
+  };
+
   return (
     <form onSubmit={handleOnSubmit}>
-      {userDialog.showMessage && (
-        <PatchUserDialog message={userDialog.message} />
-      )}
       <table className="table">
         <tbody>
           <tr>
@@ -98,12 +103,10 @@ export const SparePartDetailsFormTable = ({
                 className="w-1/2"
               />
               <button
-                className="btn btn-xs w-2/5"
-                onClick={() => {
-                  setEditDisabled(false);
-                }}
+                className={`btn ${!editDisabled && "bg-red-300 hover:bg-red-400"} btn-xs w-2/5`}
+                onClick={toggleEditMode}
               >
-                Edit
+                {editDisabled ? "Edit" : "Cancel"}
               </button>
             </td>
           </tr>
@@ -117,33 +120,27 @@ export const SparePartDetailsFormTable = ({
           </tr>
           <tr>
             <th>Cost (USD)</th>
-            <td>{sparePart.cost}
-            </td>
+            <td>{sparePart.cost}</td>
           </tr>
           <tr>
             <th>Failure rate (times/year)</th>
-            <td>{sparePart.failureRate}
-            </td>
+            <td>{sparePart.failureRate}</td>
           </tr>
           <tr>
             <th>Repair time (years)</th>
-            <td>{sparePart.repairTime}
-            </td>
+            <td>{sparePart.repairTime}</td>
           </tr>
         </tbody>
       </table>
-      {editDisabled && (
-        <>
-          <button
-            onClick={() => {
-              setEditDisabled(true);
-              inStockInput.current!.value = inStock.toString();
-            }}
-          >
-            Cancel
-          </button>
-          <input type="submit" value="Update" />
-        </>
+      {!editDisabled && (
+        <input
+          type="submit"
+          value="Update"
+          className="btn bg-green-300 hover:bg-green-400 btn-xs w-2/5 mb-4"
+        />
+      )}
+      {userDialog.showMessage && (
+        <PatchUserDialog message={userDialog.message} />
       )}
     </form>
   );

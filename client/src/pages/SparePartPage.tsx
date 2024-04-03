@@ -38,7 +38,7 @@ export const SparePartPage = () => {
         setFetchError({
           show: true,
           message: "Server not available at the moment. Try again later",
-        })
+        }),
       );
   }, []);
 
@@ -68,19 +68,22 @@ export const SparePartPage = () => {
           <p className="text-4xl font-extrabold mt-5">
             {sparePartData.sparePart.name}
           </p>
-          <div className="flex mt-8">
+          <div className="flex justify-start mt-8">
             <SparePartDetailsFormTable sparePart={sparePartData.sparePart} />
             <div className="ml-20">
               <p className="text-md text-gray-500">Associated machine</p>
               <Link
                 to={`/machines/${sparePartData.associatedMachine.machineId}`}
-                className="text-xl font-extrabold underline hover:text-blue-800 ml-6"
+                className="text-xl font-extrabold underline hover:text-blue-800"
               >
                 {sparePartData.associatedMachine.machineName}
               </Link>
 
-              <p className="text-md text-gray-500 mt-8">Associated problems</p>
-              <ul className="list-disc ml-6">
+              <p className="text-md text-gray-500 mt-8">
+                {sparePartData.associatedProblems.length === 0 ? "No a" : "A"}
+                ssociated problems
+              </p>
+              <ul>
                 {sparePartData.associatedProblems.map((problem) => (
                   <li key={problem.problemId}>
                     <Link
