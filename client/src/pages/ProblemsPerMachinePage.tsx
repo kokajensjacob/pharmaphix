@@ -46,13 +46,11 @@ export const ProblemsPerMachinePage = () => {
         <FetchError />
       ) : machineProblemsData ? (
         <>
-          <h1 className="text-4xl font-extrabold dark:text-white mt-5">
+          <h1 className="text-4xl font-extrabold mt-5">
             {machineProblemsData.machineName}
           </h1>
           <h2>Quantity: {machineProblemsData.machineQuantity}</h2>
-          <h1 className="text-xl font-extrabold dark:text-white my-8">
-            Related problems:
-          </h1>
+          <h1 className="text-xl font-extrabold my-8">Related problems:</h1>
           {machineProblemsData.problems.length === 0 ? (
             <NoRelatedProblems />
           ) : (

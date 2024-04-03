@@ -120,7 +120,7 @@ export const ProblemPage = () => {
       ) : problemData ? (
         <>
           <div className="flex flex-row items-baseline justify-between ">
-            <h1 className="text-4xl font-extrabold dark:text-white mt-5">
+            <h1 className="text-4xl font-extrabold mt-5">
               {problemData.problemName}
             </h1>
             <button
@@ -234,11 +234,14 @@ export const ProblemPage = () => {
               </div>
             </div>
           </div>
-          <div>
-            <h3 className="text-xl font-extrabold dark:text-white my-8">
-              Instructions:
-            </h3>
-            <Instructions instructions={problemData.instructions.toString()} />
+
+          <div className="card w-11/12 bg-base-100 m-5 shadow">
+            <div className="card-body">
+              <h3 className="text-xl font-extrabold">Instructions:</h3>
+              <Instructions
+                instructions={problemData.instructions.toString()}
+              />
+            </div>
           </div>
         </>
       ) : (
