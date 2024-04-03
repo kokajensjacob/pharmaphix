@@ -86,7 +86,7 @@ export const SparePartDetailsFormTable = ({
             setEditDisabled(false);
           }}
         >
-          Edit
+          Edit stock
         </button>
       ) : (
         <>
@@ -120,7 +120,7 @@ export const SparePartDetailsFormTable = ({
             </td>
           </tr>
           <tr>
-            <th>In Workshop</th>
+            <th>In Repair</th>
             <td>
               <input
                 type="number"
@@ -130,13 +130,13 @@ export const SparePartDetailsFormTable = ({
             </td>
           </tr>
           <tr>
-            <th>Optimal quantity</th>
+            <th>Optimal Quantity</th>
             <td>
               <input type="number" disabled value={sparePart.optimalQuantity} />
             </td>
           </tr>
           <tr>
-            <th>Cost</th>
+            <th>Cost (USD)</th>
             <td>
               <input type="number" disabled value={sparePart.cost} />
             </td>
