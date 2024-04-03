@@ -1,4 +1,4 @@
 package dev.kjj.pharmaphix.dtos;
 
-public record SparePartInRepairDto(long unitsInRepair) {
+public record SparePartInRepairDto(long unitsInRepair, int sparePartsInRepair) {
 }

@@ -26,7 +26,8 @@ public class Controller {
     @GetMapping("/spare-parts/in-repair")
     public ResponseEntity<SparePartInRepairDto> getTotalUnitsInRepair() {
         long unitsInRepair = service.getTotalSparePartsInRepair();
-        return ResponseEntity.ok(new SparePartInRepairDto(unitsInRepair));
+        int sparePartsInRepair = service.getSparePartsInRepair().size();
+        return ResponseEntity.ok(new SparePartInRepairDto(unitsInRepair, sparePartsInRepair));
     }
 
     @GetMapping("/spare-parts/optimalQuantityDeviation")
