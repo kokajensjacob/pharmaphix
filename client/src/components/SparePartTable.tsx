@@ -25,7 +25,7 @@ export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
               <td>{sp.quantityInStock}</td>
               <td>{sp.quantityInRepair}</td>
               <td>{sp.optimalQuantity}</td>
-              <td>
+              <td className="cursor-default">
                 {sp.quantityInRepair + sp.quantityInStock ===
                 sp.optimalQuantity ? (
                   <div className="badge badge-success gap-2 w-36">Stock OK</div>
