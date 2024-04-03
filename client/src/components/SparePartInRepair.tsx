@@ -123,14 +123,14 @@ export const SparePartInRepair = ({
             </label>
             <form method="dialog" className="place-items-center place-self-end">
               <button
-                className="btn mx-2"
+                className="btn mx-2 bg-green-500 hover:bg-green-600"
                 disabled={disableFixBtn}
                 onClick={handleClick}
               >
                 Mark as Fixed
               </button>
               <button
-                className="btn"
+                className="btn btn-outline"
                 onClick={() =>
                   setUserDialog({
                     showMessage: false,
