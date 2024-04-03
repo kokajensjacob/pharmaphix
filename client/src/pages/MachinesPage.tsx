@@ -31,7 +31,6 @@ export const MachinesPage = () => {
         <FetchError />
       ) : machines ? (
         <>
-          <h1 className="text-xl font-medium m-5">Machines</h1>
           {
             <div className="flex flex-wrap items-center justify-center">
               {machines
@@ -45,9 +44,9 @@ export const MachinesPage = () => {
                     : 0;
                 })
                 .map((machine) => (
-                  <div className="card w-72 h-72 bg-base-100 m-5 shadow">
+                  <div className="card w-72 h-40 bg-base-100 m-5 shadow p-0">
                     <Link to={machine.machineId}>
-                      <div className="card-body">
+                      <div className="card-body h-40 m-0">
                         <h2 className="card-title">{machine.machineName}</h2>
                         <div className="card-actions justify-center"></div>
                       </div>
