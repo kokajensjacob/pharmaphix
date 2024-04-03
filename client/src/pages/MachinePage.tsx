@@ -7,7 +7,7 @@ import { Loading } from "../components/Loading";
 import { RelatedProblem } from "../components/RelatedProblem";
 import { NoRelatedProblems } from "../components/NoRelatedProblems";
 
-export const ProblemsPerMachinePage = () => {
+export const MachinePage = () => {
   const [machineProblemsData, setMachineProblemsData] =
     useState<ProblemPerMachine>();
   const { machine_type_id } = useParams<string>();

@@ -3,7 +3,7 @@ import { Nav } from "./components/Nav";
 import { Home } from "./pages/Home";
 import { ProblemPage } from "./pages/ProblemPage";
 import { MachinesPage } from "./pages/MachinesPage";
-import { ProblemsPerMachinePage } from "./pages/ProblemsPerMachinePage";
+import { MachinePage } from "./pages/MachinePage";
 import { SparePartsPage } from "./pages/SparePartsPage";
 import { AddSparePartPage } from "./pages/AddSparePartPage";
 import { SparePartPage } from "./pages/SparePartPage";
@@ -22,10 +22,7 @@ function App() {
             path="/spare-parts/:spare_part_id"
             element={<SparePartPage />}
           />
-          <Route
-            path="/machines/:machine_type_id"
-            element={<ProblemsPerMachinePage />}
-          />
+          <Route path="/machines/:machine_type_id" element={<MachinePage />} />
           <Route
             path="machines/:machine_type_id/:problem_id"
             element={<ProblemPage />}
