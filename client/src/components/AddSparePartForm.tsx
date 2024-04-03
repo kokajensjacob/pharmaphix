@@ -287,7 +287,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             </div>
           </div>
         </div>
-        <input type="submit" className="btn my-5" value="Add new spare part" />
+        <input type="submit" className="btn my-5 bg-green-500 hover:bg-green-600" value="Add new spare part" />
         {userDialog.showMessage && (
           <PatchUserDialog message={userDialog.message} />
         )}
@@ -300,14 +300,11 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             Name: {createdSparePart?.name}
             <br />
             Calculated optimal quantity
-            {/* based on the purchase cost of the
-              part itself and the associated machine, and the average repair
-      time and the breakage frequancy of the part is*/}
             : {createdSparePart?.optimalQuantity}
           </p>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn btn-outline">Close</button>
             </form>
           </div>
         </div>

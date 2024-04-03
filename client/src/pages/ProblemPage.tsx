@@ -199,11 +199,11 @@ export const ProblemPage = () => {
                 )}
                 <div className="modal-action">
                   <form method="dialog">
-                    <button className="btn mx-1" onClick={handleOnClick}>
+                    <button className="btn mx-1 bg-green-500 hover:bg-green-600 w-20" onClick={handleOnClick}>
                       Yes
                     </button>
                     <button
-                      className="btn"
+                      className="btn btn-outline w-20"
                       onClick={() =>
                         patchUserDialog.showMessage && getAndSetProblemData()
                       }
