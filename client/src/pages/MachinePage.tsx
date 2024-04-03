@@ -50,6 +50,7 @@ export const MachinePage = () => {
             {machineProblemsData.machineName}
           </h1>
           <h2>Quantity: {machineProblemsData.machineQuantity}</h2>
+          <h2>Cost: {machineProblemsData.machineCost}</h2>
           <h1 className="text-xl font-extrabold my-8">Related problems:</h1>
           {machineProblemsData.problems.length === 0 ? (
             <NoRelatedProblems />
