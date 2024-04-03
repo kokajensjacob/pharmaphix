@@ -32,6 +32,17 @@ export type ProblemData = {
   associatedMachineName: string;
 };
 
+export type SparePartGetResponseDto = {
+  sparePart: SparePart;
+  associatedMachine: Machine;
+  associatedProblems: ProblemDto[];
+};
+
+type ProblemDto = {
+  problemId: string;
+  problemName: string;
+};
+
 export type SparePartDeductReqDto = {
   sparePartId: string;
   amountToDeduct: number;
@@ -40,10 +51,7 @@ export type SparePartDeductReqDto = {
 export type ProblemPerMachine = {
   machineName: string;
   machineQuantity: number;
-  problems: {
-    problemId: string;
-    problemName: string;
-  }[];
+  problems: ProblemDto[];
 };
 
 export type SparePartsInRepair = {

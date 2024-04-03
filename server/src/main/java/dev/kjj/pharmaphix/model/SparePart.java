@@ -1,5 +1,6 @@
 package dev.kjj.pharmaphix.model;
 
+import dev.kjj.pharmaphix.domain.exceptions.IllegalStockStateException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,7 +54,7 @@ public class SparePart {
 
     public void setQuantityInStock(int newQuantity) {
         if (newQuantity < 0) {
-            throw new IllegalStateException("There isn't enough inventory");
+            throw new IllegalStockStateException("There isn't enough inventory");
         }
         this.quantityInStock = newQuantity;
     }

@@ -6,6 +6,10 @@ export const fetchMachines = async () => {
   return fetch(`${BASE_URL}/machines`).then((resp) => resp.json());
 };
 
+export const fetchSparePart = (id: string) => {
+  return fetch(`${BASE_URL}/spare-parts/${id}`);
+};
+
 export async function fetchSpareParts() {
   return fetch(`${BASE_URL}/spare-parts`).then((resp) => resp.json());
 }
@@ -30,6 +34,19 @@ export const getProblemData = (problem_id: string) => {
 
 export const deductSparePartFromInventory = (body: SparePartDeductReqDto[]) => {
   return fetch(`${BASE_URL}/spare-parts`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+};
+
+export const setInStockForSparePart = (
+  id: string,
+  body: { setStock: number },
+) => {
+  return fetch(`${BASE_URL}/spare-parts/${id}/setStock`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

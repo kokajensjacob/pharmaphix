@@ -75,10 +75,24 @@ public class Controller {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/spare-parts/{sparePartId}")
+    public ResponseEntity<SparePartGetResponseDto> getSparePart(@PathVariable String sparePartId) {
+        SparePart retrieved = service.getSparePart(sparePartId);
+        return ResponseEntity.ok(SparePartGetResponseDto.convertToDto(retrieved));
+    }
+
     @PatchMapping("/spare-parts/{sparePartId}")
-    public ResponseEntity<Void> repairSparePart(@PathVariable String sparePartId, @RequestBody SparePartRepairRequestDto body) {
+    public ResponseEntity<Void> repairSparePart(@PathVariable String sparePartId,
+                                                @RequestBody SparePartRepairRequestDto body) {
         SparePart sparePart = service.repairSparePart(sparePartId, body.quantityToRepair());
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/spare-parts/{sparePartId}/setStock")
+    public ResponseEntity<SparePartResponseDto> setStockSparePart(@PathVariable String sparePartId,
+                                                  @RequestBody SparePartPatchRequestDto body) {
+        SparePart updated = service.setStockSparePart(sparePartId, body.setStock());
+        return ResponseEntity.ok(SparePartResponseDto.convertToDto(updated));
     }
 
     @GetMapping("/machines")

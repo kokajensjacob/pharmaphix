@@ -1,9 +1,6 @@
 package dev.kjj.pharmaphix.http;
 
-import dev.kjj.pharmaphix.domain.exceptions.MachineEntityNotFoundException;
-import dev.kjj.pharmaphix.domain.exceptions.ProblemEntityNotFoundException;
-import dev.kjj.pharmaphix.domain.exceptions.SparePartEntityNotFoundException;
-import dev.kjj.pharmaphix.domain.exceptions.InsufficientInventoryException;
+import dev.kjj.pharmaphix.domain.exceptions.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +27,11 @@ public class PharmaPhixExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({InsufficientInventoryException.class})
     protected ResponseEntity<String> handleSparePartInsufficientInventory() {
         return ResponseEntity.status(400).body("Insufficient inventory");
+    }
+
+    @ExceptionHandler({IllegalStockStateException.class})
+    protected ResponseEntity<String> handleStockLessThanZero() {
+        return ResponseEntity.status(400).body("Stock must be greater than 0");
     }
 
     @ExceptionHandler({DataIntegrityViolationException.class})
