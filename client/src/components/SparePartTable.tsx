@@ -3,8 +3,8 @@ import { SparePart } from "../types";
 
 export const SparePartTable = ({ spareParts }: { spareParts: SparePart[] }) => {
   return (
-    <div className="overflow-x-auto my-5">
-      <table className="table table-sm table-zebra">
+    <div className="overflow-x-auto my-5 flex justify-center">
+      <table className="table table-sm table-zebra max-w-5xl ">
         <thead>
           <tr>
             <th>Name</th>
