@@ -106,7 +106,7 @@ export const SparePartDetailsFormTable = ({
                 className={`btn ${!editDisabled && "bg-green-300 hover:bg-green-400"} btn-xs w-2/5`}
                 onClick={toggleEditMode}
               >
-                Edit
+                {editDisabled ? "Edit" : "Edit enabled"}
               </button>
             </td>
           </tr>
