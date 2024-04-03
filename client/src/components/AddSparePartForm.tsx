@@ -143,7 +143,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               className="form-control w-full max-w-xs"
             >
               <div className="label">
-                <span className="label-text">Spare part name </span>
+                <span className="label-text">Spare part name *</span>
               </div>
             </label>
             <input
@@ -160,7 +160,9 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               className="form-control w-full max-w-xs"
             >
               <div className="label">
-                <span className="label-text">Purchase cost per spare part</span>
+                <span className="label-text">
+                  Purchase cost per spare part *
+                </span>
               </div>
             </label>
             <input
@@ -178,7 +180,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               className="form-control w-full max-w-xs"
             >
               <div className="label">
-                <span className="label-text">Select associated machine </span>
+                <span className="label-text">Select associated machine *</span>
               </div>
             </label>
 
@@ -203,7 +205,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             >
               <div className="label">
                 <span className="label-text">
-                  How many are in stock right now?
+                  How many are in stock right now? *
                 </span>
               </div>
             </label>
@@ -224,7 +226,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             >
               <div className="label">
                 <span className="label-text">
-                  What's the average repair time?
+                  What's the average repair time? *
                 </span>
               </div>
             </label>
@@ -256,7 +258,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
             >
               <div className="label">
                 <span className="label-text">
-                  Average spare part failure rate
+                  Average spare part failure rate *
                 </span>
               </div>
             </label>
