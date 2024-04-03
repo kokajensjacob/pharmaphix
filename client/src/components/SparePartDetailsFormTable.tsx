@@ -99,8 +99,10 @@ export const SparePartDetailsFormTable = ({
               />
               <button
                 className="btn btn-xs w-2/5"
-                onClick={() => {
-                  setEditDisabled(false);
+                onClick={(e) => {
+                  e.preventDefault();
+                  inStockInput.current!.value = inStock.toString();
+                  setEditDisabled(!editDisabled);
                 }}
               >
                 Edit
@@ -129,7 +131,7 @@ export const SparePartDetailsFormTable = ({
           </tr>
         </tbody>
       </table>
-      {editDisabled && (
+      {!editDisabled && (
         <input type="submit" value="Update" className="btn btn-xs w-2/5" />
       )}
     </form>
