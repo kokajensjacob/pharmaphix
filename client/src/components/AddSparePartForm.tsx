@@ -170,38 +170,28 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
               className="input input-bordered w-full max-w-xs"
             />
             <label
-              htmlFor="sparePartFailureRate"
+              htmlFor="associatedMachineId"
               className="form-control w-full max-w-xs"
             >
               <div className="label">
-                <span className="label-text">
-                  Average spare part failure rate
-                </span>
+                <span className="label-text">Select associated machine </span>
               </div>
             </label>
 
-            <div className="flex flex-row" id="sparePartFailureRate">
-              <input
-                type="number"
-                name=""
-                id="failAmount"
-                defaultValue={1}
-                min={1}
-                disabled={disableForm}
-                className="input input-bordered max-w-xs"
-              />
-
-              <select
-                className="input input-bordered max-w-xs"
-                defaultValue="month"
-                id="failDivisor"
-                disabled={disableForm}
-              >
-                <option value="week">week</option>
-                <option value="month">month</option>
-                <option value="year">year</option>
-              </select>
-            </div>
+            <select
+              name="associatedMachineId"
+              id="associatedMachineId"
+              className="select select-bordered w-full max-w-xs"
+              disabled={disableForm}
+              defaultValue="default"
+            >
+              <option disabled value="default"></option>
+              {machines.map((machine) => (
+                <option key={machine.machineId} value={machine.machineId}>
+                  {machine.machineName}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex-column mx-10">
             <label
@@ -254,30 +244,38 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
                 <option value="months">months</option>
               </select>
             </div>
-
             <label
-              htmlFor="associatedMachineId"
+              htmlFor="sparePartFailureRate"
               className="form-control w-full max-w-xs"
             >
               <div className="label">
-                <span className="label-text">Select associated machine </span>
+                <span className="label-text">
+                  Average spare part failure rate
+                </span>
               </div>
             </label>
+            <div className="flex flex-row" id="sparePartFailureRate">
+              <input
+                type="number"
+                name=""
+                id="failAmount"
+                defaultValue={1}
+                min={1}
+                disabled={disableForm}
+                className="input input-bordered max-w-xs"
+              />
 
-            <select
-              name="associatedMachineId"
-              id="associatedMachineId"
-              className="select select-bordered w-full max-w-xs"
-              disabled={disableForm}
-              defaultValue="default"
-            >
-              <option disabled value="default"></option>
-              {machines.map((machine) => (
-                <option key={machine.machineId} value={machine.machineId}>
-                  {machine.machineName}
-                </option>
-              ))}
-            </select>
+              <select
+                className="input input-bordered max-w-xs"
+                defaultValue="month"
+                id="failDivisor"
+                disabled={disableForm}
+              >
+                <option value="week">week</option>
+                <option value="month">month</option>
+                <option value="year">year</option>
+              </select>
+            </div>
           </div>
         </div>
         <input type="submit" className="btn my-5" value="Add new spare part" />
