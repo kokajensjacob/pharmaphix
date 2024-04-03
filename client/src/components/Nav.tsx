@@ -4,7 +4,7 @@ export const Nav = () => {
   return (
     <div className="navbar bg-base-300 grid-cols-3">
       <div className="flex w-1/3">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="text-xl font-bold ml-5">
           PharmaPhix
         </Link>
       </div>
