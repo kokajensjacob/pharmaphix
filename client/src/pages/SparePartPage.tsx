@@ -65,28 +65,26 @@ export const SparePartPage = () => {
         <JhFetchError message={fetchError.message} />
       ) : sparePartData ? (
         <>
-          <p>Spare Part:</p>
-          <p>{sparePartData.sparePart.name}</p>
+          <p className="text-4xl font-extrabold mt-5">{sparePartData.sparePart.name}</p>
 
-          <p>Associated machine:</p>
-          <Link to={`/machines/${sparePartData.associatedMachine.machineId}`}>
+          <p className="text-md text-gray-500 mt-8">Associated machine</p>
+          <Link to={`/machines/${sparePartData.associatedMachine.machineId}`} className="text-xl font-extrabold underline hover:text-blue-800 ml-6">
             {sparePartData.associatedMachine.machineName}
           </Link>
 
-          <p>Associated problems:</p>
-          <ul>
+          <p className="text-md text-gray-500 mt-8">Associated problems</p>
+          <ul className="list-disc ml-6">
             {sparePartData.associatedProblems.map((problem) => (
               <li key={problem.problemId}>
                 <Link
                   to={`/machines/${sparePartData.associatedMachine.machineId}/${problem.problemId}`}
+                  className="text-xl font-extrabold underline hover:text-blue-800"
                 >
                   {problem.problemName}
                 </Link>
               </li>
             ))}
           </ul>
-
-          <p>Details:</p>
           <SparePartDetailsFormTable sparePart={sparePartData.sparePart} />
         </>
       ) : (
