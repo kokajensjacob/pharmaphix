@@ -41,33 +41,36 @@ export const SparePartsPage = () => {
         </ul>
       </div>
       {showGetError ? (
-        <FetchError msg={"Server not available at the moment. Try again later"}/>
+        <FetchError
+          msg={"Server not available at the moment. Try again later"}
+        />
       ) : (
         <>
           <div className="flex flex-row justify-around">
-            <div className="collapse collapse-plus w-4/12">
+            <div className="collapse collapse-arrow w-4/12">
               <input type="checkbox" className="peer" />
               <div className="collapse-title text-xl font-medium">
                 Ongoing Repairs
               </div>
               <div className="collapse-content">
                 <ul>
-                  {sparePartsInRepair?.sort((sp1, sp2) => {
+                  {sparePartsInRepair
+                    ?.sort((sp1, sp2) => {
                       let sp1compare = sp1.name.toUpperCase();
                       let sp2compare = sp2.name.toUpperCase();
                       return sp1compare < sp2compare
                         ? -1
                         : sp2compare < sp1compare
-                        ? 1
-                        : 0;
+                          ? 1
+                          : 0;
                     })
-                  .map((sp) => (
-                    <SparePartInRepair
-                      key={sp.id}
-                      sp={sp}
-                      triggerRerenderOnParent={triggerRerenderOnParent}
-                    />
-                  ))}
+                    .map((sp) => (
+                      <SparePartInRepair
+                        key={sp.id}
+                        sp={sp}
+                        triggerRerenderOnParent={triggerRerenderOnParent}
+                      />
+                    ))}
                 </ul>
               </div>
             </div>
