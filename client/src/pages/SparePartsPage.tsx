@@ -47,7 +47,7 @@ export const SparePartsPage = () => {
       ) : (
         <>
           <div className="flex flex-row justify-around">
-            <div className="collapse collapse-arrow w-4/12">
+            <div className="collapse collapse-arrow border w-4/12">
               <input type="checkbox" className="peer" />
               <div className="collapse-title text-xl font-medium">
                 Ongoing Repairs
