@@ -54,23 +54,27 @@ export const SparePartsPage = () => {
               </div>
               <div className="collapse-content">
                 <ul>
-                  {sparePartsInRepair
-                    ?.sort((sp1, sp2) => {
-                      let sp1compare = sp1.name.toUpperCase();
-                      let sp2compare = sp2.name.toUpperCase();
-                      return sp1compare < sp2compare
-                        ? -1
-                        : sp2compare < sp1compare
-                          ? 1
-                          : 0;
-                    })
-                    .map((sp) => (
-                      <SparePartInRepair
-                        key={sp.id}
-                        sp={sp}
-                        triggerRerenderOnParent={triggerRerenderOnParent}
-                      />
-                    ))}
+                  {sparePartsInRepair && sparePartsInRepair.length > 0 ? (
+                    sparePartsInRepair
+                      ?.sort((sp1, sp2) => {
+                        let sp1compare = sp1.name.toUpperCase();
+                        let sp2compare = sp2.name.toUpperCase();
+                        return sp1compare < sp2compare
+                          ? -1
+                          : sp2compare < sp1compare
+                            ? 1
+                            : 0;
+                      })
+                      .map((sp) => (
+                        <SparePartInRepair
+                          key={sp.id}
+                          sp={sp}
+                          triggerRerenderOnParent={triggerRerenderOnParent}
+                        />
+                      ))
+                  ) : (
+                    <li>No spare parts currently in repair</li>
+                  )}
                 </ul>
               </div>
             </div>
