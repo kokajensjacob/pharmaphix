@@ -1,11 +1,11 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-
+import logo from "../assets/logo_small.png";
 export const Nav = () => {
   return (
     <div className="navbar bg-base-300 grid grid-cols-3 p-1 min-h-0">
       <div className="flex w-1/3">
         <Link className="ml-2" to="/">
-          <img className="max-w-28" src="src/assets/logo_small.png" alt="" />
+          <img className="max-w-28" src={logo} alt="" />
         </Link>
       </div>
       {useLocation().pathname !== "/" && (
