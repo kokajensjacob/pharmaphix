@@ -2,15 +2,15 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 export const Nav = () => {
   return (
-    <div className="navbar bg-base-300 grid grid-cols-3">
+    <div className="navbar bg-base-300 grid grid-cols-3 p-1 min-h-0">
       <div className="flex w-1/3">
-        <Link to="/" className="text-xl font-bold ml-5">
-          PharmaPhix
+        <Link className="ml-2" to="/">
+          <img className="max-w-28" src="src/assets/logo_small.png" alt="" />
         </Link>
       </div>
       {useLocation().pathname !== "/" && (
         <div className="flex w-full justify-center">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 py-0">
             <li>
               <NavLink
                 to="/machines"
