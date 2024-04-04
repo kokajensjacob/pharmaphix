@@ -56,12 +56,12 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
       cost: Number(e.target.sparePartCost.value),
       failureRate: getFailureRate(
         Number(e.target.failAmount.value),
-        e.target.failDivisor.value
+        e.target.failDivisor.value,
       ),
       quantityInStock: Number(e.target.sparePartInStock.value),
       repairTime: repairTimeInYears(
         Number(e.target.repairTime.value),
-        e.target.repairTimeUnit.value
+        e.target.repairTimeUnit.value,
       ),
       machineId: e.target.associatedMachineId.value,
     };
@@ -75,19 +75,19 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
           case 400:
             displayUserDialog(
               "Spare part was not created because the request was bad",
-              5000
+              5000,
             );
             break;
           case 404:
             displayUserDialog(
               "Couldn't find the associated machine in the database. It might have been recently deleted by another user. Try reloading the page",
-              10000
+              10000,
             );
             break;
           case 409:
             displayUserDialog(
               "That spare part already exists in the database!",
-              5000
+              5000,
             );
             break;
           default:
@@ -119,7 +119,7 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
 
   function repairTimeInYears(
     repairTime: number,
-    timeUnit: "hours" | "days" | "months"
+    timeUnit: "hours" | "days" | "months",
   ) {
     let divisor = 1;
     switch (timeUnit) {
@@ -308,13 +308,23 @@ export const AddSparePartForm = ({ machines }: { machines: Machine[] }) => {
         <div className="modal-box">
           <h3 className="font-bold text-lg">Spare part created successfully</h3>
           <p className="py-4">
-            Name: {createdSparePart?.name}
+            <Link
+              to={`/spare-parts/${createdSparePart?.id}`}
+              className="underline hover:text-blue-800"
+            >
+              {`${createdSparePart?.name}`}
+            </Link>
             <br />
             Calculated optimal quantity : {createdSparePart?.optimalQuantity}
           </p>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn btn-outline">Close</button>
+              <Link className="btn" to="/spare-parts">
+                See all spare parts
+              </Link>
+              <button className="btn btn-outline ml-4">
+                Add another spare part
+              </button>
             </form>
           </div>
         </div>
